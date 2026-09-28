@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 247,
+  "fileCount": 252,
   "types": {
     ".json": 12,
-    ".md": 18,
+    ".md": 23,
     ".cjs": 1,
     "[no extension]": 4,
     ".yml": 11,
@@ -1389,10 +1389,40 @@
       "sha256": "695f586e8780524200fa9eeec6624391edc127326c01ee05e0ea747a8b8b9de9"
     },
     {
+      "path": "governingDocuments/native/Nexus Authority Matrix.md",
+      "type": ".md",
+      "size": 1249,
+      "sha256": "6827f2f29077f43946add870ff82e16316adf590b714d599bd0686b66828cd68"
+    },
+    {
       "path": "governingDocuments/native/Nexus Coding Architecture — Development Plan",
       "type": "[no extension]",
       "size": 11632,
       "sha256": "607f93431279a6bcc8774be4aab6fdcc11df77b05a777e0872e13e7d6a4f6af8"
+    },
+    {
+      "path": "governingDocuments/native/Nexus Contract Categories.md",
+      "type": ".md",
+      "size": 920,
+      "sha256": "13637d462bc16d058221b84e6e2ce0525029f8cce2994972e6c10d5f4e82cf5d"
+    },
+    {
+      "path": "governingDocuments/native/Nexus Learning Lifecycle.md",
+      "type": ".md",
+      "size": 680,
+      "sha256": "053ab3b5af205429958e6bedf480a30c78f8a2f254a1f82cdd956e9f6d9f5982"
+    },
+    {
+      "path": "governingDocuments/native/Nexus Repository Responsibilities.md",
+      "type": ".md",
+      "size": 1318,
+      "sha256": "0625c758c35798f836ca7b1c107685b65e92b965b8975f84b7cbf3d046fbddea"
+    },
+    {
+      "path": "governingDocuments/native/Nexus Trust Model.md",
+      "type": ".md",
+      "size": 649,
+      "sha256": "1392f21be92ae4d5151443e5435a5f74f3a2201fc2fae5cfc30e2a7e401bdb1c"
     },
     {
       "path": "governingDocuments/native/TOKEN-HEALTH.json",
