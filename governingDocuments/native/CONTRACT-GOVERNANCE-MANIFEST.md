@@ -200,6 +200,22 @@ All contract implementations shall remain consistent with repository governance.
 
 ---
 
+
+# Cross-Repository Handoff Contracts
+
+The following contracts govern controlled transitions between participating repositories:
+
+- NIM-TO-COLLABORATION.md
+- COLLABORATION-TO-CRUCIBLE.md
+- CRUCIBLE-TO-NIM.md
+- LEARNING-WORKER-TO-OVERSIGHT.md
+- OVERSIGHT-TO-CUSTODY.md
+- CUSTODY-TO-CRUCIBLE.md
+- NEXUS-INTEGRATION-RULES.md
+- NEXUS-CROSS-REPOSITORY-HANDOFFS.md
+
+These contracts preserve authority, lineage, provenance, versioning, failure behavior, and auditability across repository boundaries.
+
 # Revision Policy
 
 When new contract categories are introduced, this manifest shall be updated.
