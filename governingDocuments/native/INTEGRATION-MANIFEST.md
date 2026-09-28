@@ -2,92 +2,81 @@
 
 ## Purpose
 
-This document serves as the authoritative index of repository integration specifications within the Nexus architecture.
+Authoritative index of repository integration contracts within the Nexus architecture.
 
-Integration specifications define approved communication, handoff behavior, ownership preservation, contract usage, and traceability requirements.
+Integration transfers information and execution state. It does not transfer repository authority, governance, verification ownership, or custody.
 
-Integration does not transfer authority.
-
-Integration does not merge governance.
-
-Integration does not merge repository ownership.
-
----
-
-# Operational Integration Flow
+## Operational Coding Flow
 
 NVIDIA-NIM-CONSOLE
-
 ↓
-
 AI-collaboration-
-
 ↓
-
 The-Crucible
-
 ↓
-
 NVIDIA-NIM-CONSOLE
 
----
-
-# Learning Integration Flow
-
-Learning-Worker
-
-↓
-
-Vetting-and-Governance-oversite.
-
-↓
-
-Crucible-Vetted-Learning-State
-
-↓
-
-The-Crucible
-
-↓
-
-NVIDIA-NIM-CONSOLE
-
----
-
-# Integration Specifications
+Contracts:
 
 - NIM-TO-COLLABORATION.md
 - COLLABORATION-TO-CRUCIBLE.md
 - CRUCIBLE-TO-NIM.md
 
+## Learning Flow
+
+Learning-Worker
+↓
+Vetting-and-Governance-oversite.
+↓
+Crucible-Vetted-Learning-State
+↓
+The-Crucible
+↓
+NVIDIA-NIM-CONSOLE
+
+Contracts:
+
 - LEARNING-WORKER-TO-OVERSIGHT.md
 - OVERSIGHT-TO-CUSTODY.md
 - CUSTODY-TO-CRUCIBLE.md
+- CRUCIBLE-TO-NIM.md
+
+## System Integration Rules
 
 - NEXUS-INTEGRATION-RULES.md
+- NEXUS-CROSS-REPOSITORY-HANDOFFS.md
 
----
+## Required Integration Properties
 
-# Integration Requirements
+Every integration must preserve:
 
-All repository interactions shall preserve:
-
-- Authority Boundaries
-- Governance Boundaries
-- Evidence Traceability
-- Lineage
+- Authority boundaries
+- Authentication and authorization
+- Identity
 - Provenance
-- Version History
+- Evidence references
+- Lineage
+- Version history
+- Failure state
 - Auditability
+- Supersession ancestry
 
----
+## Verification Rule
 
-# Architectural Rule
+The-Crucible remains the authoritative source for verification results.
 
-Repositories operate as one coordinated architecture.
+No receiving component may manufacture or silently reinterpret a verification result.
 
-Repositories do not merge authority.
+## Learning Rule
 
-Repositories do not merge governance.
+Learning-Worker does not directly create trusted learning state.
 
-Repositories remain independently governed.
+Governance eligibility and custody acceptance are separate controlled transitions.
+
+## Change Rule
+
+Changes to an integration contract require corresponding updates to affected repository implementations, tests, manifests, and lineage references.
+
+## Architectural Rule
+
+Repositories operate as one coordinated architecture while remaining independently governed.
