@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 257,
+  "fileCount": 276,
   "types": {
     ".json": 12,
+    ".md": 46,
     ".cjs": 1,
-    ".md": 28,
-    "[no extension]": 4,
+    "[no extension]": 5,
     ".yml": 11,
-    ".js": 186,
     ".bat": 2,
+    ".js": 186,
     ".html": 2,
     ".rules": 2,
     ".txt": 5,
@@ -61,18 +61,18 @@
     },
     {
       "source": "bootstrap.js",
+      "reference": "./section7Ipc",
+      "resolved": "section7Ipc.js"
+    },
+    {
+      "source": "bootstrap.js",
+      "reference": "./section8Ipc",
+      "resolved": "section8Ipc.js"
+    },
+    {
+      "source": "bootstrap.js",
       "reference": "./crucibleLearningIdentity",
       "resolved": "crucibleLearningIdentity.js"
-    },
-    {
-      "source": "bootstrap.js",
-      "reference": "./ipcSecurity",
-      "resolved": "ipcSecurity.js"
-    },
-    {
-      "source": "bootstrap.js",
-      "reference": "./main.js",
-      "resolved": "main.js"
     },
     {
       "source": "bootstrap.js",
@@ -86,18 +86,13 @@
     },
     {
       "source": "bootstrap.js",
-      "reference": "./section7Ipc",
-      "resolved": "section7Ipc.js"
+      "reference": "./ipcSecurity",
+      "resolved": "ipcSecurity.js"
     },
     {
       "source": "bootstrap.js",
-      "reference": "./section8Ipc",
-      "resolved": "section8Ipc.js"
-    },
-    {
-      "source": "bootstrapEntry.js",
-      "reference": "./bootstrap",
-      "resolved": "bootstrap.js"
+      "reference": "./main.js",
+      "resolved": "main.js"
     },
     {
       "source": "bootstrapEntry.js",
@@ -110,9 +105,9 @@
       "resolved": "cruciblePluginUi.js"
     },
     {
-      "source": "codeChecker.js",
-      "reference": "./gameLanguageSupport",
-      "resolved": "gameLanguageSupport.js"
+      "source": "bootstrapEntry.js",
+      "reference": "./bootstrap",
+      "resolved": "bootstrap.js"
     },
     {
       "source": "codeChecker.js",
@@ -121,13 +116,18 @@
     },
     {
       "source": "codeChecker.js",
+      "reference": "./webLanguageServices",
+      "resolved": "webLanguageServices.js"
+    },
+    {
+      "source": "codeChecker.js",
       "reference": "./officialLanguageServers",
       "resolved": "officialLanguageServers.js"
     },
     {
       "source": "codeChecker.js",
-      "reference": "./webLanguageServices",
-      "resolved": "webLanguageServices.js"
+      "reference": "./gameLanguageSupport",
+      "resolved": "gameLanguageSupport.js"
     },
     {
       "source": "complianceMonitor.js",
@@ -136,13 +136,13 @@
     },
     {
       "source": "cruciblePluginAccount.js",
-      "reference": "./firebaseAccountClient",
-      "resolved": "firebaseAccountClient.js"
+      "reference": "./publisherConfig",
+      "resolved": "publisherConfig.js"
     },
     {
       "source": "cruciblePluginAccount.js",
-      "reference": "./publisherConfig",
-      "resolved": "publisherConfig.js"
+      "reference": "./firebaseAccountClient",
+      "resolved": "firebaseAccountClient.js"
     },
     {
       "source": "fullStackSupport.js",
@@ -156,8 +156,43 @@
     },
     {
       "source": "main.js",
-      "reference": "./accountVault",
-      "resolved": "accountVault.js"
+      "reference": "./atomicWrite",
+      "resolved": "atomicWrite.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./buildNumber",
+      "resolved": "buildNumber.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./operationalDiagnostics",
+      "resolved": "operationalDiagnostics.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./gameProjectDetector",
+      "resolved": "gameProjectDetector.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./codeLibrary",
+      "resolved": "codeLibrary.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./webDevelopmentKnowledge",
+      "resolved": "webDevelopmentKnowledge.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./trainingDataset",
+      "resolved": "trainingDataset.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./fineTuneTrainer",
+      "resolved": "fineTuneTrainer.js"
     },
     {
       "source": "main.js",
@@ -166,18 +201,53 @@
     },
     {
       "source": "main.js",
-      "reference": "./aiAlerts",
-      "resolved": "aiAlerts.js"
+      "reference": "./projectTemplates",
+      "resolved": "projectTemplates.js"
     },
     {
       "source": "main.js",
-      "reference": "./aiCostOptimizer",
-      "resolved": "aiCostOptimizer.js"
+      "reference": "./projectCloner",
+      "resolved": "projectCloner.js"
     },
     {
       "source": "main.js",
-      "reference": "./aiGuardrailTester",
-      "resolved": "aiGuardrailTester.js"
+      "reference": "./projectTypeDetector",
+      "resolved": "projectTypeDetector.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./publisherConfig",
+      "resolved": "publisherConfig.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./projectLaunchPreflight",
+      "resolved": "projectLaunchPreflight.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./projectSettings",
+      "resolved": "projectSettings.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./projectRegistry",
+      "resolved": "projectRegistry.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./pipelineEngine",
+      "resolved": "pipelineEngine.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./pureLogic",
+      "resolved": "pureLogic.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./updater",
+      "resolved": "updater.js"
     },
     {
       "source": "main.js",
@@ -191,13 +261,8 @@
     },
     {
       "source": "main.js",
-      "reference": "./aiPerformanceTuner",
-      "resolved": "aiPerformanceTuner.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./aiRecommendations",
-      "resolved": "aiRecommendations.js"
+      "reference": "./aiGuardrailTester",
+      "resolved": "aiGuardrailTester.js"
     },
     {
       "source": "main.js",
@@ -206,43 +271,8 @@
     },
     {
       "source": "main.js",
-      "reference": "./appCheckBroker",
-      "resolved": "appCheckBroker.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./atomicWrite",
-      "resolved": "atomicWrite.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./buildNumber",
-      "resolved": "buildNumber.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./changelogGenerator",
-      "resolved": "changelogGenerator.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./codeChecker",
-      "resolved": "codeChecker.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./codeLibrary",
-      "resolved": "codeLibrary.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./codingModelProviders",
-      "resolved": "codingModelProviders.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./complianceMonitor",
-      "resolved": "complianceMonitor.js"
+      "reference": "./promptTesting",
+      "resolved": "promptTesting.js"
     },
     {
       "source": "main.js",
@@ -251,48 +281,48 @@
     },
     {
       "source": "main.js",
-      "reference": "./experimentationFramework",
-      "resolved": "experimentationFramework.js"
+      "reference": "./complianceMonitor",
+      "resolved": "complianceMonitor.js"
     },
     {
       "source": "main.js",
-      "reference": "./fineTuneTrainer",
-      "resolved": "fineTuneTrainer.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./firebaseAccountClient",
-      "resolved": "firebaseAccountClient.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./fullStackSupport",
-      "resolved": "fullStackSupport.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./gameProjectDetector",
-      "resolved": "gameProjectDetector.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./githubClient",
-      "resolved": "githubClient.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./gitWorkflow",
-      "resolved": "gitWorkflow.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./googleDriveClient",
-      "resolved": "googleDriveClient.js"
+      "reference": "./changelogGenerator",
+      "resolved": "changelogGenerator.js"
     },
     {
       "source": "main.js",
       "reference": "./knowledgeBase",
       "resolved": "knowledgeBase.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./experimentationFramework",
+      "resolved": "experimentationFramework.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./aiRecommendations",
+      "resolved": "aiRecommendations.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./aiAlerts",
+      "resolved": "aiAlerts.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./aiCostOptimizer",
+      "resolved": "aiCostOptimizer.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./aiPerformanceTuner",
+      "resolved": "aiPerformanceTuner.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./fullStackSupport",
+      "resolved": "fullStackSupport.js"
     },
     {
       "source": "main.js",
@@ -306,38 +336,8 @@
     },
     {
       "source": "main.js",
-      "reference": "./oauthIntegrations",
-      "resolved": "oauthIntegrations.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./officialLanguageServers",
-      "resolved": "officialLanguageServers.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./operationalDiagnostics",
-      "resolved": "operationalDiagnostics.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./pipelineEngine",
-      "resolved": "pipelineEngine.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./pluginMarketplaceClient",
-      "resolved": "pluginMarketplaceClient.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./portableProjectConfig",
-      "resolved": "portableProjectConfig.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./projectCloner",
-      "resolved": "projectCloner.js"
+      "reference": "./codeChecker",
+      "resolved": "codeChecker.js"
     },
     {
       "source": "main.js",
@@ -346,33 +346,23 @@
     },
     {
       "source": "main.js",
-      "reference": "./projectLaunchPreflight",
-      "resolved": "projectLaunchPreflight.js"
+      "reference": "./officialLanguageServers",
+      "resolved": "officialLanguageServers.js"
     },
     {
       "source": "main.js",
-      "reference": "./projectRegistry",
-      "resolved": "projectRegistry.js"
+      "reference": "./gitWorkflow",
+      "resolved": "gitWorkflow.js"
     },
     {
       "source": "main.js",
-      "reference": "./projectSettings",
-      "resolved": "projectSettings.js"
+      "reference": "./portableProjectConfig",
+      "resolved": "portableProjectConfig.js"
     },
     {
       "source": "main.js",
-      "reference": "./projectTemplates",
-      "resolved": "projectTemplates.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./projectTypeDetector",
-      "resolved": "projectTypeDetector.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./promptTesting",
-      "resolved": "promptTesting.js"
+      "reference": "./codingModelProviders",
+      "resolved": "codingModelProviders.js"
     },
     {
       "source": "main.js",
@@ -381,18 +371,13 @@
     },
     {
       "source": "main.js",
-      "reference": "./publisherConfig",
-      "resolved": "publisherConfig.js"
-    },
-    {
-      "source": "main.js",
-      "reference": "./pureLogic",
-      "resolved": "pureLogic.js"
-    },
-    {
-      "source": "main.js",
       "reference": "./secretScanner",
       "resolved": "secretScanner.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./githubClient",
+      "resolved": "githubClient.js"
     },
     {
       "source": "main.js",
@@ -401,18 +386,23 @@
     },
     {
       "source": "main.js",
-      "reference": "./trainingDataset",
-      "resolved": "trainingDataset.js"
+      "reference": "./appCheckBroker",
+      "resolved": "appCheckBroker.js"
     },
     {
       "source": "main.js",
-      "reference": "./updater",
-      "resolved": "updater.js"
+      "reference": "./firebaseAccountClient",
+      "resolved": "firebaseAccountClient.js"
     },
     {
       "source": "main.js",
-      "reference": "./webDevelopmentKnowledge",
-      "resolved": "webDevelopmentKnowledge.js"
+      "reference": "./pluginMarketplaceClient",
+      "resolved": "pluginMarketplaceClient.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./oauthIntegrations",
+      "resolved": "oauthIntegrations.js"
     },
     {
       "source": "main.js",
@@ -420,14 +410,19 @@
       "resolved": "wordpressComClient.js"
     },
     {
+      "source": "main.js",
+      "reference": "./googleDriveClient",
+      "resolved": "googleDriveClient.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./accountVault",
+      "resolved": "accountVault.js"
+    },
+    {
       "source": "pipelineEngine.test.js",
       "reference": "./pipelineEngine",
       "resolved": "pipelineEngine.js"
-    },
-    {
-      "source": "pluginManager.js",
-      "reference": "./atomicWrite",
-      "resolved": "atomicWrite.js"
     },
     {
       "source": "pluginManager.js",
@@ -441,18 +436,13 @@
     },
     {
       "source": "pluginManager.js",
+      "reference": "./atomicWrite",
+      "resolved": "atomicWrite.js"
+    },
+    {
+      "source": "pluginManager.js",
       "reference": "./pluginSecurityScanner",
       "resolved": "pluginSecurityScanner.js"
-    },
-    {
-      "source": "projectCloner.js",
-      "reference": "./githubGitAuth",
-      "resolved": "githubGitAuth.js"
-    },
-    {
-      "source": "projectCloner.js",
-      "reference": "./projectLaunchPreflight",
-      "resolved": "projectLaunchPreflight.js"
     },
     {
       "source": "projectCloner.js",
@@ -461,18 +451,28 @@
     },
     {
       "source": "projectCloner.js",
-      "reference": "./projectRegistry",
-      "resolved": "projectRegistry.js"
-    },
-    {
-      "source": "projectCloner.js",
       "reference": "./projectSettings",
       "resolved": "projectSettings.js"
     },
     {
       "source": "projectCloner.js",
+      "reference": "./projectRegistry",
+      "resolved": "projectRegistry.js"
+    },
+    {
+      "source": "projectCloner.js",
+      "reference": "./githubGitAuth",
+      "resolved": "githubGitAuth.js"
+    },
+    {
+      "source": "projectCloner.js",
       "reference": "./projectSourceInput",
       "resolved": "projectSourceInput.js"
+    },
+    {
+      "source": "projectCloner.js",
+      "reference": "./projectLaunchPreflight",
+      "resolved": "projectLaunchPreflight.js"
     },
     {
       "source": "projectRegistry.js",
@@ -501,13 +501,13 @@
     },
     {
       "source": "scripts/heavyWorkloadWorker.js",
-      "reference": "../codeChecker",
-      "resolved": "codeChecker.js"
+      "reference": "../workspaceIndexer",
+      "resolved": "workspaceIndexer.js"
     },
     {
       "source": "scripts/heavyWorkloadWorker.js",
-      "reference": "../workspaceIndexer",
-      "resolved": "workspaceIndexer.js"
+      "reference": "../codeChecker",
+      "resolved": "codeChecker.js"
     },
     {
       "source": "scripts/privacyRetryGate.js",
@@ -531,8 +531,8 @@
     },
     {
       "source": "section7Ipc.js",
-      "reference": "./debugAdapter",
-      "resolved": "debugAdapter.js"
+      "reference": "./visualContext",
+      "resolved": "visualContext.js"
     },
     {
       "source": "section7Ipc.js",
@@ -541,13 +541,13 @@
     },
     {
       "source": "section7Ipc.js",
-      "reference": "./visualContext",
-      "resolved": "visualContext.js"
+      "reference": "./debugAdapter",
+      "resolved": "debugAdapter.js"
     },
     {
       "source": "section8Ipc.js",
-      "reference": "./crucibleLearningIdentity",
-      "resolved": "crucibleLearningIdentity.js"
+      "reference": "./pluginManager",
+      "resolved": "pluginManager.js"
     },
     {
       "source": "section8Ipc.js",
@@ -556,8 +556,8 @@
     },
     {
       "source": "section8Ipc.js",
-      "reference": "./pluginManager",
-      "resolved": "pluginManager.js"
+      "reference": "./crucibleLearningIdentity",
+      "resolved": "crucibleLearningIdentity.js"
     },
     {
       "source": "section8Ipc.js",
@@ -606,13 +606,13 @@
     },
     {
       "source": "test/codeChecker.test.js",
-      "reference": "../codeChecker",
-      "resolved": "codeChecker.js"
+      "reference": "../languageBreakdown",
+      "resolved": "languageBreakdown.js"
     },
     {
       "source": "test/codeChecker.test.js",
-      "reference": "../languageBreakdown",
-      "resolved": "languageBreakdown.js"
+      "reference": "../codeChecker",
+      "resolved": "codeChecker.js"
     },
     {
       "source": "test/codeLibrary.test.js",
@@ -641,18 +641,13 @@
     },
     {
       "source": "test/firebaseAccountClient.test.js",
-      "reference": "../appCheckBroker",
-      "resolved": "appCheckBroker.js"
-    },
-    {
-      "source": "test/firebaseAccountClient.test.js",
       "reference": "../firebaseAccountClient",
       "resolved": "firebaseAccountClient.js"
     },
     {
-      "source": "test/gameLanguageSupport.test.js",
-      "reference": "../codeChecker",
-      "resolved": "codeChecker.js"
+      "source": "test/firebaseAccountClient.test.js",
+      "reference": "../appCheckBroker",
+      "resolved": "appCheckBroker.js"
     },
     {
       "source": "test/gameLanguageSupport.test.js",
@@ -663,6 +658,11 @@
       "source": "test/gameLanguageSupport.test.js",
       "reference": "../languageBreakdown",
       "resolved": "languageBreakdown.js"
+    },
+    {
+      "source": "test/gameLanguageSupport.test.js",
+      "reference": "../codeChecker",
+      "resolved": "codeChecker.js"
     },
     {
       "source": "test/gameProjectDetector.test.js",
@@ -716,8 +716,8 @@
     },
     {
       "source": "test/packageInventory.test.js",
-      "reference": "../package.json",
-      "resolved": "package.json"
+      "reference": "../scripts/verifyPackagedContents",
+      "resolved": "scripts/verifyPackagedContents.js"
     },
     {
       "source": "test/packageInventory.test.js",
@@ -726,8 +726,8 @@
     },
     {
       "source": "test/packageInventory.test.js",
-      "reference": "../scripts/verifyPackagedContents",
-      "resolved": "scripts/verifyPackagedContents.js"
+      "reference": "../package.json",
+      "resolved": "package.json"
     },
     {
       "source": "test/pluginCapabilities.test.js",
@@ -761,13 +761,13 @@
     },
     {
       "source": "test/pluginSecurityScanner.test.js",
-      "reference": "../pluginManager",
-      "resolved": "pluginManager.js"
+      "reference": "../pluginSecurityScanner",
+      "resolved": "pluginSecurityScanner.js"
     },
     {
       "source": "test/pluginSecurityScanner.test.js",
-      "reference": "../pluginSecurityScanner",
-      "resolved": "pluginSecurityScanner.js"
+      "reference": "../pluginManager",
+      "resolved": "pluginManager.js"
     },
     {
       "source": "test/portableProjectConfig.test.js",
@@ -846,23 +846,23 @@
     },
     {
       "source": "test/section0.test.js",
-      "reference": "../aiInventory",
-      "resolved": "aiInventory.js"
-    },
-    {
-      "source": "test/section0.test.js",
       "reference": "../atomicWrite",
       "resolved": "atomicWrite.js"
     },
     {
-      "source": "test/section1.test.js",
-      "reference": "../semanticContext",
-      "resolved": "semanticContext.js"
+      "source": "test/section0.test.js",
+      "reference": "../aiInventory",
+      "resolved": "aiInventory.js"
     },
     {
       "source": "test/section1.test.js",
       "reference": "../workspaceIndexer",
       "resolved": "workspaceIndexer.js"
+    },
+    {
+      "source": "test/section1.test.js",
+      "reference": "../semanticContext",
+      "resolved": "semanticContext.js"
     },
     {
       "source": "test/section7Ipc.test.js",
@@ -909,16 +909,16 @@
       "sha256": "5f7a20ff5defae329177a6eb2e48bab670cf7e42ee83f2150097eb89544bb947"
     },
     {
-      "path": ".claude/skills/run-desktop/driver.cjs",
-      "type": ".cjs",
-      "size": 4685,
-      "sha256": "d3a852a15c82f262c90e8b5c6f0642f2a536b950218ffd2d8477aa5b4cd8f990"
-    },
-    {
       "path": ".claude/skills/run-desktop/SKILL.md",
       "type": ".md",
       "size": 4371,
       "sha256": "3c45cdf54c6bd2ef21b5a18b5f923201499d863cad0c751420f98e37802ab8d5"
+    },
+    {
+      "path": ".claude/skills/run-desktop/driver.cjs",
+      "type": ".cjs",
+      "size": 4685,
+      "sha256": "d3a852a15c82f262c90e8b5c6f0642f2a536b950218ffd2d8477aa5b4cd8f990"
     },
     {
       "path": ".githooks/pre-commit",
@@ -977,8 +977,8 @@
     {
       "path": ".github/workflows/release.yml",
       "type": ".yml",
-      "size": 1511,
-      "sha256": "3d61a5d95ba68b66ad073d1e0f430afed2dc80c6b194b325279af0c853a7de10"
+      "size": 2016,
+      "sha256": "ef118f970577ce1defed0d237e75bd508083a2ec0ec921fb45812850f5f5331e"
     },
     {
       "path": ".github/workflows/repository-maintenance.yml",
@@ -1011,24 +1011,6 @@
       "sha256": "28fea6da42430d7d05411e5f165d35d17e8ee9aaa9de3f6d3ba2042aa2e9955d"
     },
     {
-      "path": "accountVault.js",
-      "type": ".js",
-      "size": 2365,
-      "sha256": "8c1329f752eeb616780eb74a4f915cfc8ae023da47f883b380b7a4a7cc7fc3d8"
-    },
-    {
-      "path": "advancedTesting.js",
-      "type": ".js",
-      "size": 3040,
-      "sha256": "c335a1f3b1d22394d58f0d217ee8694a9887f09f2ec05b305b98d938ab364d16"
-    },
-    {
-      "path": "agentOrchestrator.js",
-      "type": ".js",
-      "size": 3215,
-      "sha256": "b0c53f59cb459d1d78b2c4fa5d99f54f389e72924189ff8d90c6538dd0fe7cd7"
-    },
-    {
       "path": "AGENTS.md",
       "type": ".md",
       "size": 4649,
@@ -1045,6 +1027,66 @@
       "type": ".json",
       "size": 4601,
       "sha256": "ca2ebee1bf26cc8d947a8817fcc35038c6caff70dabf9bd7cce1f6fc683a6ce6"
+    },
+    {
+      "path": "CLAUDE.md",
+      "type": ".md",
+      "size": 2254,
+      "sha256": "286e5b8d5cf507586c3e7cfc304a2314eb43194a4489201a27b22f3503e6b807"
+    },
+    {
+      "path": "CONSTITUTION.md",
+      "type": ".md",
+      "size": 934,
+      "sha256": "3438c9900ea90d0345cb0c838811d4d5d18551e9bb55f87feb949113580fbb87"
+    },
+    {
+      "path": "DEVLOG.md",
+      "type": ".md",
+      "size": 3206,
+      "sha256": "cdba5edb76d55b3858223d723c8555bd053b93ab9edfc4d1fda707b0e5a866fe"
+    },
+    {
+      "path": "FIREBASE_SETUP.md",
+      "type": ".md",
+      "size": 4346,
+      "sha256": "39b2bc3ff0dfc9886fb4d333fb65eb6e6e2c79fad7f9cacf41c5332c77eb5068"
+    },
+    {
+      "path": "README.md",
+      "type": ".md",
+      "size": 19774,
+      "sha256": "8905bcf3a189f1141d270431efe168692258ca9b867203c74bbf7d3804fda5e0"
+    },
+    {
+      "path": "SECURITY.md",
+      "type": ".md",
+      "size": 619,
+      "sha256": "ba9643955bfcb04524a6fe5a8c2929b54abc2e67bb3480ce806e742d506e4dc9"
+    },
+    {
+      "path": "START-NEXUS.bat",
+      "type": ".bat",
+      "size": 2389,
+      "sha256": "3b249ee72ce685cd1d3f3ab1cb67806989eae51e873eae8877f652ae107e1093"
+    },
+    {
+      "path": "accountVault.js",
+      "type": ".js",
+      "size": 2365,
+      "sha256": "8c1329f752eeb616780eb74a4f915cfc8ae023da47f883b380b7a4a7cc7fc3d8"
+    },
+    {
+      "path": "advancedTesting.js",
+      "type": ".js",
+      "size": 3040,
+      "sha256": "c335a1f3b1d22394d58f0d217ee8694a9887f09f2ec05b305b98d938ab364d16"
+    },
+    {
+      "path": "agentOrchestrator.js",
+      "type": ".js",
+      "size": 3215,
+      "sha256": "b0c53f59cb459d1d78b2c4fa5d99f54f389e72924189ff8d90c6538dd0fe7cd7"
     },
     {
       "path": "aiAlerts.js",
@@ -1155,12 +1197,6 @@
       "sha256": "bf80fb611f9cb1740b821a151a335e2cb7ac7505d81fb4e41409c99da8a22140"
     },
     {
-      "path": "CLAUDE.md",
-      "type": ".md",
-      "size": 2254,
-      "sha256": "286e5b8d5cf507586c3e7cfc304a2314eb43194a4489201a27b22f3503e6b807"
-    },
-    {
       "path": "codeChecker.js",
       "type": ".js",
       "size": 18280,
@@ -1183,12 +1219,6 @@
       "type": ".js",
       "size": 2695,
       "sha256": "ce3c1fb7d869c360d22db89fb5c12e2ecbb577a7b4b115b21f37acbca4327197"
-    },
-    {
-      "path": "CONSTITUTION.md",
-      "type": ".md",
-      "size": 934,
-      "sha256": "3438c9900ea90d0345cb0c838811d4d5d18551e9bb55f87feb949113580fbb87"
     },
     {
       "path": "crucibleLearningIdentity.js",
@@ -1221,12 +1251,6 @@
       "sha256": "161313dafb1536d524e572a9d4ec134188d82a9e3261fde119031e53a7d8d521"
     },
     {
-      "path": "DEVLOG.md",
-      "type": ".md",
-      "size": 3206,
-      "sha256": "cdba5edb76d55b3858223d723c8555bd053b93ab9edfc4d1fda707b0e5a866fe"
-    },
-    {
       "path": "evalsEngine.js",
       "type": ".js",
       "size": 2073,
@@ -1243,12 +1267,6 @@
       "type": ".js",
       "size": 3246,
       "sha256": "e814f8d35373efdc10c0b02f84328384e361200a136a9dc67b497e488b224300"
-    },
-    {
-      "path": "FIREBASE_SETUP.md",
-      "type": ".md",
-      "size": 4346,
-      "sha256": "39b2bc3ff0dfc9886fb4d333fb65eb6e6e2c79fad7f9cacf41c5332c77eb5068"
     },
     {
       "path": "firebase-hosting/appcheck-broker/broker.js",
@@ -1305,6 +1323,12 @@
       "sha256": "0c4092480e706f69305b8b8fb1dcc83a01bd85568b67b025cfe81ddbb4eae379"
     },
     {
+      "path": "gitWorkflow.js",
+      "type": ".js",
+      "size": 6229,
+      "sha256": "76fab3b3ed1281f72410f1a5fc9a8652d0098eefea6248a97eae4a8ac79dfc27"
+    },
+    {
       "path": "githubClient.js",
       "type": ".js",
       "size": 12969,
@@ -1315,12 +1339,6 @@
       "type": ".js",
       "size": 758,
       "sha256": "71ab2bac34f637e83e32d570940df18a27c3ce3de835ef0e63d8199e7fe0ece1"
-    },
-    {
-      "path": "gitWorkflow.js",
-      "type": ".js",
-      "size": 6229,
-      "sha256": "76fab3b3ed1281f72410f1a5fc9a8652d0098eefea6248a97eae4a8ac79dfc27"
     },
     {
       "path": "googleDriveClient.js",
@@ -1335,22 +1353,10 @@
       "sha256": "5213201d47631ae4de841622fc8c9cbaa45b4c604ff781f23aff0c906c214959"
     },
     {
-      "path": "governingDocuments/native/agent-progress-policy.md",
-      "type": ".md",
-      "size": 3155,
-      "sha256": "df561081a2b443efbd6ea1b4798c1da9ca2006fa1aff7015113b88ed1905dcba"
-    },
-    {
       "path": "governingDocuments/native/AGENTS.md",
       "type": ".md",
       "size": 4649,
       "sha256": "f2977e86e789b88831bb2ef8f81ec67b939e0a46f96b355f1da717960f6adc92"
-    },
-    {
-      "path": "governingDocuments/native/ai-conflict-resolution.md",
-      "type": ".md",
-      "size": 1979,
-      "sha256": "23a66954d804da914e601ecd599e49147547949edb7636dfbc0db8264bbe82ff"
     },
     {
       "path": "governingDocuments/native/AI-CONFLICTS.json",
@@ -1365,10 +1371,22 @@
       "sha256": "ccd4717a1241d18fa89c78d1eb5877425a196a45c20e0b9f2fc36abacb2fa527"
     },
     {
+      "path": "governingDocuments/native/AUTHORITY-CONTRACTS.md",
+      "type": ".md",
+      "size": 4392,
+      "sha256": "5a8f4c77fce469d1a1eb34ab71fe2c2fca1bfd843c68ed7aea8a8b42b76ad3a4"
+    },
+    {
       "path": "governingDocuments/native/CLAUDE.md",
       "type": ".md",
       "size": 2254,
       "sha256": "286e5b8d5cf507586c3e7cfc304a2314eb43194a4489201a27b22f3503e6b807"
+    },
+    {
+      "path": "governingDocuments/native/COLLABORATION-TO-CRUCIBLE.md",
+      "type": ".md",
+      "size": 4468,
+      "sha256": "6d4062f0978b96b599b55d95251a2895fcc99841283edb2704ad796966e52a0c"
     },
     {
       "path": "governingDocuments/native/CONSTITUTION.md",
@@ -1377,10 +1395,124 @@
       "sha256": "3438c9900ea90d0345cb0c838811d4d5d18551e9bb55f87feb949113580fbb87"
     },
     {
+      "path": "governingDocuments/native/CONTRACT-FOUNDATION.md",
+      "type": ".md",
+      "size": 3436,
+      "sha256": "beb33d5b70ff176588dfdeddf878aa1c4be264074ea7495b499a67f0628d2558"
+    },
+    {
+      "path": "governingDocuments/native/CONTRACT-GOVERNANCE-MANIFEST.md",
+      "type": ".md",
+      "size": 5000,
+      "sha256": "86db849ea4c76c73e3503e935f0e9fd85ca343719385dc7f6b817bcf0b45de86"
+    },
+    {
+      "path": "governingDocuments/native/CRUCIBLE-TO-NIM.md",
+      "type": ".md",
+      "size": 8296,
+      "sha256": "f30ef5f031a358922e2a38d8bdb18254421b3dbe9bfa7f17dc548a41c9326452"
+    },
+    {
+      "path": "governingDocuments/native/CUSTODY-CONTRACTS.md",
+      "type": ".md",
+      "size": 4631,
+      "sha256": "d17329f90cb83a2d24423caddf271b52d72d0296b22469b13fb2cecdf71ba34f"
+    },
+    {
+      "path": "governingDocuments/native/CUSTODY-TO-CRUCIBLE.md",
+      "type": ".md",
+      "size": 2176,
+      "sha256": "8d0c46c9e7626c6213a3711c887575cdffbfda70ce0c26f07d3944aa3d51e8e5"
+    },
+    {
       "path": "governingDocuments/native/DEVLOG.md",
       "type": ".md",
       "size": 2219,
       "sha256": "695f586e8780524200fa9eeec6624391edc127326c01ee05e0ea747a8b8b9de9"
+    },
+    {
+      "path": "governingDocuments/native/EVIDENCE-CONTRACTS.md",
+      "type": ".md",
+      "size": 4224,
+      "sha256": "31468c8377007cec00317460570d4b5ee64395ccf8ab736bcb138001c4d46f7d"
+    },
+    {
+      "path": "governingDocuments/native/FAILURE-CONTRACTS.md",
+      "type": ".md",
+      "size": 4262,
+      "sha256": "d1e818826524f2f55a0137a7d133151e7cb99dbaf4e63bf4ec912e77e960d60b"
+    },
+    {
+      "path": "governingDocuments/native/GOVERNANCE-CONTRACTS.md",
+      "type": ".md",
+      "size": 6587,
+      "sha256": "492e854400a3f1675ac2e46b3649d9c9025c0d62442a59328051643c1471415d"
+    },
+    {
+      "path": "governingDocuments/native/INTEGRATION-MANIFEST.md",
+      "type": ".md",
+      "size": 1975,
+      "sha256": "2731142302dd4cb637a2e4605aa91c2bd598ca504ea4de49ec5e0e2896f0c7de"
+    },
+    {
+      "path": "governingDocuments/native/LEARNING-CONTRACTS.md",
+      "type": ".md",
+      "size": 4863,
+      "sha256": "d55247208e9342bf70fd0c35530d25a0f3d04178d989c29379a602ec16178a92"
+    },
+    {
+      "path": "governingDocuments/native/LEARNING-WORKER-TO-OVERSIGHT.md",
+      "type": ".md",
+      "size": 8448,
+      "sha256": "55e9f1f0abc50f88c69ae1a8a2b3a4166de68b01eb56fa9faf507cd520825e13"
+    },
+    {
+      "path": "governingDocuments/native/LINEAGE-CONTRACTS.md",
+      "type": ".md",
+      "size": 6904,
+      "sha256": "8bdd8fc472b5446f0b34cdea8b2ba4ebeb4afb1eb2322d5a50e6347bcaed89bc"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-AUTHORITY-BOUNDARIES.md",
+      "type": ".md",
+      "size": 1639,
+      "sha256": "294739f9effcd4f308803adb5981c1f4bca475a346a68689525b9c5b32d2ee76"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-AUTHORITY-VIOLATIONS.md",
+      "type": ".md",
+      "size": 1127,
+      "sha256": "1a6c0f60f2452c856affb77275371e01c8034924cafa8b4117178b3d3ed3e2e2"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-CROSS-REPOSITORY-HANDOFFS.md",
+      "type": ".md",
+      "size": 995,
+      "sha256": "3d78d492e88fe6ed0196aba74ac0215fcd4c84baccc161d0e70690e5ca8a068c"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-GOVERNANCE-MANIFEST.md",
+      "type": ".md",
+      "size": 3698,
+      "sha256": "09f47905a67a0d28c3beb5f0797910a886548c18f68914dd42cde712406216c8"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-INTEGRATION-RULES.md",
+      "type": ".md",
+      "size": 3059,
+      "sha256": "343080aebc5a6280bec803a4fa83eaddcab2932d11c01c840553b48eed7f34cd"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-REPOSITORY-MAP.md",
+      "type": ".md",
+      "size": 1096,
+      "sha256": "04600883a949e62f6772de2c78b13254786dc75848b7a8ca7129d44d4b5588fd"
+    },
+    {
+      "path": "governingDocuments/native/NIM-TO-COLLABORATION.md",
+      "type": ".md",
+      "size": 2860,
+      "sha256": "74b998634ebd38b6f3537f748501baf3c15d61ccb0eb6497d8b8a7c53a514828"
     },
     {
       "path": "governingDocuments/native/Nexus Authority Matrix.md",
@@ -1409,38 +1541,50 @@
     {
       "path": "governingDocuments/native/Nexus Repository Responsibilities.md",
       "type": ".md",
-      "size": 1318,
-      "sha256": "0625c758c35798f836ca7b1c107685b65e92b965b8975f84b7cbf3d046fbddea"
+      "size": 3228,
+      "sha256": "fad8a3e7d337b21f4ee23ffea4797642b6514d9c56d3f9b4d4000624f9454b67"
     },
     {
       "path": "governingDocuments/native/Nexus Trust Model.md",
       "type": ".md",
-      "size": 649,
-      "sha256": "1392f21be92ae4d5151443e5435a5f74f3a2201fc2fae5cfc30e2a7e401bdb1c"
+      "size": 2247,
+      "sha256": "4cc2c091e5c8b80e8dc1d20b4585abcb09e62b87ecfa0907ea02b6b6274a1953"
     },
     {
-      "path": "governingDocuments/native/NEXUS-AUTHORITY-BOUNDARIES.md",
+      "path": "governingDocuments/native/OVERSIGHT-TO-CUSTODY.md",
       "type": ".md",
-      "size": 1639,
-      "sha256": "294739f9effcd4f308803adb5981c1f4bca475a346a68689525b9c5b32d2ee76"
+      "size": 1978,
+      "sha256": "9246cef70ca9861729d2b2c41a76e842ed8405a190aff552019fec0787ec44ff"
     },
     {
-      "path": "governingDocuments/native/NEXUS-AUTHORITY-VIOLATIONS.md",
-      "type": ".md",
-      "size": 1127,
-      "sha256": "1a6c0f60f2452c856affb77275371e01c8034924cafa8b4117178b3d3ed3e2e2"
+      "path": "governingDocuments/native/TOKEN-HEALTH.json",
+      "type": ".json",
+      "size": 2390,
+      "sha256": "a924b449c8df105cb68d086cc75b4d4293c0c752d139ab2fc4e1ec3c099d5616"
     },
     {
-      "path": "governingDocuments/native/NEXUS-CROSS-REPOSITORY-HANDOFFS.md",
+      "path": "governingDocuments/native/VERIFICATION-CONTRACTS.md",
       "type": ".md",
-      "size": 995,
-      "sha256": "3d78d492e88fe6ed0196aba74ac0215fcd4c84baccc161d0e70690e5ca8a068c"
+      "size": 5093,
+      "sha256": "46d1b84e5855ff9395ddf77b387cce0709a361da8d2f3ec1aaad8f807161d0aa"
     },
     {
-      "path": "governingDocuments/native/NEXUS-GOVERNANCE-MANIFEST.md",
+      "path": "governingDocuments/native/agent-progress-policy.md",
       "type": ".md",
-      "size": 3075,
-      "sha256": "16a5017f8d505352fe84a26d7a4edd5610ef6bbf8d75591e352304655d98b896"
+      "size": 3155,
+      "sha256": "df561081a2b443efbd6ea1b4798c1da9ca2006fa1aff7015113b88ed1905dcba"
+    },
+    {
+      "path": "governingDocuments/native/ai-conflict-resolution.md",
+      "type": ".md",
+      "size": 1979,
+      "sha256": "23a66954d804da914e601ecd599e49147547949edb7636dfbc0db8264bbe82ff"
+    },
+    {
+      "path": "governingDocuments/native/integration",
+      "type": "[no extension]",
+      "size": 204,
+      "sha256": "d6175f5b42470e34cf0dd116eabdec803ee1ca043d41ce0ab54156661780a5dd"
     },
     {
       "path": "governingDocuments/native/nexus-native-assimilation.md",
@@ -1449,22 +1593,10 @@
       "sha256": "5667173bf7dbf867008bd8b785ca703215ec4d6337a2d43bc4189a0b250d235b"
     },
     {
-      "path": "governingDocuments/native/NEXUS-REPOSITORY-MAP.md",
-      "type": ".md",
-      "size": 1096,
-      "sha256": "04600883a949e62f6772de2c78b13254786dc75848b7a8ca7129d44d4b5588fd"
-    },
-    {
       "path": "governingDocuments/native/required-check-rollout.md",
       "type": ".md",
       "size": 1667,
       "sha256": "82ae8eb6bea398e60b4089bffc6202a417c64ffc12418609940feb419099ff4a"
-    },
-    {
-      "path": "governingDocuments/native/TOKEN-HEALTH.json",
-      "type": ".json",
-      "size": 2390,
-      "sha256": "a924b449c8df105cb68d086cc75b4d4293c0c752d139ab2fc4e1ec3c099d5616"
     },
     {
       "path": "index.html",
@@ -1509,28 +1641,28 @@
       "sha256": "2821913e8dcaff52a68961e7f89e877f4d1f198d920df5cd91cd9715a7fe1941"
     },
     {
-      "path": "learning_sources/scriptsprocess_logs.py.txt",
-      "type": ".txt",
-      "size": 1295,
-      "sha256": "f3414adb27c89258007dabe664df363abe0f4a576012f99820d2928e65284e33"
-    },
-    {
       "path": "learning_sources/SPEC.md.txt",
       "type": ".txt",
       "size": 1253,
       "sha256": "b1bd8c8381a03266a1a93e5fa9cab6de0ff0ce557275e043ddf1acd16758d271"
     },
     {
-      "path": "learning_sources/system_instruction.md.txt",
-      "type": ".txt",
-      "size": 2102,
-      "sha256": "b5cc0f0ebb21314efe56ea823223a8bd32b438bf0b457fa4f811f01bff951b9c"
-    },
-    {
       "path": "learning_sources/TECHNICAL_MANUAL.md.txt",
       "type": ".txt",
       "size": 39736,
       "sha256": "0c858c2b2ab58e7273ed85bcbad0c186a4671bd4196d661d00feed63d8848be3"
+    },
+    {
+      "path": "learning_sources/scriptsprocess_logs.py.txt",
+      "type": ".txt",
+      "size": 1295,
+      "sha256": "f3414adb27c89258007dabe664df363abe0f4a576012f99820d2928e65284e33"
+    },
+    {
+      "path": "learning_sources/system_instruction.md.txt",
+      "type": ".txt",
+      "size": 2102,
+      "sha256": "b5cc0f0ebb21314efe56ea823223a8bd32b438bf0b457fa4f811f01bff951b9c"
     },
     {
       "path": "main.js",
@@ -1623,6 +1755,24 @@
       "sha256": "21b36316fb1c9a316bee8f056d7114abdad5e4fcffb5978d954475243a345844"
     },
     {
+      "path": "pluginSecurityScanner.js",
+      "type": ".js",
+      "size": 6221,
+      "sha256": "caca0dc15bdd3ef6bc9d38790956b838848a94712a6dfffb22a70a7bdd50fb33"
+    },
+    {
+      "path": "pluginWorker.js",
+      "type": ".js",
+      "size": 5741,
+      "sha256": "f8ad972aa0bd0801c910654f8f03ee3261b10b913da6937fb5d82834021b6fc1"
+    },
+    {
+      "path": "plugins/the-crucible/README.md",
+      "type": ".md",
+      "size": 4488,
+      "sha256": "f2e69ff19367d4c64c2773e19dfc86aad5d994de822abf4834d48eae7ead8446"
+    },
+    {
       "path": "plugins/the-crucible/index-v2.js",
       "type": ".js",
       "size": 6515,
@@ -1639,24 +1789,6 @@
       "type": ".json",
       "size": 509,
       "sha256": "7a3e2e5d2e94ce9aa91dc300740d2d79fbe271ec2123f65a99fcb0a08bda1768"
-    },
-    {
-      "path": "plugins/the-crucible/README.md",
-      "type": ".md",
-      "size": 4488,
-      "sha256": "f2e69ff19367d4c64c2773e19dfc86aad5d994de822abf4834d48eae7ead8446"
-    },
-    {
-      "path": "pluginSecurityScanner.js",
-      "type": ".js",
-      "size": 6221,
-      "sha256": "caca0dc15bdd3ef6bc9d38790956b838848a94712a6dfffb22a70a7bdd50fb33"
-    },
-    {
-      "path": "pluginWorker.js",
-      "type": ".js",
-      "size": 5741,
-      "sha256": "f8ad972aa0bd0801c910654f8f03ee3261b10b913da6937fb5d82834021b6fc1"
     },
     {
       "path": "portableProjectConfig.js",
@@ -1753,12 +1885,6 @@
       "type": ".js",
       "size": 9392,
       "sha256": "133494d559aa4b52c6b8e0b14512147dfe409acfd7e6cb9b690a51b6aadeb604"
-    },
-    {
-      "path": "README.md",
-      "type": ".md",
-      "size": 19774,
-      "sha256": "8905bcf3a189f1141d270431efe168692258ca9b867203c74bbf7d3804fda5e0"
     },
     {
       "path": "release-notes.md",
@@ -1947,12 +2073,6 @@
       "sha256": "bcb8fecc3ac62975db7ab5d434e7176b39041cc64cbe8f2f946d3addde430827"
     },
     {
-      "path": "SECURITY.md",
-      "type": ".md",
-      "size": 619,
-      "sha256": "ba9643955bfcb04524a6fe5a8c2929b54abc2e67bb3480ce806e742d506e4dc9"
-    },
-    {
       "path": "semanticContext.js",
       "type": ".js",
       "size": 1655,
@@ -1963,12 +2083,6 @@
       "type": ".js",
       "size": 6405,
       "sha256": "187f554d4e2ba63113dda1d58ecb6425b0de87507b34ff576960e1259a79767d"
-    },
-    {
-      "path": "START-NEXUS.bat",
-      "type": ".bat",
-      "size": 2389,
-      "sha256": "3b249ee72ce685cd1d3f3ab1cb67806989eae51e873eae8877f652ae107e1093"
     },
     {
       "path": "storage.rules",
@@ -2115,6 +2229,12 @@
       "sha256": "54ba8662ff1cd53664c51dfb72ce716a9408f01da1b9c0c10d11beec9854658c"
     },
     {
+      "path": "test/gitWorkflow.test.js",
+      "type": ".js",
+      "size": 2703,
+      "sha256": "63248a6fbc87fc26523ab51c9d8a2096b0a430500290cd56d605c75e823c0a89"
+    },
+    {
       "path": "test/githubAutoSync.test.js",
       "type": ".js",
       "size": 4126,
@@ -2125,12 +2245,6 @@
       "type": ".js",
       "size": 1125,
       "sha256": "5ba81be96390c9c880be229bc7c299f5e591cf81c6af5fbd3ec346817e6079c1"
-    },
-    {
-      "path": "test/gitWorkflow.test.js",
-      "type": ".js",
-      "size": 2703,
-      "sha256": "63248a6fbc87fc26523ab51c9d8a2096b0a430500290cd56d605c75e823c0a89"
     },
     {
       "path": "test/governanceEngine.test.js",
