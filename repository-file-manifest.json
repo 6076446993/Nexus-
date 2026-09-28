@@ -959,8 +959,8 @@
     {
       "path": ".github/workflows/commit-self-repair.yml",
       "type": ".yml",
-      "size": 3291,
-      "sha256": "9e412f69b2ce8256b6e315df02555f343617fbf86c1ca2eec9b85b5b1f2afc30"
+      "size": 2983,
+      "sha256": "c7e9432e8a668e62b3cf246ea8b5d4b6d9875afe9187ca9d0d7b9d4e2675a2c5"
     },
     {
       "path": ".github/workflows/promote-development-to-main.yml",
@@ -2015,8 +2015,8 @@
     {
       "path": "scripts/selfRepairCommit.js",
       "type": ".js",
-      "size": 7047,
-      "sha256": "e11ebda08d0ba5873def33f42e6c2edc17438fbfcd6af76792db5cb75c27f7bb"
+      "size": 7096,
+      "sha256": "c0ca55799f280ed7119949abd31956a6ea882c29023a87e3c150fe7176291bd8"
     },
     {
       "path": "scripts/signLocalWindows.js",
