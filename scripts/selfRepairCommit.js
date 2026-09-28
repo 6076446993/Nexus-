@@ -28,8 +28,8 @@ function run(command, commandArgs, options = {}) {
 }
 
 function trackedFiles() {
-  return execFileSync('git', ['ls-files'], { cwd: root, encoding: 'utf8' })
-    .split(/\r?\n/)
+  return execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: root, encoding: 'utf8' })
+    .split('\0')
     .filter(Boolean)
     .filter((file) => file !== 'repository-file-manifest.json')
     .sort();
