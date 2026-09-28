@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 252,
+  "fileCount": 257,
   "types": {
     ".json": 12,
-    ".md": 23,
+    ".md": 28,
     ".cjs": 1,
     "[no extension]": 4,
     ".yml": 11,
@@ -1387,6 +1387,36 @@
       "type": ".md",
       "size": 2219,
       "sha256": "695f586e8780524200fa9eeec6624391edc127326c01ee05e0ea747a8b8b9de9"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-AUTHORITY-BOUNDARIES.md",
+      "type": ".md",
+      "size": 1639,
+      "sha256": "294739f9effcd4f308803adb5981c1f4bca475a346a68689525b9c5b32d2ee76"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-AUTHORITY-VIOLATIONS.md",
+      "type": ".md",
+      "size": 1127,
+      "sha256": "1a6c0f60f2452c856affb77275371e01c8034924cafa8b4117178b3d3ed3e2e2"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-CROSS-REPOSITORY-HANDOFFS.md",
+      "type": ".md",
+      "size": 995,
+      "sha256": "3d78d492e88fe6ed0196aba74ac0215fcd4c84baccc161d0e70690e5ca8a068c"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-GOVERNANCE-MANIFEST.md",
+      "type": ".md",
+      "size": 3075,
+      "sha256": "16a5017f8d505352fe84a26d7a4edd5610ef6bbf8d75591e352304655d98b896"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-REPOSITORY-MAP.md",
+      "type": ".md",
+      "size": 1096,
+      "sha256": "04600883a949e62f6772de2c78b13254786dc75848b7a8ca7129d44d4b5588fd"
     },
     {
       "path": "governingDocuments/native/Nexus Authority Matrix.md",
