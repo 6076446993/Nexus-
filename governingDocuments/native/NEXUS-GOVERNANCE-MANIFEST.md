@@ -2,11 +2,9 @@
 
 ## Purpose
 
-This document serves as the authoritative index of governance documents that define the Nexus architecture.
+This document is the authoritative discovery index for governance documents that define the Nexus architecture.
 
-Nexus coordinates independently governed repositories operating as a single architecture.
-
-This manifest exists to provide discoverability, auditability, and governance traceability.
+Nexus coordinates independently governed repositories operating as one architecture. This manifest provides discoverability, auditability, and governance traceability.
 
 ---
 
@@ -18,95 +16,100 @@ This manifest exists to provide discoverability, auditability, and governance tr
 
 Defines foundational governance principles for the Nexus architecture.
 
----
-
 ## Agent Governance
 
 - AGENTS.md
+- CLAUDE.md
+- agent-progress-policy.md
 
-Defines agent behavior, responsibilities, and governance expectations.
-
----
+Defines agent behavior, operating constraints, and governance expectations.
 
 ## Development Governance
 
 - DEVLOG.md
+- Nexus Coding Architecture — Development Plan
 
-Maintains governance-relevant development history and architectural decisions.
+Maintains governance-relevant development history and the architecture implementation plan.
 
 ---
 
-# Nexus Architecture Governance
+# Architecture Governance
 
 ## Repository Structure
 
 - NEXUS-REPOSITORY-MAP.md
+- Nexus Repository Responsibilities.md
 
-Defines repositories participating in the Nexus architecture and their responsibilities.
-
----
+Defines participating repositories and their responsibilities.
 
 ## Authority Governance
 
-- NEXUS-AUTHORITY-MATRIX.md
+- Nexus Authority Matrix.md
 - NEXUS-AUTHORITY-BOUNDARIES.md
 - NEXUS-AUTHORITY-VIOLATIONS.md
+- AUTHORITY-CONTRACTS.md
 
-Defines repository authority ownership, boundaries, and violation handling.
-
----
-
-## Repository Responsibilities
-
-- NEXUS-REPOSITORY-RESPONSIBILITIES.md
-
-Defines repository-specific responsibilities and prohibited actions.
-
----
-
-## Cross-Repository Coordination
-
-- NEXUS-CROSS-REPOSITORY-HANDOFFS.md
-
-Defines approved information flow between repositories.
-
----
+Defines authority ownership, boundaries, and violation handling.
 
 ## Trust Governance
 
-- NEXUS-TRUST-MODEL.md
+- Nexus Trust Model.md
 
-Defines trust progression and trust-related architectural principles.
-
----
+Defines trust-relevant states and prevents state conflation.
 
 ## Learning Governance
 
-- NEXUS-LEARNING-LIFECYCLE.md
+- Nexus Learning Lifecycle.md
+- LEARNING-CONTRACTS.md
+- LEARNING-WORKER-TO-OVERSIGHT.md
+- OVERSIGHT-TO-CUSTODY.md
 
-Defines the Nexus learning lifecycle and learning-state progression.
+Defines learning lifecycle and controlled promotion/custody transitions.
 
----
+## Contract Governance
 
-## Shared Contract Governance
+- Nexus Contract Categories.md
+- CONTRACT-FOUNDATION.md
+- CONTRACT-GOVERNANCE-MANIFEST.md
+- EVIDENCE-CONTRACTS.md
+- VERIFICATION-CONTRACTS.md
+- GOVERNANCE-CONTRACTS.md
+- CUSTODY-CONTRACTS.md
+- LINEAGE-CONTRACTS.md
+- FAILURE-CONTRACTS.md
 
-- NEXUS-CONTRACT-CATEGORIES.md
+Defines shared contract categories, semantic boundaries, and domain contracts.
 
-Defines shared contract categories used throughout the Nexus architecture.
+## Integration Governance
 
----
+- INTEGRATION-MANIFEST.md
+- NEXUS-INTEGRATION-RULES.md
+- NEXUS-CROSS-REPOSITORY-HANDOFFS.md
+- NIM-TO-COLLABORATION.md
+- COLLABORATION-TO-CRUCIBLE.md
+- CRUCIBLE-TO-NIM.md
+- LEARNING-WORKER-TO-OVERSIGHT.md
+- OVERSIGHT-TO-CUSTODY.md
+- CUSTODY-TO-CRUCIBLE.md
 
-# Architecture Plan
+Defines approved cross-repository transitions.
 
-- Nexus Coding Architecture — Development Plan
+## Operational Governance
 
-Defines long-term architecture goals, implementation planning, and system evolution.
+- required-check-rollout.md
+- nexus-native-assimilation.md
+- ai-conflict-resolution.md
+- AI-CONFLICTS.json
+- AI-HANDOFF.json
+- TOKEN-HEALTH.json
+
+These records govern or document current operational controls and agent handoff state.
 
 ---
 
 # Repository Participation
 
-The following repositories participate in the Nexus architecture:
+The Nexus architecture currently coordinates:
 
 - NVIDIA-NIM-CONSOLE
 - AI-collaboration-
@@ -115,15 +118,19 @@ The following repositories participate in the Nexus architecture:
 - Crucible-Vetted-Learning-State
 - Vetting-and-Governance-oversite.
 
+Nexus itself is the architecture and integration-governance repository.
+
 ---
 
 # Architectural Principles
 
-The Nexus architecture currently recognizes the following governance principles:
-
 ### NVIDIA-NIM-CONSOLE
 
 AI output is not completion.
+
+### AI-collaboration-
+
+AI collaboration does not become verification merely through consensus.
 
 ### The-Crucible
 
@@ -145,14 +152,14 @@ Approval is not scientific proof.
 
 # Governance Audit Rule
 
-All governance documents affecting architecture, authority, trust, learning, custody, verification, or repository interaction should be referenced by this manifest.
+Governance documents affecting architecture, authority, trust, learning, custody, verification, integration, or repository interaction must be discoverable through this manifest or through an explicitly indexed subordinate manifest.
 
-This manifest serves as the primary governance discovery document for Nexus.
+Documents not referenced by this manifest should be reviewed for relevance, archival, or integration.
 
 ---
 
 # Revision Policy
 
-When new architecture governance documents are added, this manifest shall be updated to include them.
+When governance documents are added, renamed, moved, or retired, this manifest must be updated.
 
-Governance documents not referenced by this manifest should be reviewed for relevance, archival, or integration.
+Repository participation changes must also update this manifest.
