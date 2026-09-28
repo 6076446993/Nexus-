@@ -4,7 +4,7 @@
 
 Authoritative index of repository integration contracts within the Nexus architecture.
 
-Integration transfers information and execution state. It does not transfer repository authority, governance, verification ownership, or custody.
+Integration transfers information and controlled state. It does not transfer repository authority, governance ownership, verification ownership, or custody ownership.
 
 ## Operational Coding Flow
 
@@ -41,6 +41,8 @@ Contracts:
 - CUSTODY-TO-CRUCIBLE.md
 - CRUCIBLE-TO-NIM.md
 
+CRUCIBLE-TO-NIM.md is the shared verification-result return contract. It is used after both the coding verification path and the learning verification path.
+
 ## System Integration Rules
 
 - NEXUS-INTEGRATION-RULES.md
@@ -69,7 +71,9 @@ No receiving component may manufacture or silently reinterpret a verification re
 
 ## Learning Rule
 
-Learning-Worker does not directly create trusted learning state.
+Learning-Worker produces candidate evidence and candidate-only oversight exports.
+
+Learning-Worker does not create trusted learning state.
 
 Governance eligibility and custody acceptance are separate controlled transitions.
 
