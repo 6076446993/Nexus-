@@ -2,69 +2,46 @@
 
 ## Purpose
 
-This document defines the controlled handoff between Learning-Worker and Vetting-and-Governance-oversite. within the Nexus architecture.
+This contract governs the controlled handoff from Learning-Worker candidate output to Vetting-and-Governance-oversite. for governance review.
 
-The contract governs the transition from extracted learning material and promotion requests into formal governance review.
+The handoff transfers candidate information and a request for governed review. It does not transfer authority.
 
-A handoff transfers information and a request for review.
+Learning-Worker remains responsible for source processing, candidate extraction, candidate evidence, and extraction lineage.
 
-A handoff does not transfer authority.
-
-Learning-Worker remains the authority for learning extraction and learning artifacts.
-
-Vetting-and-Governance-oversite. remains the authority for governance decisions and custody eligibility.
+Vetting-and-Governance-oversite. remains responsible for governance review, governance decisions, STOP/CLEAR actions, and custody eligibility.
 
 ---
 
-# Participating Repositories
+# Source Governance Boundary
 
-## Source
+Learning-Worker's repository governance establishes that extracted material is candidate evidence and begins as INSUFFICIENT_EVIDENCE.
 
-**Learning-Worker**
+Learning-Worker does not verify claims, approve learning, promote trusted knowledge, or write trusted custody.
 
-Owns:
-
-- SourceMaterial
-- ExtractionRecord
-- CandidateEvidence
-- LearningPackage
-- LearningDelivery
-- LearningVersion
-- LearningPromotionRequest
-
-## Receiving Authority
-
-**Vetting-and-Governance-oversite.**
-
-Owns:
-
-- GovernanceDecision
-- GovernanceReview
-- CustodyEligibility
-- Oversight authorization
-- STOP and CLEAR governance actions
+The authoritative handoff object is the candidate/oversight export produced by Learning-Worker. A governance request may reference that export, but the worker must not represent the request as an approval or verification result.
 
 ---
 
-# Handoff Contract
+# Handoff Object
 
-The Learning-Worker to Oversight handoff consists of a LearningPromotionRequest and its referenced learning artifacts.
+The handoff consists of an OversightExport or equivalent candidate-only delivery and its referenced extraction records.
 
 Minimum handoff contents:
 
-- Request Identifier
-- Delivery Identifier
-- Learning Package Reference
+- Export Identifier
 - Candidate Evidence References
 - Source References
-- Lineage Reference
-- Provenance References
-- Version References
 - Extraction References
+- Worker Version
+- Lineage References
+- Provenance References
+- Content or Artifact Version
 - Handoff Timestamp
 - Handoff Status
 
-The receiving governance system must be able to trace every submitted learning artifact back to its source and extraction activity.
+Where the implementation uses a separate review-request identifier, that identifier must reference the candidate export rather than replacing it.
+
+The receiving governance system must be able to reconstruct each candidate from its source and extraction history.
 
 ---
 
@@ -72,12 +49,11 @@ The receiving governance system must be able to trace every submitted learning a
 
 Learning-Worker may:
 
-- Extract source material.
-- Produce candidate evidence.
-- Assemble learning packages.
-- Create learning deliveries.
-- Create learning versions.
-- Submit promotion requests.
+- Consume inputs allowed by its own source-intake governance.
+- Extract candidate evidence.
+- Preserve source, worker, custody, and export lineage.
+- Publish candidate-only oversight exports.
+- Submit candidate material for governance review through the defined integration path.
 
 Learning-Worker may not:
 
@@ -85,75 +61,49 @@ Learning-Worker may not:
 - Declare extracted material approved.
 - Grant custody eligibility.
 - Issue governance decisions.
-- Activate governed knowledge.
+- Write trusted Crucible learning state.
+- Treat candidate evidence as knowledge.
 
 Vetting-and-Governance-oversite. may:
 
-- Review submitted learning artifacts.
+- Receive and review candidate exports.
 - Evaluate governance eligibility.
 - Issue governance decisions.
-- Approve or reject promotion.
 - Grant or deny custody eligibility.
 - Issue STOP or CLEAR governance actions.
 
 Vetting-and-Governance-oversite. may not:
 
-- Rewrite source evidence as if it were extracted by Learning-Worker.
-- Change the historical extraction record.
-- Convert a governance decision into scientific verification.
-- Assume custody ownership without a custody handoff.
+- Rewrite historical extraction records as if produced by Learning-Worker.
+- Convert candidate evidence into scientific verification.
+- Treat governance approval as custody acceptance.
+- Assume custody ownership without the custody contract.
 
 ---
 
 # Required Traceability
 
-Every promotion request shall preserve the following chain:
+The candidate handoff shall preserve:
 
 Source Material
-
 ↓
-
 Extraction Record
-
 ↓
-
 Candidate Evidence
-
 ↓
-
-Learning Package
-
+Oversight Export
 ↓
-
-Learning Delivery
-
-↓
-
-Learning Promotion Request
-
-↓
-
 Governance Review
-
 ↓
-
 Governance Decision
-
 ↓
-
 Custody Eligibility
-
 ↓
-
 Custody Handoff
 
-Each step must reference the preceding state where applicable.
+Each transition must reference the preceding state where applicable.
 
-Missing lineage is a handoff failure.
-
-Missing provenance is a handoff failure.
-
-Missing version information is a handoff failure.
+Missing lineage, provenance, or version information is a handoff failure.
 
 ---
 
@@ -161,71 +111,70 @@ Missing version information is a handoff failure.
 
 ## PREPARED
 
-Learning-Worker has assembled the delivery and promotion request.
+Learning-Worker has produced the candidate export.
 
 No governance decision exists.
 
 ## SUBMITTED
 
-The promotion request has been delivered to Vetting-and-Governance-oversite.
-
-The request is awaiting governance review.
+The candidate export has been delivered for governance review.
 
 ## UNDER_REVIEW
 
 Governance review is active.
 
-The submitted learning remains unverified and unapproved.
+The candidate remains unverified and unapproved.
 
 ## APPROVED
 
-Governance has approved the requested promotion according to applicable governance rules.
+Governance has approved the eligible transition according to applicable governance rules.
 
-Approval does not itself constitute scientific verification or custody storage.
+Approval does not constitute scientific verification or custody.
 
 ## REJECTED
 
-Governance has rejected the promotion request.
+Governance has rejected the submitted candidate or requested transition.
 
-The rejection must preserve its reason, timestamp, lineage, and decision reference.
+The rejection preserves its reason, timestamp, lineage, and decision reference.
 
 ## STOPPED
 
-Governance has issued a STOP action affecting the handoff or its processing.
+Governance has issued a STOP affecting the handoff or its processing.
 
-The STOP action must remain auditable.
+The STOP remains auditable.
 
 ## SUPERSEDED
 
-The request has been replaced by a later governed version.
+A later candidate/export or governed review has superseded the current handoff.
 
-The superseding request must preserve ancestry and lineage.
+Ancestry must remain preserved.
 
 ---
 
 # Acceptance Requirements
 
-Vetting-and-Governance-oversite. shall not accept a promotion request as reviewable unless the required references are present.
+Vetting-and-Governance-oversite. shall not treat a candidate export as reviewable unless the required references are present.
 
-At minimum, acceptance requires:
+At minimum:
 
-1. A unique request identifier.
-2. A valid LearningDelivery reference.
-3. Candidate evidence references.
-4. Source references.
-5. A lineage reference.
-6. Provenance references.
-7. Version information.
-8. A timestamp.
-9. Sufficient extraction history to reconstruct the origin of the submitted material.
+1. Unique export identifier.
+2. Candidate evidence references.
+3. Source references.
+4. Extraction references.
+5. Worker version.
+6. Lineage references.
+7. Provenance references.
+8. Version information.
+9. Handoff timestamp.
+10. Sufficient extraction history to reconstruct the candidate.
 
-An incomplete request shall be rejected or returned for correction rather than treated as approved.
+An incomplete export shall be rejected, quarantined, or returned for correction according to the applicable governance rules. It shall not be treated as approved.
 
 ---
 
 # Governance Review Boundary
 
-Governance review determines whether the submitted learning is eligible for the next governed state.
+Governance review determines whether the submitted candidate is eligible for the next governed state.
 
 Governance review does not:
 
@@ -233,7 +182,8 @@ Governance review does not:
 - Replace Crucible verification.
 - Rewrite source material.
 - Create evidence that was not submitted.
-- Transfer learning authority to the oversight repository.
+- Transfer extraction authority to oversight.
+- Create custody merely by issuing approval.
 
 Verification remains the responsibility of The-Crucible.
 
@@ -241,57 +191,55 @@ Custody remains the responsibility of Crucible-Vetted-Learning-State.
 
 ---
 
-# Custody Handoff
+# Custody Transition
 
-When governance determines that a learning package is eligible for custody, the governance decision shall reference:
+When governance determines that a candidate or learning package is eligible for custody, the GovernanceDecision and CustodyEligibility must identify:
 
-- The approved LearningDelivery.
-- The applicable LearningPromotionRequest.
+- The exact approved candidate/export version.
+- The applicable governance review.
 - The governance decision.
 - The lineage chain.
-- The version being transferred.
-- The custody eligibility reference.
+- The provenance chain.
+- The custody transition reference.
 
-The resulting custody handoff is a separate contract boundary.
+Governance eligibility does not create a CustodyRecord.
 
-Governance eligibility does not itself create a CustodyRecord.
-
-Crucible-Vetted-Learning-State must establish the custody record before the artifact is considered to be in custody.
+Crucible-Vetted-Learning-State must establish custody through its own acceptance contract.
 
 ---
 
 # Rejection and Recovery
 
-A rejected promotion request remains part of the audit trail.
+A rejected candidate or review remains part of the audit trail.
 
-Learning-Worker may create a corrected or new version only through a traceable subsequent learning operation.
+Learning-Worker may produce a corrected candidate only through a traceable subsequent extraction or transformation.
 
-A corrected submission shall preserve:
+A corrected submission must preserve:
 
-- The original request reference.
+- The original candidate/export reference.
 - The reason for correction.
 - The new version identifier.
-- The new extraction or transformation record where applicable.
+- The new extraction/transformation reference.
 - The new lineage reference.
 
-Historical rejected states shall not be silently overwritten.
+Historical rejected states must not be silently overwritten.
 
 ---
 
 # Failure Conditions
 
-The handoff is considered invalid when:
+The handoff is invalid when:
 
 - Required lineage is missing.
 - Source provenance cannot be established.
 - Version ancestry cannot be established.
-- The submitted artifact cannot be reconstructed.
-- Learning-Worker claims verification or governance authority.
-- Oversight modifies historical learning evidence without a governed record.
+- The candidate cannot be reconstructed.
+- Learning-Worker claims verification, approval, or custody authority.
+- Oversight modifies historical extraction evidence without a governed record.
 - Governance approval is represented as scientific verification.
 - Governance approval is represented as custody.
-- Custody is assumed without a CustodyRecord.
-- A STOP action is ignored or bypassed.
+- A STOP is ignored or bypassed.
+- Candidate evidence is written directly into trusted custody without the custody contract.
 
 Failures shall be recorded using the Nexus failure and lineage contracts.
 
@@ -299,37 +247,33 @@ Failures shall be recorded using the Nexus failure and lineage contracts.
 
 # Audit Requirements
 
-Every handoff shall be independently reconstructable from repository records.
-
 The audit trail shall identify:
 
-- Who or what created the learning artifact.
-- Which source material was used.
-- Which extraction produced the candidate.
-- Which version was submitted.
-- When the handoff occurred.
-- Which governance review processed it.
-- Which governance decision resulted.
-- Whether custody eligibility was granted.
-- Which custody record subsequently accepted the artifact, if applicable.
+- Source material.
+- Extraction activity.
+- Worker version.
+- Candidate/export version.
+- Handoff timestamp.
+- Governance review.
+- Governance decision.
+- Custody eligibility, if granted.
+- Subsequent custody record, if accepted.
 
-No handoff may depend on an undocumented state held only in memory or an ephemeral process.
+No authoritative transition may depend solely on undocumented in-memory or ephemeral state.
 
 ---
 
-# Contract Invariants
+# Invariants
 
-The following invariants apply:
-
-1. Learning authority remains with Learning-Worker.
-2. Governance authority remains with Vetting-and-Governance-oversite.
-3. Verification authority remains with The-Crucible.
-4. Custody authority remains with Crucible-Vetted-Learning-State.
-5. Information transfer does not transfer authority.
-6. Governance approval does not equal verification.
-7. Governance approval does not equal custody.
-8. Historical learning records remain traceable.
-9. Every promotion request preserves lineage and provenance.
+1. Learning-Worker owns candidate extraction.
+2. Vetting-and-Governance-oversite. owns governance.
+3. The-Crucible owns verification.
+4. Crucible-Vetted-Learning-State owns custody.
+5. Candidate evidence is not knowledge.
+6. Governance approval is not verification.
+7. Governance approval is not custody.
+8. Information transfer does not transfer authority.
+9. Lineage and provenance survive the handoff.
 10. No repository may bypass a required governance boundary.
 
 ---
@@ -343,6 +287,7 @@ The following invariants apply:
 - VERIFICATION-CONTRACTS.md
 - LINEAGE-CONTRACTS.md
 - FAILURE-CONTRACTS.md
+- OVERSIGHT-TO-CUSTODY.md
 - NEXUS-CROSS-REPOSITORY-HANDOFFS.md
 - CONTRACT-GOVERNANCE-MANIFEST.md
 
@@ -350,12 +295,12 @@ The following invariants apply:
 
 # Architectural Rule
 
-Learning-Worker prepares and submits learning.
+Learning-Worker produces candidate evidence and candidate-only oversight exports.
 
 Vetting-and-Governance-oversite. governs eligibility.
 
-The-Crucible verifies.
+Crucible-Vetted-Learning-State establishes custody.
 
-Crucible-Vetted-Learning-State holds custody.
+The-Crucible independently verifies where verification is required.
 
 No stage may silently assume the authority of another stage.
