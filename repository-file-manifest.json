@@ -1704,13 +1704,13 @@
       "path": "package-lock.json",
       "type": ".json",
       "size": 158463,
-      "sha256": "5b6245fc16648ee0cbc41a9d738da3153e46f55484c0462b23e2550d55c1fa57"
+      "sha256": "67212fdcc349e2ca02791821077c1d08f17b9f491b815a4758016e79c8f0d185"
     },
     {
       "path": "package.json",
       "type": ".json",
       "size": 5758,
-      "sha256": "ab5f6957f9b00778be96e150c196be040967d457b6b34665d5454a33c61edc06"
+      "sha256": "5d5b8cb2410682a2be4038d8ee77f182b291de17ca174074d8c0818693b9ddc2"
     },
     {
       "path": "pipelineEngine.js",
@@ -1890,7 +1890,7 @@
       "path": "release-notes.md",
       "type": ".md",
       "size": 6622,
-      "sha256": "d3f3ac215495cdadf2c606308b24d0c85055847ba8338d9667b34732f85e6a56"
+      "sha256": "c71737bc8204c708b8be9decf29a5c5f4a5d1d6dd24dbf5e9b16d726e051e727"
     },
     {
       "path": "renderer.js",
