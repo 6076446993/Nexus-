@@ -953,14 +953,14 @@
     {
       "path": ".github/workflows/commit-self-repair-apply.yml",
       "type": ".yml",
-      "size": 2491,
-      "sha256": "82e1a033818833b140eb088c172e215f70528a088435e0d520c3981fa6b33728"
+      "size": 2684,
+      "sha256": "67ab5a44571c851f2029f35876a5857e15c3aa88f7ced98db29b93d376c8c672"
     },
     {
       "path": ".github/workflows/commit-self-repair.yml",
       "type": ".yml",
-      "size": 3199,
-      "sha256": "fbd6404e72e5902282f6cea908b2d5c410d1e1112d39eae68f1161b5d4ffabc8"
+      "size": 3382,
+      "sha256": "b90c98b7d1f49388fccb5263cc2ac7cfa9c92f00536e66b8635b4cb04873e70a"
     },
     {
       "path": ".github/workflows/promote-development-to-main.yml",
