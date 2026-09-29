@@ -66,3 +66,7 @@ Codex verified hosted Crucible run 36626731433 succeeded on Development-branch c
 ## Self-repair workflow directory correction — 2026-09-29T20:49:16.522563Z
 
 Codex diagnosed run 36628631446: checkout lives under target, but the apply step ran at workspace root and could not find scripts/selfRepairCommit.js. Added working-directory: target to that step; no script semantics or gates changed. Regenerated inventory and ran the existing pre-push privacy/inventory gate. Hosted verification pending.
+
+## Release audit continuity — 2026-09-29
+
+Inspected failed runs 36626647598, 36452779119, 36452770832, and 36451081117: inventory verification rejected stale manifests after governance/repair edits. Later audit 36632450016 passed all eleven jobs at d1d4d5d; promoted main 0538c5a has the identical tree 542b43da. Added main push auditing and full audit dispatch after bounded Development self-repair, so repaired commits and production promotion receive automatic verification. Historical failures remain as evidence. No release published; fresh hosted gates required.
