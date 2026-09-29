@@ -1025,8 +1025,8 @@
     {
       "path": "AI-HANDOFF.json",
       "type": ".json",
-      "size": 6372,
-      "sha256": "f3209ba1240926aa0a0618ba1f20991a970aa8e4840f577aad520e0f1de8e423"
+      "size": 7314,
+      "sha256": "f86dcd4bd8532871305f0701fdcd9a1aff0cea852baea0763cc3cce3da137d0c"
     },
     {
       "path": "CLAUDE.md",
@@ -1043,8 +1043,8 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 5072,
-      "sha256": "7c84c1865d6dd18198c432b9a400d04bdbedb10baa998c3921e5adce047e8da9"
+      "size": 6057,
+      "sha256": "7b5a98b451572b679fd5a405b648ecab16126524bc3c7fb4716ba65fad9a41a1"
     },
     {
       "path": "FIREBASE_SETUP.md",
@@ -1704,13 +1704,13 @@
       "path": "package-lock.json",
       "type": ".json",
       "size": 158463,
-      "sha256": "30a7bbc696030f0f03ce4d2089784e718a7963d9ddfe699cc76983963f7ea309"
+      "sha256": "5b6245fc16648ee0cbc41a9d738da3153e46f55484c0462b23e2550d55c1fa57"
     },
     {
       "path": "package.json",
       "type": ".json",
       "size": 5758,
-      "sha256": "0b33f2b0cefcc2cd08f9d4adfef866f7c4d4fd89d24d87a466d41e499d57c1b4"
+      "sha256": "ab5f6957f9b00778be96e150c196be040967d457b6b34665d5454a33c61edc06"
     },
     {
       "path": "pipelineEngine.js",

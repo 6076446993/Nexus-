@@ -71,5 +71,26 @@
     "identicalTree": "542b43da53b2f0e10f0f0131fb244dcf65db5edc",
     "correction": "Run full release audit on main pushes and dispatch it after Development self-repair; main remains protected.",
     "status": "Local verification and fresh hosted development gates required; no release published."
+  },
+  "releaseAuditHistoryReview": {
+    "date": "2026-09-29",
+    "failedRunsInspected": 416,
+    "representativeFailedJobLogsRead": 941,
+    "unavailableLogs": 0,
+    "verifiedCommit": "a27753af06fa606ae6c77b794267cb3bc7eede10",
+    "passingFullAudits": [
+      36634754120,
+      36634760951,
+      36634784662
+    ],
+    "passingCrucibleRuns": [
+      36634755245,
+      36634762110,
+      36634781551
+    ],
+    "remainingRepair": "Update js-yaml from vulnerable 5.3.0 to patched 5.4.2; reverify final commit before approval.",
+    "historicalPolicy": "Original failed results remain evidence. Passing current gates do not rewrite historical results.",
+    "evidenceFile": "Nexus-release-audit-evidence.json",
+    "approvalPolicy": "Required checks must have actually completed successfully on the exact final commit before requesting release/promotion approval. Pending, missing or skipped required checks are not approval readiness."
   }
 }
