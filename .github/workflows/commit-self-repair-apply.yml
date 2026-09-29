@@ -65,7 +65,7 @@ jobs:
           git push origin HEAD:Development-branch
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      - name: Dispatch Crucible on repaired Development HEAD
+      - name: Dispatch repaired Development verification
         if: steps.commit.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -73,3 +73,5 @@ jobs:
         run: |
           set -euo pipefail
           gh workflow run the-crucible.yml --repo "$GITHUB_REPOSITORY" --ref Development-branch
+          gh workflow run branch-integrity.yml --repo "$GITHUB_REPOSITORY" --ref Development-branch
+          gh workflow run release-audit.yml --repo "$GITHUB_REPOSITORY" --ref Development-branch
