@@ -1709,8 +1709,8 @@
     {
       "path": "package.json",
       "type": ".json",
-      "size": 5758,
-      "sha256": "5d5b8cb2410682a2be4038d8ee77f182b291de17ca174074d8c0818693b9ddc2"
+      "size": 5746,
+      "sha256": "9abea1aa8d3ac6578fe62e5854a98705a1059361be1ad691bf40151ce8ebbd98"
     },
     {
       "path": "pipelineEngine.js",
