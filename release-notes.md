@@ -1,4 +1,4 @@
-# Nexus 1.0.3
+# Nexus 1.0.4
 
 - Restored a dedicated, visibly reachable Updates section in Settings & Keys.
 - Routed the always-visible build badge and command palette to the real GitHub Releases updater instead of the separate source-update path.
