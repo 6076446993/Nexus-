@@ -56,3 +56,5 @@ binding rules are in `AGENTS.md`.
   missing branch-link manifest from resembling fabricated success handling.
 - **2026-08-28** — Added `AI-HANDOFF.json`, this file, and the
   agent-communication timestamp policy, per the repository owner's request.
+
+- **2026-09-29** — Codex repaired missing final newlines in Nexus Authority Matrix, Nexus Contract Categories, and Nexus Learning Lifecycle. Document text and authority boundaries remain intact. Current main run 36620737015 identified exactly these three pre-check actions; development CI verification is pending.
