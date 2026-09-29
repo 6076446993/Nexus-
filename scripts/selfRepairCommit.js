@@ -94,9 +94,42 @@ function safeStaticInventoryRefresh() {
     const before = previous.get(item.path);
     return !before || before.sha256 !== item.sha256;
   });
+
+  const relativeReferences = (text) => {
+    const references = new Set();
+    const pattern = /\b(?:require\s*\(|from\s+|import\s*\()\s*['"]([.]{1,2}\/[^'"]+)['"]/g;
+    let match;
+    while ((match = pattern.exec(text)) !== null) references.add(match[1]);
+    return [...references].sort();
+  };
+  const manifestBaseline = execFileSync(
+    'git',
+    ['log', '-1', '--format=%H', '--', 'repository-file-manifest.json'],
+    { cwd: root, encoding: 'utf8' },
+  ).trim();
+
   for (const item of changedJs) {
-    const text = fs.readFileSync(path.join(root, item.path), 'utf8');
-    if (/\b(?:require\s*\(|from\s+|import\s*\()\s*['"]\.\.?\//.test(text)) {
+    const currentText = fs.readFileSync(path.join(root, item.path), 'utf8');
+    const currentReferences = relativeReferences(currentText);
+    let baselineText = null;
+    if (manifestBaseline) {
+      const baseline = spawnSync('git', ['show', `${manifestBaseline}:${item.path}`], {
+        cwd: root,
+        encoding: 'utf8',
+        shell: false,
+      });
+      if (baseline.status === 0) baselineText = baseline.stdout;
+    }
+
+    if (baselineText === null) {
+      if (currentReferences.length) {
+        throw new Error(`Static inventory refresh refused because ${item.path} is new relative-reference-bearing JavaScript.`);
+      }
+      continue;
+    }
+
+    const baselineReferences = relativeReferences(baselineText);
+    if (JSON.stringify(currentReferences) !== JSON.stringify(baselineReferences)) {
       throw new Error(`Static inventory refresh refused because ${item.path} changed relative module references.`);
     }
   }
