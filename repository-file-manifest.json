@@ -1493,8 +1493,8 @@
     {
       "path": "governingDocuments/native/NEXUS-GOVERNANCE-MANIFEST.md",
       "type": ".md",
-      "size": 3698,
-      "sha256": "09f47905a67a0d28c3beb5f0797910a886548c18f68914dd42cde712406216c8"
+      "size": 4118,
+      "sha256": "10650182ce2e167b4bed8e7a90941c6196706540f4d2166cfbc28c4f17e78ade"
     },
     {
       "path": "governingDocuments/native/NEXUS-INTEGRATION-RULES.md",
@@ -1505,8 +1505,8 @@
     {
       "path": "governingDocuments/native/NEXUS-REPOSITORY-MAP.md",
       "type": ".md",
-      "size": 1096,
-      "sha256": "04600883a949e62f6772de2c78b13254786dc75848b7a8ca7129d44d4b5588fd"
+      "size": 1852,
+      "sha256": "4138a142088dc529d00d558d740ab4e4b6f6701607f5a231ed75adf2d8949a73"
     },
     {
       "path": "governingDocuments/native/NIM-TO-COLLABORATION.md",
