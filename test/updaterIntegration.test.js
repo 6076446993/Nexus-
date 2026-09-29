@@ -69,7 +69,7 @@ test('available updates include safely rendered GitHub release notes', () => {
 test('release configuration publishes GitHub updater metadata', () => {
   const pkg = JSON.parse(read('package.json'));
   assert.deepEqual(pkg.build.publish, {
-    provider: 'github', owner: 'jonathanblunt1214-lgtm', repo: 'Nexus-',
+    provider: 'github', owner: '6076446993', repo: 'Nexus-',
   });
   assert.ok(pkg.dependencies['electron-updater']);
   assert.equal(pkg.scripts['dist:publish'], 'node scripts/buildAndPublishVerified.js');
