@@ -24,15 +24,6 @@ jobs:
           fetch-depth: 0
           path: target
 
-      - name: Check out trusted repair engine from main
-        if: github.event_name == 'push' && github.ref == 'refs/heads/Development-branch'
-        uses: actions/checkout@v7
-        with:
-          ref: main
-          path: trusted
-          persist-credentials: false
-          fetch-depth: 1
-
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
@@ -51,7 +42,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/Development-branch'
         env:
           NEXUS_REPAIR_ROOT: ${{ github.workspace }}/target
-        run: node trusted/scripts/selfRepairCommit.js --apply --trusted-static --no-report
+        run: node scripts/selfRepairCommit.js --apply --trusted-static --no-report
 
       - name: Commit trusted repair and dispatch Crucible on exact repaired HEAD
         if: github.event_name == 'push' && github.ref == 'refs/heads/Development-branch'
