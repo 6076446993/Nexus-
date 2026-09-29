@@ -43,7 +43,7 @@
     "provisioning": "The plugin security view installs and enables the bundled Crucible plugin, invokes its secure configuration action, and fails closed unless the plugin reports learning readiness as green.",
     "verification": "Automated tests cover workspace separation, OIDC signature and claims, short token lifetime, secret scoping, installation, configuration persistence, and final readiness. Hosted exact-tip CI remains required after push."
   },
-  "lastUpdated": "2026-09-29T20:44:46.705369Z",
+  "lastUpdated": "2026-09-29T20:49:16.522563Z",
   "repairCheckpoint": {
     "task": "fix both of these Live Render/NIM behavior and the broader Crucible/Nexus failures",
     "agent": "Codex",
@@ -53,6 +53,7 @@
       "governingDocuments/native/Nexus Contract Categories.md",
       "governingDocuments/native/Nexus Learning Lifecycle.md"
     ],
-    "verification": "Full hosted Crucible passed at 29d5ca341aa0b563a437dc11fa706eb450813649 (run 36626731433). Automatic repair restored selfRepairCommit.js and regenerated inventory; local inventory verifies all 276 files. Full release audit must run on this corrected tip; older e9dfcba run failed stale inventory."
+    "verification": "Full hosted Crucible passed at 29d5ca341aa0b563a437dc11fa706eb450813649 (run 36626731433). Automatic repair restored selfRepairCommit.js and regenerated inventory; local inventory verifies all 276 files. Full release audit must run on this corrected tip; older e9dfcba run failed stale inventory.",
+    "workflowCorrection": "Hosted run 36628631446 called scripts/selfRepairCommit.js from runner root while checkout was under target. Apply step now uses working-directory: target, matching diagnosis and commit steps."
   }
 }

@@ -959,8 +959,8 @@
     {
       "path": ".github/workflows/commit-self-repair.yml",
       "type": ".yml",
-      "size": 2983,
-      "sha256": "c7e9432e8a668e62b3cf246ea8b5d4b6d9875afe9187ca9d0d7b9d4e2675a2c5"
+      "size": 3017,
+      "sha256": "74071f549c6d96ec45b7db5f2cd6484362ed47bdd4b9dbfbe4b2fe1bada0209b"
     },
     {
       "path": ".github/workflows/promote-development-to-main.yml",
@@ -1025,8 +1025,8 @@
     {
       "path": "AI-HANDOFF.json",
       "type": ".json",
-      "size": 5421,
-      "sha256": "cf8fe33ed9f872bb6d3173fb17508b5e14f2a3da132e6672bd9efbc498553af7"
+      "size": 5642,
+      "sha256": "23374dd4b463f367fb81c8cae2a3f075782bffeed4af3a269a79485c6160272a"
     },
     {
       "path": "CLAUDE.md",
@@ -1043,8 +1043,8 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 4081,
-      "sha256": "249737c333cf8a64b89880954249bebc84c54550f8d4363cb6a5c16cf7ed7c3e"
+      "size": 4500,
+      "sha256": "125d56bb6898c2dc12dd8184bb740f238f24dd22d7ecba0878a1d4fab86522c6"
     },
     {
       "path": "FIREBASE_SETUP.md",
