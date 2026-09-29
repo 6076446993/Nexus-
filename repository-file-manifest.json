@@ -2015,8 +2015,8 @@
     {
       "path": "scripts/selfRepairCommit.js",
       "type": ".js",
-      "size": 7096,
-      "sha256": "c0ca55799f280ed7119949abd31956a6ea882c29023a87e3c150fe7176291bd8"
+      "size": 8236,
+      "sha256": "3e7b33e85027c543501734bbaccdb209beb0b922d556f6947323ef2a0cde8ee6"
     },
     {
       "path": "scripts/signLocalWindows.js",
@@ -2489,8 +2489,8 @@
     {
       "path": "test/updaterIntegration.test.js",
       "type": ".js",
-      "size": 7781,
-      "sha256": "074525c2eba96ca7efb32600709ba77a43d7a7325e70d9407ef39074da5b9836"
+      "size": 7769,
+      "sha256": "a6681e037b779841df1585f081de77888254ec055f8bcf1c34cd591e2d6fb03f"
     },
     {
       "path": "test/visualContext.test.js",
