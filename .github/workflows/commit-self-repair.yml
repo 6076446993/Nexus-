@@ -40,6 +40,7 @@ jobs:
 
       - name: Apply trusted static repairs on Development
         if: github.event_name == 'push' && github.ref == 'refs/heads/Development-branch'
+        working-directory: target
         env:
           NEXUS_REPAIR_ROOT: ${{ github.workspace }}/target
         run: node scripts/selfRepairCommit.js --apply --trusted-static --no-report

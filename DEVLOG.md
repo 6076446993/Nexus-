@@ -56,3 +56,13 @@ binding rules are in `AGENTS.md`.
   missing branch-link manifest from resembling fabricated success handling.
 - **2026-08-28** — Added `AI-HANDOFF.json`, this file, and the
   agent-communication timestamp policy, per the repository owner's request.
+
+- **2026-09-29** — Codex repaired missing final newlines in Nexus Authority Matrix, Nexus Contract Categories, and Nexus Learning Lifecycle. Document text and authority boundaries remain intact. Current main run 36620737015 identified exactly these three pre-check actions; development CI verification is pending.
+
+## Repair verification — 2026-09-29T20:44:46.705369Z
+
+Codex verified hosted Crucible run 36626731433 succeeded on Development-branch commit 29d5ca3. The existing automatic repair restored the missing selfRepairCommit.js and regenerated the inventory after the governance newline changes. Local inventory verification covers all 276 files. This checkpoint triggers a fresh full release audit; the older e9dfcba audit failed on the stale inventory and is not evidence against the repaired tip. Production main remains unpromoted through the protected path.
+
+## Self-repair workflow directory correction — 2026-09-29T20:49:16.522563Z
+
+Codex diagnosed run 36628631446: checkout lives under target, but the apply step ran at workspace root and could not find scripts/selfRepairCommit.js. Added working-directory: target to that step; no script semantics or gates changed. Regenerated inventory and ran the existing pre-push privacy/inventory gate. Hosted verification pending.

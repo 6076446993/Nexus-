@@ -21,14 +21,21 @@
   },
   "nativeGovernanceAssimilation": {
     "trigger": "A Crucible-injected governingDocuments/ tree exists on Development-branch.",
-    "nativeDocuments": ["AGENTS.md", "AI-HANDOFF.json", "AI-CONFLICTS.json", "CLAUDE.md", "DEVLOG.md", "CONSTITUTION.md"],
+    "nativeDocuments": [
+      "AGENTS.md",
+      "AI-HANDOFF.json",
+      "AI-CONFLICTS.json",
+      "CLAUDE.md",
+      "DEVLOG.md",
+      "CONSTITUTION.md"
+    ],
     "copyDestination": "governingDocuments/native/",
     "preserveRootCopies": true,
     "preserveCrucibleBaseline": true,
     "conflictPolicy": "Compatible Nexus-specific rules are assimilated into the injected governing-document structure without erasing Crucible-originated requirements. Irreconcilable conflicts are recorded in AI-CONFLICTS.json and both source documents remain intact until resolved.",
     "externalAuthority": "Assimilation is an internal Nexus write and does not extend or renew external write access."
   },
-  "branchAuthoritySummary": "Plain language: ordinary AI work happens only on Development-branch. An AI does not create or use claude/*, codex/*, or other auxiliary branches, and does not touch main directly, unless the repository owner explicitly authorizes that exact branch or operation in the current conversation — and that authorization does not carry over to the next task. main only changes through the protected promote-development-to-main.yml workflow. See AGENTS.md for the full, binding rules.",
+  "branchAuthoritySummary": "Plain language: ordinary AI work happens only on Development-branch. An AI does not create or use claude/*, codex/*, or other auxiliary branches, and does not touch main directly, unless the repository owner explicitly authorizes that exact branch or operation in the current conversation \u2014 and that authorization does not carry over to the next task. main only changes through the protected promote-development-to-main.yml workflow. See AGENTS.md for the full, binding rules.",
   "crucibleLearningHost": {
     "pluginVersion": "0.3.0",
     "workspaceBinding": "The canonical real path of the opened Nexus workspace is hashed into the project, repository, ref, and subject claims. ChatGPT project identifiers are not used.",
@@ -36,5 +43,17 @@
     "provisioning": "The plugin security view installs and enables the bundled Crucible plugin, invokes its secure configuration action, and fails closed unless the plugin reports learning readiness as green.",
     "verification": "Automated tests cover workspace separation, OIDC signature and claims, short token lifetime, secret scoping, installation, configuration persistence, and final readiness. Hosted exact-tip CI remains required after push."
   },
-  "lastUpdated": "2026-08-29 20:30:07 EDT"
+  "lastUpdated": "2026-09-29T20:49:16.522563Z",
+  "repairCheckpoint": {
+    "task": "fix both of these Live Render/NIM behavior and the broader Crucible/Nexus failures",
+    "agent": "Codex",
+    "cause": "Crucible pre-check rejected three governance documents without final newlines",
+    "scope": [
+      "governingDocuments/native/Nexus Authority Matrix.md",
+      "governingDocuments/native/Nexus Contract Categories.md",
+      "governingDocuments/native/Nexus Learning Lifecycle.md"
+    ],
+    "verification": "Full hosted Crucible passed at 29d5ca341aa0b563a437dc11fa706eb450813649 (run 36626731433). Automatic repair restored selfRepairCommit.js and regenerated inventory; local inventory verifies all 276 files. Full release audit must run on this corrected tip; older e9dfcba run failed stale inventory.",
+    "workflowCorrection": "Hosted run 36628631446 called scripts/selfRepairCommit.js from runner root while checkout was under target. Apply step now uses working-directory: target, matching diagnosis and commit steps."
+  }
 }
