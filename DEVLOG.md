@@ -66,3 +66,11 @@ Codex verified hosted Crucible run 36626731433 succeeded on Development-branch c
 ## Self-repair workflow directory correction — 2026-09-29T20:49:16.522563Z
 
 Codex diagnosed run 36628631446: checkout lives under target, but the apply step ran at workspace root and could not find scripts/selfRepairCommit.js. Added working-directory: target to that step; no script semantics or gates changed. Regenerated inventory and ran the existing pre-push privacy/inventory gate. Hosted verification pending.
+
+## Release audit continuity — 2026-09-29
+
+Inspected failed runs 36626647598, 36452779119, 36452770832, and 36451081117: inventory verification rejected stale manifests after governance/repair edits. Later audit 36632450016 passed all eleven jobs at d1d4d5d; promoted main 0538c5a has the identical tree 542b43da. Added main push auditing and full audit dispatch after bounded Development self-repair, so repaired commits and production promotion receive automatic verification. Historical failures remain as evidence. No release published; fresh hosted gates required.
+
+## Complete release audit failure review — 2026-09-29
+
+Inspected all 416 historical failed runs and 941 representative failed-job logs (one per failed step per run, with separate OS samples for tests; no unavailable logs). Failure families include inventory drift, mismatched lockfiles, tree-sitter WASM resolution, TypeScript service imports, packaging paths, architecture/release guardrails, outdated assertions, network failures and vulnerable dependencies. Current commit a27753a passed full audits 36634754120/36634760951/36634784662 and Crucible 36634755245/36634762110/36634781551. Existing current tests and gates exercise repaired behavior. Updated remaining vulnerable js-yaml 5.3.0 to 5.4.2; production dependency audit now reports zero vulnerabilities. Full machine-readable evidence is preserved as Nexus-release-audit-evidence.json. Required final-commit checks must finish successfully before approval is requested. Historical failures retain their original results.

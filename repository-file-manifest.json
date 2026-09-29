@@ -959,8 +959,8 @@
     {
       "path": ".github/workflows/commit-self-repair.yml",
       "type": ".yml",
-      "size": 3017,
-      "sha256": "74071f549c6d96ec45b7db5f2cd6484362ed47bdd4b9dbfbe4b2fe1bada0209b"
+      "size": 3199,
+      "sha256": "fbd6404e72e5902282f6cea908b2d5c410d1e1112d39eae68f1161b5d4ffabc8"
     },
     {
       "path": ".github/workflows/promote-development-to-main.yml",
@@ -971,8 +971,8 @@
     {
       "path": ".github/workflows/release-audit.yml",
       "type": ".yml",
-      "size": 2339,
-      "sha256": "46d389a5361c84bf1e4d46439f9244bd3a8cff2250912ddf0e069320098d6489"
+      "size": 2352,
+      "sha256": "41b38d4def79ae5cb7aa72c0b20df5223ca0e90cb5829931b20e8b97955d9e54"
     },
     {
       "path": ".github/workflows/release.yml",
@@ -1025,8 +1025,8 @@
     {
       "path": "AI-HANDOFF.json",
       "type": ".json",
-      "size": 5642,
-      "sha256": "23374dd4b463f367fb81c8cae2a3f075782bffeed4af3a269a79485c6160272a"
+      "size": 7314,
+      "sha256": "f86dcd4bd8532871305f0701fdcd9a1aff0cea852baea0763cc3cce3da137d0c"
     },
     {
       "path": "CLAUDE.md",
@@ -1043,8 +1043,8 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 4500,
-      "sha256": "125d56bb6898c2dc12dd8184bb740f238f24dd22d7ecba0878a1d4fab86522c6"
+      "size": 6057,
+      "sha256": "7b5a98b451572b679fd5a405b648ecab16126524bc3c7fb4716ba65fad9a41a1"
     },
     {
       "path": "FIREBASE_SETUP.md",
@@ -1704,13 +1704,13 @@
       "path": "package-lock.json",
       "type": ".json",
       "size": 158463,
-      "sha256": "30a7bbc696030f0f03ce4d2089784e718a7963d9ddfe699cc76983963f7ea309"
+      "sha256": "5b6245fc16648ee0cbc41a9d738da3153e46f55484c0462b23e2550d55c1fa57"
     },
     {
       "path": "package.json",
       "type": ".json",
       "size": 5758,
-      "sha256": "0b33f2b0cefcc2cd08f9d4adfef866f7c4d4fd89d24d87a466d41e499d57c1b4"
+      "sha256": "ab5f6957f9b00778be96e150c196be040967d457b6b34665d5454a33c61edc06"
     },
     {
       "path": "pipelineEngine.js",
