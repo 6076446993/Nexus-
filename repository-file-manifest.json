@@ -1025,8 +1025,8 @@
     {
       "path": "AI-HANDOFF.json",
       "type": ".json",
-      "size": 4601,
-      "sha256": "ca2ebee1bf26cc8d947a8817fcc35038c6caff70dabf9bd7cce1f6fc683a6ce6"
+      "size": 5191,
+      "sha256": "42314a6e78b253ab1cfd3826e6473745e4f01d392e0718758ea3630aa950d45f"
     },
     {
       "path": "CLAUDE.md",
@@ -1043,8 +1043,8 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 3206,
-      "sha256": "cdba5edb76d55b3858223d723c8555bd053b93ab9edfc4d1fda707b0e5a866fe"
+      "size": 3523,
+      "sha256": "d31bcd2cdfa34ed826cb9d5abd4e255d4afe8079ff7d190041a6963584c0fbce"
     },
     {
       "path": "FIREBASE_SETUP.md",
@@ -1517,8 +1517,8 @@
     {
       "path": "governingDocuments/native/Nexus Authority Matrix.md",
       "type": ".md",
-      "size": 1249,
-      "sha256": "6827f2f29077f43946add870ff82e16316adf590b714d599bd0686b66828cd68"
+      "size": 1250,
+      "sha256": "1fd4237226285aaa14af40bbb11967f3cf734c6b21c005a3b2ad2af6369646e1"
     },
     {
       "path": "governingDocuments/native/Nexus Coding Architecture — Development Plan",
@@ -1529,14 +1529,14 @@
     {
       "path": "governingDocuments/native/Nexus Contract Categories.md",
       "type": ".md",
-      "size": 920,
-      "sha256": "13637d462bc16d058221b84e6e2ce0525029f8cce2994972e6c10d5f4e82cf5d"
+      "size": 921,
+      "sha256": "23692e51adc862dad62804377fc88d478df77963a468d468fb1091784d7eaf5c"
     },
     {
       "path": "governingDocuments/native/Nexus Learning Lifecycle.md",
       "type": ".md",
-      "size": 680,
-      "sha256": "053ab3b5af205429958e6bedf480a30c78f8a2f254a1f82cdd956e9f6d9f5982"
+      "size": 681,
+      "sha256": "39810bb11b33fe3da4cb3eda127ba555e9a292ba0c8482d8c20c3239554594b5"
     },
     {
       "path": "governingDocuments/native/Nexus Repository Responsibilities.md",
