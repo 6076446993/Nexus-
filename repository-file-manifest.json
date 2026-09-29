@@ -947,8 +947,8 @@
     {
       "path": ".github/workflows/branch-integrity.yml",
       "type": ".yml",
-      "size": 1586,
-      "sha256": "7c7a502d8c47f794d9c1b3a60eb409f81179188e7ad3413a17247de7a85dbca6"
+      "size": 1644,
+      "sha256": "bb2175a1977bd2d78b164105cadc28ad251bfcafa49f073d91baf1f1eeb68db3"
     },
     {
       "path": ".github/workflows/commit-self-repair-apply.yml",
