@@ -17,7 +17,7 @@ test('main promotion requires the exact successful cross-platform development ch
   assert.match(workflow, /node scripts\/promoteTestedDevelopment\.js/);
   const crucibleWorkflow = read('.github/workflows/the-crucible.yml');
   assert.match(crucibleWorkflow, /^name: The Crucible/);
-  assert.match(crucibleWorkflow, /jonathanblunt1214-lgtm\/The-Crucible\/\.github\/workflows\/the-crucible\.yml@/);
+  assert.match(crucibleWorkflow, /6076446993\/The-Crucible\/\.github\/workflows\/the-crucible\.yml@/);
   assert.match(promotion, /execFileSync\(process\.execPath, \['scripts\/releaseStressGate\.js'\]/);
   assert.match(promotion, /currentDevelopment !== developmentSha/);
   assert.match(promotion, /developmentSha}:refs\/heads\/main/);
