@@ -58,3 +58,7 @@ binding rules are in `AGENTS.md`.
   agent-communication timestamp policy, per the repository owner's request.
 
 - **2026-09-29** — Codex repaired missing final newlines in Nexus Authority Matrix, Nexus Contract Categories, and Nexus Learning Lifecycle. Document text and authority boundaries remain intact. Current main run 36620737015 identified exactly these three pre-check actions; development CI verification is pending.
+
+## Repair verification — 2026-09-29T20:44:46.705369Z
+
+Codex verified hosted Crucible run 36626731433 succeeded on Development-branch commit 29d5ca3. The existing automatic repair restored the missing selfRepairCommit.js and regenerated the inventory after the governance newline changes. Local inventory verification covers all 276 files. This checkpoint triggers a fresh full release audit; the older e9dfcba audit failed on the stale inventory and is not evidence against the repaired tip. Production main remains unpromoted through the protected path.

@@ -1025,8 +1025,8 @@
     {
       "path": "AI-HANDOFF.json",
       "type": ".json",
-      "size": 5191,
-      "sha256": "42314a6e78b253ab1cfd3826e6473745e4f01d392e0718758ea3630aa950d45f"
+      "size": 5421,
+      "sha256": "cf8fe33ed9f872bb6d3173fb17508b5e14f2a3da132e6672bd9efbc498553af7"
     },
     {
       "path": "CLAUDE.md",
@@ -1043,8 +1043,8 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 3523,
-      "sha256": "d31bcd2cdfa34ed826cb9d5abd4e255d4afe8079ff7d190041a6963584c0fbce"
+      "size": 4081,
+      "sha256": "249737c333cf8a64b89880954249bebc84c54550f8d4363cb6a5c16cf7ed7c3e"
     },
     {
       "path": "FIREBASE_SETUP.md",
