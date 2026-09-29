@@ -109,16 +109,21 @@ These records govern or document current operational controls and agent handoff 
 
 # Repository Participation
 
-The Nexus architecture currently coordinates:
+The Nexus architecture is hosted under the GitHub organization `6076446993` and currently coordinates:
 
+- Nexus-
 - NVIDIA-NIM-CONSOLE
 - AI-collaboration-
 - The-Crucible
 - Learning-Worker
+- Crucible-Learning-State
 - Crucible-Vetted-Learning-State
 - Vetting-and-Governance-oversite.
+- Nexus-Public-CI
 
-Nexus itself is the architecture and integration-governance repository.
+`Smoker-Hours-Tracker` is explicitly outside the Nexus architecture and remains a separate Smoke Stack project.
+
+Nexus- itself is the architecture and integration-governance repository.
 
 ---
 
@@ -140,6 +145,10 @@ Evidence is not proof.
 
 Extraction is not knowledge.
 
+### Crucible-Learning-State
+
+Durable encrypted learning state is not verified knowledge.
+
 ### Crucible-Vetted-Learning-State
 
 Custody is not authority.
@@ -147,6 +156,10 @@ Custody is not authority.
 ### Vetting-and-Governance-oversite.
 
 Approval is not scientific proof.
+
+### Nexus-Public-CI
+
+Public execution evidence is not authority over the private repository it verifies.
 
 ---
 
