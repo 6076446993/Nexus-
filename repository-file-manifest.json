@@ -1007,8 +1007,8 @@
     {
       "path": ".thecrucible.json",
       "type": ".json",
-      "size": 5436,
-      "sha256": "28fea6da42430d7d05411e5f165d35d17e8ee9aaa9de3f6d3ba2042aa2e9955d"
+      "size": 5424,
+      "sha256": "49590dd48e9563a8e41121f230f4269c0b039d7689a0da1dd04b143dfb63b2c2"
     },
     {
       "path": "AGENTS.md",
@@ -1781,8 +1781,8 @@
     {
       "path": "plugins/the-crucible/index.js",
       "type": ".js",
-      "size": 45872,
-      "sha256": "c989e881703edcafaa6f3a19d1ceb228d2478d2a67f5590ed8727bee1d55ca7c"
+      "size": 45860,
+      "sha256": "9fdd5b3575bf97ae1b162f9894cec11b9dc3ecd3388ed70c08d3e7cc5ed40bc1"
     },
     {
       "path": "plugins/the-crucible/nexus.plugin.json",
@@ -2141,8 +2141,8 @@
     {
       "path": "test/branchPromotionProtocol.test.js",
       "type": ".js",
-      "size": 3624,
-      "sha256": "f536d5c8a154358fb44ed9daddea32e6ef5043b0e765e36b475f662dce6f5638"
+      "size": 3612,
+      "sha256": "820117b40652d87d348d161bc29cf4c7944d3e655aa3c25fdf36061af9c823de"
     },
     {
       "path": "test/branchSyncWorkflow.test.js",
