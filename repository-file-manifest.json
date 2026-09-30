@@ -995,8 +995,8 @@
     {
       "path": ".github/workflows/the-crucible.yml",
       "type": ".yml",
-      "size": 6321,
-      "sha256": "ab4347270a0b0b651de428b5462f30da0ad95c88573a52b21de745d8962c43b6"
+      "size": 6284,
+      "sha256": "31a749c8b51c9da718ec5a4e05649ceb86dfe6462296f027207fbd61cc1db113"
     },
     {
       "path": ".gitignore",
@@ -1925,8 +1925,8 @@
     {
       "path": "scripts/githubModelsRepairAgent.js",
       "type": ".js",
-      "size": 8601,
-      "sha256": "bdfaa0a5590c2982f392b281ba6004b01dcff10a161231f6a48db5e9f6d8dd48"
+      "size": 8600,
+      "sha256": "932aab67e8bfc116f241f9c6ee39b73e93b0e1d11e3dc9878f03fd440f9c0317"
     },
     {
       "path": "scripts/heavyWorkloadWorker.js",
