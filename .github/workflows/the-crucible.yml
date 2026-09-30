@@ -36,14 +36,14 @@ jobs:
           test "${{ needs.crucible.result }}" = "success"
 
   autonomous-repair:
-    name: Autonomous Development repair
+    name: Manual Development repair
     needs: crucible
     if: >-
       ${{ always() && needs.crucible.result == 'failure' &&
           github.ref == 'refs/heads/Development-branch' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
+          github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 15
     permissions:
       contents: write
       actions: write
