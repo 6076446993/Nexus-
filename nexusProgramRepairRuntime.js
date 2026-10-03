@@ -11,7 +11,7 @@ function gitCommit(folder) {
   return execFileSync('git', ['rev-parse', 'HEAD'], { cwd: folder, encoding: 'utf8', windowsHide: true }).trim();
 }
 
-function projectSnapshot(folder, repository, files) {
+function projectSnapshot(folder, repository, files, { scope = 'nexus-managed-project', projectId = null, observations = [] } = {}) {
   const root = fs.realpathSync(folder);
   const selected = {};
   for (const relative of [...new Set(files || [])].sort()) {
@@ -21,7 +21,7 @@ function projectSnapshot(folder, repository, files) {
     if (!fs.existsSync(full) || !fs.statSync(full).isFile()) continue;
     selected[rel.replace(/\\/g, '/')] = fs.readFileSync(full, 'utf8');
   }
-  return { repository, commit: gitCommit(root), files: selected };
+  return { repository, commit: gitCommit(root), scope, projectId, observations, files: selected };
 }
 
 function fileSha(value) {
@@ -32,6 +32,10 @@ function createNexusProgramRepairRuntime({
   repository,
   folder,
   snapshotFiles,
+  scope = 'nexus-managed-project',
+  projectId = null,
+  repositoryCoordinates = null,
+  collectObservations = async () => [],
   crucibleClassify,
   crucibleBridge = null,
   planRepair,
@@ -42,8 +46,19 @@ function createNexusProgramRepairRuntime({
   loadRegressionMemory,
 }) {
   if (!repository || !folder) throw new Error('repository and folder are required.');
-  const classifier = crucibleClassify || crucibleBridge?.classifyNexusDiagnosis;
-  const verifier = crucibleVerify || crucibleBridge?.verifyNexusRepair;
+  const classifier = crucibleClassify || (crucibleBridge ? ((ctx) => crucibleBridge.classifyDiagnosis(ctx)) : null);
+  const verifier = crucibleVerify || (crucibleBridge ? (async (ctx) => {
+    if (!repositoryCoordinates?.owner || !repositoryCoordinates?.repo) throw new Error('Live Crucible verification requires GitHub repository coordinates.');
+    return crucibleBridge.verifyRepair({
+      owner: repositoryCoordinates.owner,
+      repo: repositoryCoordinates.repo,
+      repairCommit: ctx.repair?.commit,
+      beforeDiagnosis: ctx.beforeDiagnosis,
+      afterDiagnosis: ctx.afterDiagnosis,
+      classification: ctx.classification,
+      test: ctx.test,
+    });
+  }) : null);
   if (typeof classifier !== 'function' || typeof verifier !== 'function') throw new Error('Crucible classification and verification adapters are required.');
   let firstDiagnosis = null;
   const controller = new NexusRepairController({
@@ -54,7 +69,8 @@ function createNexusProgramRepairRuntime({
     repair: async (ctx) => {
       const result = await applyBoundedRepair(ctx);
       if (!result?.ok) return result || {};
-      const after = projectSnapshot(folder, repository, snapshotFiles);
+      const observations = await collectObservations({ phase:'after-repair', task:ctx.task, repair:result });
+      const after = projectSnapshot(folder, repository, snapshotFiles, { scope, projectId, observations });
       return { ...result, commit: after.commit, snapshot: after };
     },
     retest: async (ctx) => {
@@ -67,7 +83,8 @@ function createNexusProgramRepairRuntime({
 
   return {
     async run(task) {
-      const before = projectSnapshot(folder, repository, snapshotFiles);
+      const observations = await collectObservations({ phase:'before-repair', task });
+      const before = projectSnapshot(folder, repository, snapshotFiles, { scope, projectId, observations });
       return controller.run({ snapshot: before, task });
     },
   };
