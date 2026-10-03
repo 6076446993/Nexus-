@@ -26,6 +26,7 @@ class CrucibleDiagnosticBridge {
   constructor({ token, githubClient, diagnostics, pinFile = path.join(__dirname, 'governingDocuments', 'native', 'CRUCIBLE-DIAGNOSTIC-BRIDGE.json') }) {
     if (!githubClient?.getFileContent || !githubClient?.getCommitCheckRuns) throw new Error('GitHub read/check client is required.');
     if (!diagnostics?.installCruCatalog || !diagnostics?.explainCruCode) throw new Error('Nexus diagnostics with CRU memory are required.');
+    this.requiresRepositoryCoordinates = true;
     this.token = token || null;
     this.githubClient = githubClient;
     this.diagnostics = diagnostics;
