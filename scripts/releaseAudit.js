@@ -45,6 +45,8 @@ for (const api of ['pluginsScan', 'pluginsImport', 'pluginsList', 'pluginsEnable
 if (exists('package-lock.json')) {
   try {
     const lock = JSON.parse(read('package-lock.json'));
+    const { dependencySecurityFindings } = require('./dependencySecurityPolicy');
+    for (const finding of dependencySecurityFindings(lock)) fail(finding);
     const rootPkg = lock.packages?.[''] || {};
     if (rootPkg.version !== pkg.version) fail(`package-lock root version ${rootPkg.version || '(missing)'} does not match package.json ${pkg.version}.`);
     for (const group of ['dependencies', 'devDependencies']) {

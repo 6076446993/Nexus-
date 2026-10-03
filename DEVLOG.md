@@ -74,3 +74,11 @@ Inspected failed runs 36626647598, 36452779119, 36452770832, and 36451081117: in
 ## Complete release audit failure review — 2026-09-29
 
 Inspected all 416 historical failed runs and 941 representative failed-job logs (one per failed step per run, with separate OS samples for tests; no unavailable logs). Failure families include inventory drift, mismatched lockfiles, tree-sitter WASM resolution, TypeScript service imports, packaging paths, architecture/release guardrails, outdated assertions, network failures and vulnerable dependencies. Current commit a27753a passed full audits 36634754120/36634760951/36634784662 and Crucible 36634755245/36634762110/36634781551. Existing current tests and gates exercise repaired behavior. Updated remaining vulnerable js-yaml 5.3.0 to 5.4.2; production dependency audit now reports zero vulnerabilities. Full machine-readable evidence is preserved as Nexus-release-audit-evidence.json. Required final-commit checks must finish successfully before approval is requested. Historical failures retain their original results.
+
+## Dependabot repair and prevention — 2026-10-03
+
+Repaired the seven supplied Nexus alerts (#7, #10–13, #18–19): Electron 43.4.1 -> 43.7.7, Undici 7.29.0 -> 7.30.0 and nested Undici 6.28.0 -> 6.29.0. Added a release-gate policy with five regression/rollback controls for the known advisory patch floors. Evidence and source digests are in Nexus-dependency-repair-evidence.json.
+
+Verified: npm test 358 passed, zero failures/skips; release audit, architecture and 189-file syntax audit passed. Full release:crucible passed 32 cycles across 20,000 files, 8,000 atomic saves, 12,000 checker calls and 64 verified builds. Baseline/repaired npm audit comparison confirms all seven supplied advisories removed; production audit has zero vulnerabilities. Ten unrelated development-tool findings remain. Electron binary launch and Windows packaging were not tested.
+
+Hosted checks, protected main promotion, Dependabot rescan/closure and production learning-store ingestion remain pending. No alert dismissed, no learning activation claimed. Email-router Dependabot handling is being added to the existing automation; live alert access is blocked by failed authentication and owner requested retry later. Original credential and canonical Crucible engine blockers remain pending; do not bypass gates.

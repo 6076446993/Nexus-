@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 276,
+  "fileCount": 279,
   "types": {
-    ".json": 12,
+    ".json": 13,
     ".md": 46,
     ".cjs": 1,
     "[no extension]": 5,
     ".yml": 11,
     ".bat": 2,
-    ".js": 186,
+    ".js": 188,
     ".html": 2,
     ".rules": 2,
     ".txt": 5,
@@ -515,6 +515,11 @@
       "resolved": "scripts/scrubRepositoryPrivacy.js"
     },
     {
+      "source": "scripts/releaseAudit.js",
+      "reference": "./dependencySecurityPolicy",
+      "resolved": "scripts/dependencySecurityPolicy.js"
+    },
+    {
       "source": "scripts/remediateDevelopmentForPromotion.js",
       "reference": "../codeChecker",
       "resolved": "codeChecker.js"
@@ -633,6 +638,16 @@
       "source": "test/debugAdapter.test.js",
       "reference": "../debugAdapter",
       "resolved": "debugAdapter.js"
+    },
+    {
+      "source": "test/dependencySecurityPolicy.test.js",
+      "reference": "../scripts/dependencySecurityPolicy",
+      "resolved": "scripts/dependencySecurityPolicy.js"
+    },
+    {
+      "source": "test/dependencySecurityPolicy.test.js",
+      "reference": "../package-lock.json",
+      "resolved": "package-lock.json"
     },
     {
       "source": "test/evalsEngine.test.js",
@@ -1025,8 +1040,8 @@
     {
       "path": "AI-HANDOFF.json",
       "type": ".json",
-      "size": 7314,
-      "sha256": "f86dcd4bd8532871305f0701fdcd9a1aff0cea852baea0763cc3cce3da137d0c"
+      "size": 8225,
+      "sha256": "bf353cdf1fe2fe8f4994e4e45883a876bc9252573c80357e24d1942f00afd121"
     },
     {
       "path": "CLAUDE.md",
@@ -1043,14 +1058,20 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 6057,
-      "sha256": "7b5a98b451572b679fd5a405b648ecab16126524bc3c7fb4716ba65fad9a41a1"
+      "size": 7357,
+      "sha256": "272dcfd37a2ed428e20a0a36478c75c8ff62ae2c7457fba51000f1e04554f3cd"
     },
     {
       "path": "FIREBASE_SETUP.md",
       "type": ".md",
       "size": 4346,
       "sha256": "39b2bc3ff0dfc9886fb4d333fb65eb6e6e2c79fad7f9cacf41c5332c77eb5068"
+    },
+    {
+      "path": "Nexus-dependency-repair-evidence.json",
+      "type": ".json",
+      "size": 12231,
+      "sha256": "ddb26a09df365703e1ecc14816e8900db4e98b1540980016261d48cc3e5fc8bb"
     },
     {
       "path": "README.md",
@@ -1704,13 +1725,13 @@
       "path": "package-lock.json",
       "type": ".json",
       "size": 158463,
-      "sha256": "67212fdcc349e2ca02791821077c1d08f17b9f491b815a4758016e79c8f0d185"
+      "sha256": "5b667abaf73e11c16bfc8f09c4031eb910a0bfb746e97f56b6c0b72d88cf77a1"
     },
     {
       "path": "package.json",
       "type": ".json",
       "size": 5746,
-      "sha256": "9abea1aa8d3ac6578fe62e5854a98705a1059361be1ad691bf40151ce8ebbd98"
+      "sha256": "f65b0b3d541906b0b35e817116130eb7df56e4c9c9987112e071121d43a7d27b"
     },
     {
       "path": "pipelineEngine.js",
@@ -1923,6 +1944,12 @@
       "sha256": "cc2587f7f05f4036becfd68fcb676be19a9a4385588edf0d402e4f54885c7394"
     },
     {
+      "path": "scripts/dependencySecurityPolicy.js",
+      "type": ".js",
+      "size": 1951,
+      "sha256": "58d46183c818de32f2102519d0f9213d574bc85a5d9babe555814d82edf9fb22"
+    },
+    {
       "path": "scripts/githubModelsRepairAgent.js",
       "type": ".js",
       "size": 8600,
@@ -1961,8 +1988,8 @@
     {
       "path": "scripts/releaseAudit.js",
       "type": ".js",
-      "size": 5514,
-      "sha256": "0616a34e392ddd521ad60334021a2464268d79ac8f5b3c96328bae79842b0480"
+      "size": 5671,
+      "sha256": "47a14a352d5e98ddbd64a65c77dae865968788e557592aedf1de51bd89923c73"
     },
     {
       "path": "scripts/releaseStressGate.js",
@@ -2191,6 +2218,12 @@
       "type": ".js",
       "size": 1347,
       "sha256": "1e45b46510d3db745f4a940277c8c08fc57a73863283f2a97258235a39ef1895"
+    },
+    {
+      "path": "test/dependencySecurityPolicy.test.js",
+      "type": ".js",
+      "size": 1688,
+      "sha256": "a321a7bb1798b1aba348c18e0f1f808e726c538777f5b2b9e04a7c879e606117"
     },
     {
       "path": "test/evalsEngine.test.js",

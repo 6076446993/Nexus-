@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "kind": "dependency-repair-evidence",
+  "repository": "6076446993/Nexus-",
+  "repositoryId": 1337803906,
+  "branch": "Development-branch",
+  "baselineCommit": "756140948f83743fc00cd948ab538f5ea1a7df8b",
+  "observedAt": "2026-10-03T10:52:47.480583+00:00",
+  "alerts": [
+    {
+      "alertNumber": 7,
+      "package": "electron",
+      "ghsaId": "GHSA-qmv3-fv6v-rmhq",
+      "capturedState": "open",
+      "sourceSha256": "15a6bda0c484f477b7ff47a23ce8930aaedf41a390dfd375186aa14b975474d8",
+      "affectedRange": ">= 43.0.0-beta.1, < 43.5.0",
+      "patchedVersion": "43.5.0",
+      "impact": "The cache Electron keeps for sandboxed preload scripts did not verify that a cached entry matched the preload it was served for. A compromised renderer could use this to run its own code in the preload context on a later load. Apps are only affected if they load untrusted content. Apps that do not load untrusted content are not affected.",
+      "sourceLibraryFile": "original user-supplied MHTML retained separately"
+    },
+    {
+      "alertNumber": 10,
+      "package": "undici",
+      "ghsaId": "GHSA-8436-99hf-9mmv",
+      "capturedState": "open",
+      "sourceSha256": "ae6d69af408a1fa4124400ee27cab9b6e55c908a17a3719a80eae7f8a7ee0762",
+      "affectedRange": ">= 7.0.0, < 7.29.1",
+      "patchedVersion": "7.29.1",
+      "impact": "undici's interceptors.cache() documents that it caches only safe HTTP methods. However, its internal skip-list is built by subtracting the configured methods from the safe-methods set, so an unsafe method ( POST , PUT , PATCH , DELETE ) never lands in the skip-list and is looked up against the cache store. Combined with the storage gate ( canCacheResponse ) having no method check, a heuristically-cacheable response (for example a 404 ) with an explicit Cache-Control: max-age=... to an unsafe method is stored and replayed on a subsequent identical request. The application's state-changing request never reaches the origin, and undici serves a fabricated response from the cache instead. This occurs with the default configuration ( methods: ['GET'] ), which the public API does not allow widening to unsafe methods, so no application misuse is required; an untrusted origin can trigger it purely through its own response headers.",
+      "sourceLibraryFile": "original user-supplied MHTML retained separately"
+    },
+    {
+      "alertNumber": 11,
+      "package": "undici",
+      "ghsaId": "GHSA-w293-vg96-wgc3",
+      "capturedState": "open",
+      "sourceSha256": "1503ed0b5e53dfbce2e6f888696214a83e118ab08c0b1eecd721a5c4b8c5aae1",
+      "affectedRange": ">= 7.24.1, < 7.29.1",
+      "patchedVersion": "7.29.1",
+      "impact": "undici's BalancedPool passes its constructor options through a JSON-based deep clone ( JSON.parse(JSON.stringify(...)) ) before forwarding them to each per-upstream Pool . JSON cannot represent functions, so a caller-supplied connect or tls option containing a checkServerIdentity callback (or a custom connector function) is silently dropped before it reaches the TLS layer. As a result, a TLS peer whose certificate a custom checkServerIdentity was written to reject, but which passes Node's default hostname and chain checks, is silently accepted when the request is made through BalancedPool . Client , Pool , Agent , and RoundRobinPool destructure connect / tls before the clone and are not affected. Only applications that use BalancedPool with a function-valued connect / tls option (such as a custom checkServerIdentity or connector) are affected.",
+      "sourceLibraryFile": "original user-supplied MHTML retained separately"
+    },
+    {
+      "alertNumber": 12,
+      "package": "undici",
+      "ghsaId": "GHSA-2gqq-gqf2-x968",
+      "capturedState": "open",
+      "sourceSha256": "4a218adf1e30ca8610f47922dfc14f6896db8399661103e1c200efc9011a1e84",
+      "affectedRange": ">= 7.1.0, < 7.29.1",
+      "patchedVersion": "7.29.1",
+      "impact": "undici's interceptors.dump() reads and discards response bodies up to a configurable maxSize . When a response declares a Content-Length that exceeds maxSize , the request is aborted cleanly. When a response is sent chunked (no Content-Length ) and its body exceeds maxSize , it is not aborted: the interceptor ends the response early once the accumulated size reaches maxSize , and continued delivery from the parser triggers an internal assertion that is caught and turned into a request abort and connection tear-down. The application observes a misleading 200 with an empty or truncated body while the connection is disconnected. Any application using the dump interceptor against untrusted or misbehaving upstreams is affected.",
+      "sourceLibraryFile": "original user-supplied MHTML retained separately"
+    },
+    {
+      "alertNumber": 13,
+      "package": "undici",
+      "ghsaId": "GHSA-2jfj-6hjv-fm6j",
+      "capturedState": "open",
+      "sourceSha256": "ceec96b05d9f1846739deb64b34c2601a25f6b9cc453566952c078aff5d5e5e2",
+      "affectedRange": ">= 7.0.0, < 7.29.1",
+      "patchedVersion": "7.29.1",
+      "impact": "undici's interceptors.cache() does not handle Set-Cookie in the cache path. In shared-cache mode ( type: 'shared' , the default), a cacheable response (for example Cache-Control: public, max-age=... ) carrying a Set-Cookie header is stored, and the stored Set-Cookie is re-served to a later caller that hits the same cache key. This exposes one user's cookie to another caller and lets an untrusted upstream inject cookies into cached responses served to all subsequent callers, violating RFC 6265 section 7.2 (a shared cache must not store cookies). Applications using the shared cache interceptor against untrusted or multi-user upstreams are affected. Private caches ( type: 'private' ) are not affected.",
+      "sourceLibraryFile": "original user-supplied MHTML retained separately"
+    },
+    {
+      "alertNumber": 18,
+      "package": "undici",
+      "ghsaId": "GHSA-r53p-7pc4-xj5r",
+      "capturedState": "open",
+      "sourceSha256": "cd634d3c38dc26bf8d02263f60ad41843f56d0bd63df589bb7aef992918f52fd",
+      "affectedRange": ">= 7.0.0, < 7.29.1",
+      "patchedVersion": "7.29.1",
+      "impact": "Undici's interceptors.retry() can resume a request after a partial response and append the resumed bytes to an already partially delivered body, while the application still receives the original response's status and headers. When that response carried a Content-Length , the application can receive a longer body. Applications that forward Undici's status, headers, and body downstream without recalculating framing, for example proxy or gateway applications, may emit a response whose body exceeds the forwarded Content-Length , and the excess bytes can be read as the start of a subsequent HTTP response (downstream response splitting or desynchronization). For example, a 404 Not Found with Content-Length: 2 that sends one byte then closes can be resumed with an open-ended Range request, and the resumed 206 Partial Content bytes are appended, so the application receives more than two body bytes while still seeing Content-Length: 2 . The bug requires interceptors.retry() enabled, an attacker-controlled or faulty upstream, and a downstream forwarder that does not recalculate Content-Length .",
+      "sourceLibraryFile": "original user-supplied MHTML retained separately"
+    },
+    {
+      "alertNumber": 19,
+      "package": "undici",
+      "ghsaId": "GHSA-pmjh-fq2x-6v4x",
+      "capturedState": "open",
+      "sourceSha256": "03c3bbaa7e1b2b8251229c2d2b599cebc30761f952459c7bf6bef811e21e8bde",
+      "affectedRange": ">= 7.11.0, < 7.29.1",
+      "patchedVersion": "7.29.1",
+      "impact": "undici's RetryHandler can leave a response body pending indefinitely. When a retried request receives a non-retryable response after a truncated one, the original response.body held by the application is never settled, so reads such as response.body.text() hang and bodyTimeout does not fire. A malicious server can repeat this to accumulate pending promises and streams, leading to denial of service.",
+      "sourceLibraryFile": "original user-supplied MHTML retained separately"
+    }
+  ],
+  "dependencyChanges": [
+    {
+      "path": "node_modules/electron",
+      "before": "43.4.1",
+      "after": "43.7.7",
+      "beforeIntegrity": "sha512-5b+EuiwkgG5iRcsEL34rimgRpkYp15SsfZOa0pC5kXs0Tb82TH4n95rpQzTZa7yRCbA7tm0WoEbuBL6NaAhAcA==",
+      "afterIntegrity": "sha512-y0pg+KhWLAkW2Ts2njkFFNFl3KtB1FmbUp9Te9i+R2Og2v1fcI/I6MADJ7jvnzB5UKdt+U+0EUoCnVL79xMPMA=="
+    },
+    {
+      "path": "node_modules/node-gyp/node_modules/undici",
+      "before": "6.28.0",
+      "after": "6.29.0",
+      "beforeIntegrity": "sha512-LIY910g9TI13YS95lrMFrs8Rm/u/irgHeTWoKCoteeJ04CUJ92eEfj0rVn+7VKMPBpUPiUoBKfhNyLI23EE/KA==",
+      "afterIntegrity": "sha512-R+RODBqp6i2pPflGdq+xIOUkl+RNfGgHwoinecKu/JCuf2uO06cOKoDbI2P7Dn6KcswdKwrczbU6IYJ6K8X+wg=="
+    },
+    {
+      "path": "node_modules/undici",
+      "before": "7.29.0",
+      "after": "7.30.0",
+      "beforeIntegrity": "sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw==",
+      "afterIntegrity": "sha512-dkrQXeHSaoamnItlYbmzG0wFYrM0ZwDxCIg0A7aKjTyyhh9svRzCNFEzV+Vm05/yehjCzjDZ31KXfGEjYSztDQ=="
+    }
+  ],
+  "repairHashes": [
+    {
+      "path": "package.json",
+      "beforeSha256": "9abea1aa8d3ac6578fe62e5854a98705a1059361be1ad691bf40151ce8ebbd98",
+      "afterSha256": "f65b0b3d541906b0b35e817116130eb7df56e4c9c9987112e071121d43a7d27b"
+    },
+    {
+      "path": "package-lock.json",
+      "beforeSha256": "67212fdcc349e2ca02791821077c1d08f17b9f491b815a4758016e79c8f0d185",
+      "afterSha256": "5b667abaf73e11c16bfc8f09c4031eb910a0bfb746e97f56b6c0b72d88cf77a1"
+    },
+    {
+      "path": "scripts/releaseAudit.js",
+      "beforeSha256": "0616a34e392ddd521ad60334021a2464268d79ac8f5b3c96328bae79842b0480",
+      "afterSha256": "47a14a352d5e98ddbd64a65c77dae865968788e557592aedf1de51bd89923c73"
+    }
+  ],
+  "prevention": {
+    "status": "local-regression-verified; hosted-independent-verification-pending",
+    "check": "node scripts/dependencySecurityPolicy.js",
+    "releaseGate": "scripts/releaseAudit.js invokes the dependency-security policy; node --test automatically includes its regressions",
+    "scope": [
+      "package.json",
+      "package-lock.json",
+      "scripts/releaseAudit.js"
+    ],
+    "controls": [
+      "Original three-version lockfile is rejected",
+      "Each individual vulnerable rollback is rejected",
+      "Exact patch boundaries are accepted",
+      "Prereleases at stable patch boundaries are rejected",
+      "Nested transitive dependencies are scanned",
+      "Missing lock metadata and Electron fail closed"
+    ],
+    "regressionResult": "5 passed; 0 failed; 0 skipped"
+  },
+  "verification": {
+    "fullLocalTests": {
+      "passed": 358,
+      "failed": 0,
+      "skipped": 0
+    },
+    "releaseAudit": "passed",
+    "syntax": "passed; 189 files",
+    "architecture": "passed",
+    "npmAudit": "seven supplied advisories absent; 10 unrelated dependency findings remain (9 high, 1 moderate)",
+    "hosted": "pending",
+    "main": "still contains original vulnerable versions",
+    "releaseCrucible": {
+      "passed": true,
+      "workloadCycles": 32,
+      "files": 20000,
+      "atomicSaves": 8000,
+      "checkerCalls": 12000,
+      "verifiedBuilds": 64
+    },
+    "baselineAuditComparison": "All seven supplied GHSA advisories present in baseline audit and absent from repaired audit.",
+    "productionDependencyAudit": "zero vulnerabilities"
+  },
+  "closure": {
+    "status": "pending protected promotion and authenticated GitHub rescan",
+    "dismissed": false
+  },
+  "learningSubmission": {
+    "status": "evidence prepared for existing repair queue; production ingestion not acknowledged",
+    "promotionAuthorized": false,
+    "registeredFailureCode": null,
+    "nextStep": "Resolve canonical Nexus learning identity and use existing repairLearningGateway/repairLearning import with the real hashes; queue prevention only with a valid registered defect classification, independent verification and governance. Do not fabricate a code or claim an isolated local store is production custody."
+  }
+}
