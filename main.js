@@ -73,8 +73,10 @@ const { createExportPreflight, exportVerifiedProject } = require('./projectExpor
 const officialLanguageServers = require('./officialLanguageServers');
 const gitWorkflow = require('./gitWorkflow');
 const portableProjectConfig = require('./portableProjectConfig');
+const { CrucibleDiagnosticBridge } = require('./crucibleDiagnosticBridge');
 
 let mainWindow;
+let crucibleDiagnosticBridge = null;
 let projectsForExitSync = [];
 let exitSyncInProgress = false;
 let exitSyncComplete = false;
@@ -352,6 +354,7 @@ app.whenReady().then(async () => {
   diagnostics.record('info', 'app', 'ready', { startupMs: Math.round(performance.now() - startupStartedAt), crashDumps: app.getPath('crashDumps') });
   setupPreviewSession();
   setupPopupAllowlist();
+  refreshCrucibleDiagnosticAuthority().catch((error) => diagnostics.record('warning', 'crucible-diagnostics', 'authority-refresh-failed', { message:error.message }));
   const buildInfo = await computeBuildInfo();
   if (mainWindow && !mainWindow.isDestroyed()) {
     if (buildInfo.ok) {
@@ -1019,13 +1022,15 @@ ipcMain.handle('language-services:clear', async (_event, { provider }) => {
 
 async function checkerPromptContext(folder, filePath, content) {
   const result = await runIntegratedCodeCheck(folder, filePath, content);
-  const diagnostics = result.diagnostics || [];
+  const checkerDiagnostics = result.diagnostics || [];
+  const cruContext = diagnostics.enrichCru(checkerDiagnostics).filter((item) => item.explanation);
   return [
     'NEXUS CODE CHECKER RESULT:',
     `Language: ${result.language}; checker: ${result.checker || 'unregistered'}; full checker available: ${result.available}.`,
     result.restricted ? 'External compiler or linter checks are restricted until Workspace Trust permits checker access.' : '',
     result.install && !result.available ? `Checker setup: ${result.install}` : '',
-    diagnostics.length ? diagnostics.map((item) => `- line ${item.line + 1}, column ${item.column + 1}, ${item.source || result.checker} ${item.code}: ${item.message}`).join('\n') : 'No diagnostics were reported by the available checker.',
+    checkerDiagnostics.length ? checkerDiagnostics.map((item) => `- line ${item.line + 1}, column ${item.column + 1}, ${item.source || result.checker} ${item.code}: ${item.message}`).join('\n') : 'No diagnostics were reported by the available checker.',
+    cruContext.length ? `CRUCIBLE DIAGNOSTIC MEMORY:\n${cruContext.map(({code,explanation}) => `- ${code}: ${explanation.meaning} Next: ${explanation.next} [authority ${explanation.sourceCommit}]`).join('\n')}` : '',
     'Use these diagnostics as evidence. Do not claim the code is fully valid when a language checker is unavailable.',
   ].filter(Boolean).join('\n');
 }
@@ -2230,6 +2235,12 @@ ipcMain.handle('github-operations:download', async (_event, { folder, url, name 
   try { const buffer = await require('./githubClient').downloadGitHubArchive(token, url); const safeName = String(name || 'github-download').replace(/[^A-Za-z0-9._-]/g, '-').slice(0, 100); const target = path.join(app.getPath('downloads'), `${safeName}.zip`); fs.writeFileSync(target, buffer); return { ok: true, path: target }; } catch (error) { return { ok: false, error: error.message }; }
 });
 ipcMain.handle('diagnostics:get', (_event, { limit }) => ({ ok: true, settings: diagnostics.settings(), entries: diagnostics.recent(limit), crashDumps: app.getPath('crashDumps') }));
+
+ipcMain.handle('diagnostics:cru-refresh', async () => { try { return { ok:true, ...(await refreshCrucibleDiagnosticAuthority()) }; } catch (error) { return { ok:false, error:error.message }; } });
+ipcMain.handle('diagnostics:cru-explain', (_event, { code }) => ({ ok:true, code, explanation:diagnostics.explainCruCode(String(code || '').toUpperCase()) }));
+ipcMain.handle('diagnostics:cru-history', (_event, { limit }) => ({ ok:true, occurrences:diagnostics.cruOccurrences(limit || 500) }));
+ipcMain.handle('diagnostics:cru-enrich', (_event, { value }) => ({ ok:true, codes:diagnostics.enrichCru(value) }));
+
 ipcMain.handle('diagnostics:settings', (_event, value) => ({ ok: true, settings: diagnostics.saveSettings(value || {}) }));
 ipcMain.handle('diagnostics:record', (_event, { level, component, event, data, correlationId }) => ({ ok: true, correlationId: diagnostics.record(level || 'info', component || 'renderer', event || 'event', data || {}, correlationId) }));
 ipcMain.handle('diagnostics:export', async () => { const result = await dialog.showOpenDialog(mainWindow, { title: 'Choose support bundle destination', properties: ['openDirectory', 'createDirectory'] }); if (result.canceled || !result.filePaths[0]) return { ok: false, canceled: true }; try { return { ok: true, path: diagnostics.exportBundle(result.filePaths[0], { appVersion: app.getVersion(), crashDumps: app.getPath('crashDumps') }) }; } catch (error) { return { ok: false, error: error.message }; } });
@@ -3525,6 +3536,20 @@ function getGithubToken() {
 // and clearly if nothing is connected yet, rather than making a request
 // that GitHub would just reject.
 const NOT_CONNECTED_ERROR = 'No GitHub token saved - connect GitHub in the Config tab first.';
+
+async function refreshCrucibleDiagnosticAuthority() {
+  const token = getGithubToken();
+  if (!token) return { ok:false, authRequired:true, error:NOT_CONNECTED_ERROR };
+  const bridge = new CrucibleDiagnosticBridge({ token, githubClient:require('./githubClient'), diagnostics });
+  const result = await bridge.refresh();
+  crucibleDiagnosticBridge = bridge;
+  diagnostics.record('info', 'crucible-diagnostics', 'authority-refreshed', {
+    commit:result.crucibleCommit, catalogSha256:result.catalogSha256, codeCount:result.codeCount,
+  });
+  return result;
+}
+
+
 
 ipcMain.handle('github-list-repos', async () => {
   const token = getGithubToken();
