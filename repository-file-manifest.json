@@ -1739,8 +1739,8 @@
     {
       "path": "index.html",
       "type": ".html",
-      "size": 134200,
-      "sha256": "9f04c744223f87d2dfb281b6d69fbfd97c3c9f363fa01c583ad75ed7f5cff76e"
+      "size": 134311,
+      "sha256": "07065715aa317d32218788d8b5c958ed37cf929433d458278bacaebb95350610"
     },
     {
       "path": "inventoryWorker.js",
@@ -2057,8 +2057,8 @@
     {
       "path": "renderer.js",
       "type": ".js",
-      "size": 284973,
-      "sha256": "5dca75a71ad2ee3a7b090e2a6574861a52f25e44ebebca19eb2f65d469235842"
+      "size": 285833,
+      "sha256": "1a8f76e8caa4412619374ade0c07d02ab0667a50991d14f1995173885e9e934d"
     },
     {
       "path": "repair-regression-learning.json",
