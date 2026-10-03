@@ -1337,8 +1337,8 @@
     {
       "path": "crucibleDiagnosticBridge.js",
       "type": ".js",
-      "size": 8937,
-      "sha256": "5bd9355367ab58c28de98967392384431cd92c08b463d1a49eb287a0fbc788eb"
+      "size": 9066,
+      "sha256": "6060f9613f752e105e411e588db99552531277931750c9cff8672a8bf74fa4fd"
     },
     {
       "path": "crucibleLearningIdentity.js",
@@ -1805,8 +1805,8 @@
     {
       "path": "main.js",
       "type": ".js",
-      "size": 220807,
-      "sha256": "d5df0e92420a563e03e7b28838dc02566620ce91ce93901f388ee17392360e0c"
+      "size": 220835,
+      "sha256": "ee3be9a71dc400684aacf2358bf6c6b46ae44ea2c316f2437b85b0b3f408ade0"
     },
     {
       "path": "memoryEngine.js",
