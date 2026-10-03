@@ -74,7 +74,7 @@ const officialLanguageServers = require('./officialLanguageServers');
 const gitWorkflow = require('./gitWorkflow');
 const portableProjectConfig = require('./portableProjectConfig');
 const { CrucibleDiagnosticBridge } = require('./crucibleDiagnosticBridge');
-const { requestCodingSession, applyCodingSession, rollbackCodingSession, repositoryState } = require('./nexusNativeCoding');
+const { requestCodingSession, applyCodingSession, rollbackCodingSession, repositoryState, sha256: nativeCodingSha256 } = require('./nexusNativeCoding');
 
 let mainWindow;
 let crucibleDiagnosticBridge = null;
