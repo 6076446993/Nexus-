@@ -2279,8 +2279,8 @@
     {
       "path": "styles.css",
       "type": ".css",
-      "size": 18856,
-      "sha256": "1206b1d44d7608ec9e3a7bccb2292032be7163f02c96ec4af95e9b02237289fb"
+      "size": 21202,
+      "sha256": "9c77761f94e5683b2a1703dd0f9039f65d48999ee4e84707b02064abd5cdf081"
     },
     {
       "path": "test/accountVault.test.js",
