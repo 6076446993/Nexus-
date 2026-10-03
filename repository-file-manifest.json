@@ -1033,8 +1033,8 @@
     {
       "path": "AGENTS.md",
       "type": ".md",
-      "size": 4649,
-      "sha256": "f2977e86e789b88831bb2ef8f81ec67b939e0a46f96b355f1da717960f6adc92"
+      "size": 3930,
+      "sha256": "cf4d80dd12dc91f03ab6d99eddc420fc857cae7aa966100fbd28b12c9dea96f4"
     },
     {
       "path": "AI-CONFLICTS.json",
@@ -1387,8 +1387,8 @@
     {
       "path": "governingDocuments/native/AGENTS.md",
       "type": ".md",
-      "size": 4649,
-      "sha256": "f2977e86e789b88831bb2ef8f81ec67b939e0a46f96b355f1da717960f6adc92"
+      "size": 3930,
+      "sha256": "cf4d80dd12dc91f03ab6d99eddc420fc857cae7aa966100fbd28b12c9dea96f4"
     },
     {
       "path": "governingDocuments/native/AI-CONFLICTS.json",
@@ -1399,8 +1399,8 @@
     {
       "path": "governingDocuments/native/AI-HANDOFF.json",
       "type": ".json",
-      "size": 4602,
-      "sha256": "b7aacf6331c6cdac22730e9b642d91bd011996a66f49f6b152d276f406fea83d"
+      "size": 4193,
+      "sha256": "8b1f37aa1ff379f9d449f68801a12997c916d3563f4658c18e5b9c08eb112795"
     },
     {
       "path": "governingDocuments/native/AUTHORITY-CONTRACTS.md",
@@ -1525,8 +1525,8 @@
     {
       "path": "governingDocuments/native/NEXUS-GOVERNANCE-MANIFEST.md",
       "type": ".md",
-      "size": 4404,
-      "sha256": "8f655c8765bcac37b5cf300c2dc623bf4ead56d8476529df9db89a8392e645bf"
+      "size": 4555,
+      "sha256": "97c3961574e04753ac91ff2d406e0bb2482b67d542ba690b2af51ef7d81b39c0"
     },
     {
       "path": "governingDocuments/native/NEXUS-INTEGRATION-RULES.md",
