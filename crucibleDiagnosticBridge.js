@@ -131,7 +131,7 @@ class CrucibleDiagnosticBridge {
     const checks = await this.githubClient.getCommitCheckRuns(this.token, owner, repo, commit);
     const matching = checks.filter((check) => check.name === checkName);
     const passed = matching.some((check) => check.status === 'completed' && check.conclusion === 'success');
-    const pending = matching.some((check) => check.status !== 'completed');
+    const pending = matching.length === 0 || matching.some((check) => check.status !== 'completed');
     return {
       passed,
       pending: !passed && pending,
@@ -147,8 +147,8 @@ class CrucibleDiagnosticBridge {
         contractBlobSha: state.contractBlobSha,
       },
       reason: passed ? null : pending
-        ? `Required check "${checkName}" is still running on the exact coding commit.`
-        : `Required check "${checkName}" has not completed successfully on the exact coding commit.`,
+        ? (matching.length === 0 ? `Required check "${checkName}" has not appeared yet on the exact coding commit.` : `Required check "${checkName}" is still running on the exact coding commit.`)
+        : `Required check "${checkName}" completed without success on the exact coding commit.`,
     };
   }
 
