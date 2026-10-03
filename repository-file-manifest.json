@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 285,
+  "fileCount": 294,
   "types": {
     ".json": 15,
     ".md": 48,
     ".cjs": 1,
     "[no extension]": 5,
-    ".yml": 11,
+    ".yml": 12,
     ".bat": 2,
-    ".js": 190,
+    ".js": 198,
     ".html": 2,
     ".rules": 2,
     ".txt": 5,
@@ -983,6 +983,12 @@
       "sha256": "eb358f65cf8de91521f02f2f8a5b631d43f4c0bdf2cc2680c40e471e36ca520a"
     },
     {
+      "path": ".github/workflows/nexus-crucible-repair-integration.yml",
+      "type": ".yml",
+      "size": 1002,
+      "sha256": "3b2b850d3e972a821d20f5d6176e8e3d09ccf418843dad3391f4005eece7d539"
+    },
+    {
       "path": ".github/workflows/promote-development-to-main.yml",
       "type": ".yml",
       "size": 904,
@@ -1543,8 +1549,8 @@
     {
       "path": "governingDocuments/native/NEXUS-SYSTEM-INTEGRATION-CONTRACT.md",
       "type": ".md",
-      "size": 6070,
-      "sha256": "47c85bfdf8283e5df4eb67d57fca4734cacff68a98b1366352c8fe8da0d87af7"
+      "size": 6907,
+      "sha256": "cf389cb80dbc833f1e07f16575e4a43987218052c50b5c4a079e10aa807ee9ff"
     },
     {
       "path": "governingDocuments/native/NIM-TO-COLLABORATION.md",
@@ -1721,6 +1727,24 @@
       "sha256": "df65895439c6db65754c1827954b268aeabb9b8166015a260f8f9a682d760de1"
     },
     {
+      "path": "nexusCrucibleRepairAdapter.js",
+      "type": ".js",
+      "size": 1336,
+      "sha256": "719772b666f655e1b77c35366444d09329b75bb612bd2fa5e8c1932791030a73"
+    },
+    {
+      "path": "nexusProgramRepairRuntime.js",
+      "type": ".js",
+      "size": 3249,
+      "sha256": "0f761827a1d3f9eb8966f34b337fb5f47eda49bcfa5f91c3d83482266872e2a2"
+    },
+    {
+      "path": "nexusRepairController.js",
+      "type": ".js",
+      "size": 6880,
+      "sha256": "fa704f854441ca5c31b8ba9aceaed58f2041971013dce2bea34c60c5dc2fae59"
+    },
+    {
       "path": "oauthIntegrations.js",
       "type": ".js",
       "size": 8348,
@@ -1753,8 +1777,8 @@
     {
       "path": "package.json",
       "type": ".json",
-      "size": 5813,
-      "sha256": "e21b263b0bb0df793c3d3fb208abc0e418d8486b7cdb47b5e6a14cc59c14cc6f"
+      "size": 6014,
+      "sha256": "cbafb4813ea2b1a63027f554f89e05c866075ac07fcf27b57d0fd9d61cc92e1d"
     },
     {
       "path": "pipelineEngine.js",
@@ -2003,6 +2027,12 @@
       "sha256": "68af54120c745ae94ad82fe6b1dd38dae25a08e870fa83949465767e1b40f26f"
     },
     {
+      "path": "scripts/nexusDiagnose.js",
+      "type": ".js",
+      "size": 5336,
+      "sha256": "53c87979530548c9cfa36a5402200e0528fd5c4af00890ba113a6cab28949654"
+    },
+    {
       "path": "scripts/privacyRetryGate.js",
       "type": ".js",
       "size": 838,
@@ -2071,8 +2101,8 @@
     {
       "path": "scripts/selfRepairCommit.js",
       "type": ".js",
-      "size": 8865,
-      "sha256": "2cf75893aa9f1f8ab6c3283b1dcf4ec05b2066bcac135d5648e16822583fc649"
+      "size": 9422,
+      "sha256": "2b35f180334c0e4b0894efd9e092715e9b553eb728d9e37385c1da79502cb1a6"
     },
     {
       "path": "scripts/signLocalWindows.js",
@@ -2343,6 +2373,30 @@
       "type": ".js",
       "size": 1936,
       "sha256": "b242a6d15fdec14800d73737537286b2f3b214029acb1b23638dcd738294f3f7"
+    },
+    {
+      "path": "test/nexusCrucibleRepairIntegration.test.js",
+      "type": ".js",
+      "size": 2582,
+      "sha256": "a469f70b5c119d3e553c6a3b06f2b2841cef663effc25d9c2cd01dc372c640d6"
+    },
+    {
+      "path": "test/nexusDiagnose.test.js",
+      "type": ".js",
+      "size": 2083,
+      "sha256": "c8883d496db5609a676ebdafbdf566a948908c08fdd35488804fdf40def408db"
+    },
+    {
+      "path": "test/nexusProgramRepairRuntime.test.js",
+      "type": ".js",
+      "size": 2983,
+      "sha256": "6608efc7f195b6263e368a4007d4a372c582b7f1c589e69ab50fe2df08805777"
+    },
+    {
+      "path": "test/nexusRepairController.test.js",
+      "type": ".js",
+      "size": 3480,
+      "sha256": "6989a1e144b44fdec52e738cb19e95a92d4fd5c965677245466896fb7e1371ea"
     },
     {
       "path": "test/oauthIntegrations.test.js",
