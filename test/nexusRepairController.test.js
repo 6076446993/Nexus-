@@ -30,7 +30,7 @@ test('failed retest quarantines repair and emits regression candidate',async()=>
  const r=await new NexusRepairController(deps({retest:async()=>({passed:false,check:'unit'})})).run({snapshot,task:{}});
  assert.equal(r.state,'QUARANTINED');assert.equal(r.reason,'repair-retest-failed');assert.equal(r.repairRegressionCandidate.preRepairCommit,snapshot.commit);
 });
-test('known harmful strategy is quarantined before authorization or mutation',async()=>{
+test('recorded failed strategy is quarantined before authorization or mutation unless its failure is addressed',async()=>{
  let authorized=false,repaired=false;
  const regression={regressionId:'RR-1',component:'builder',preventionLesson:'Do not repeat safe-fix because it corrupted output.'};
  const r=await new NexusRepairController(deps({
@@ -39,5 +39,12 @@ test('known harmful strategy is quarantined before authorization or mutation',as
   authorize:async()=>{authorized=true;return{};},
   repair:async()=>{repaired=true;return{};},
  })).run({snapshot,task:{}});
- assert.equal(r.state,'QUARANTINED');assert.equal(r.reason,'repair-strategy-matches-known-harmful-regression');assert.equal(authorized,false);assert.equal(repaired,false);
+ assert.equal(r.state,'QUARANTINED');assert.equal(r.reason,'repair-strategy-repeats-recorded-failure-without-addressing-it');assert.equal(authorized,false);assert.equal(repaired,false);
+});
+
+test('recorded failed strategy may be reconsidered only when plan explicitly addresses prior failure evidence',async()=>{
+ const regression={regressionId:'RR-1',component:'builder',preventionLesson:'Do not repeat safe-fix because it corrupted output.'};
+ const plan={bounded:true,baseCommit:snapshot.commit,strategy:'safe-fix',component:'builder',addressesRegressionId:'RR-1'};
+ const r=await new NexusRepairController(deps({planRepair:async()=>plan,authorize:async()=>({approved:true,authorizationId:'A2',baseCommit:snapshot.commit,planDigest:digest(plan)}),regressionMemory:async()=>[regression]})).run({snapshot,task:{}});
+ assert.equal(r.state,'FINISHED');
 });
