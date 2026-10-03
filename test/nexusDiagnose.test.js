@@ -42,6 +42,7 @@ test('active Assimilation semantics fail diagnosis without modifying the source'
 test('unregistered repositories are outside diagnosis authority', () => {
   assert.throws(() => diagnoseSnapshot({
     repository: 'Smoker-Hours-Tracker',
+    scope: 'nexus-component',
     commit: 'abcdef1',
     files: {},
   }), /unregistered Nexus component/);
