@@ -36,7 +36,7 @@ test('active Assimilation semantics fail diagnosis without modifying the source'
   const report = diagnoseSnapshot(snapshot);
   assert.equal(JSON.stringify(snapshot), before);
   assert.equal(report.summary.status, 'BLOCKED');
-  assert.ok(report.findings.some((item) => item.code === 'NXD-ASSIMILATION-ACTIVE' && item.crucibleCode === 'CRU-0004'));
+  assert.ok(report.findings.some((item) => item.code === 'NXD-ASSIMILATION-ACTIVE' && item.crucibleCode === 'CRU-0055'));
 });
 
 test('unregistered repositories are outside diagnosis authority', () => {
