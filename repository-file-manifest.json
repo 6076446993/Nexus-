@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 296,
+  "fileCount": 300,
   "types": {
     ".json": 16,
     ".md": 48,
@@ -10,7 +10,7 @@
     "[no extension]": 5,
     ".yml": 12,
     ".bat": 2,
-    ".js": 199,
+    ".js": 203,
     ".html": 2,
     ".rules": 2,
     ".txt": 5,
@@ -361,6 +361,11 @@
     },
     {
       "source": "main.js",
+      "reference": "./crucibleDiagnosticBridge",
+      "resolved": "crucibleDiagnosticBridge.js"
+    },
+    {
+      "source": "main.js",
       "reference": "./codingModelProviders",
       "resolved": "codingModelProviders.js"
     },
@@ -418,6 +423,21 @@
       "source": "main.js",
       "reference": "./accountVault",
       "resolved": "accountVault.js"
+    },
+    {
+      "source": "nexusProgramRepairRuntime.js",
+      "reference": "./nexusRepairController",
+      "resolved": "nexusRepairController.js"
+    },
+    {
+      "source": "nexusProgramRepairRuntime.js",
+      "reference": "./scripts/nexusDiagnose",
+      "resolved": "scripts/nexusDiagnose.js"
+    },
+    {
+      "source": "operationalDiagnostics.js",
+      "reference": "./cruDiagnosticMemory",
+      "resolved": "cruDiagnosticMemory.js"
     },
     {
       "source": "pipelineEngine.test.js",
@@ -630,6 +650,21 @@
       "resolved": "codingModelProviders.js"
     },
     {
+      "source": "test/cruDiagnosticMemory.test.js",
+      "reference": "../cruDiagnosticMemory",
+      "resolved": "cruDiagnosticMemory.js"
+    },
+    {
+      "source": "test/crucibleDiagnosticBridge.test.js",
+      "reference": "../operationalDiagnostics",
+      "resolved": "operationalDiagnostics.js"
+    },
+    {
+      "source": "test/crucibleDiagnosticBridge.test.js",
+      "reference": "../crucibleDiagnosticBridge",
+      "resolved": "crucibleDiagnosticBridge.js"
+    },
+    {
       "source": "test/crucibleLearningIdentity.test.js",
       "reference": "../crucibleLearningIdentity",
       "resolved": "crucibleLearningIdentity.js"
@@ -708,6 +743,31 @@
       "source": "test/memoryEngine.test.js",
       "reference": "../memoryEngine",
       "resolved": "memoryEngine.js"
+    },
+    {
+      "source": "test/nexusCrucibleRepairIntegration.test.js",
+      "reference": "../nexusProgramRepairRuntime",
+      "resolved": "nexusProgramRepairRuntime.js"
+    },
+    {
+      "source": "test/nexusCrucibleRepairIntegration.test.js",
+      "reference": "../nexusCrucibleRepairAdapter",
+      "resolved": "nexusCrucibleRepairAdapter.js"
+    },
+    {
+      "source": "test/nexusDiagnose.test.js",
+      "reference": "../scripts/nexusDiagnose",
+      "resolved": "scripts/nexusDiagnose.js"
+    },
+    {
+      "source": "test/nexusProgramRepairRuntime.test.js",
+      "reference": "../nexusProgramRepairRuntime",
+      "resolved": "nexusProgramRepairRuntime.js"
+    },
+    {
+      "source": "test/nexusRepairController.test.js",
+      "reference": "../nexusRepairController",
+      "resolved": "nexusRepairController.js"
     },
     {
       "source": "test/oauthIntegrations.test.js",
@@ -1261,8 +1321,14 @@
     {
       "path": "cruDiagnosticMemory.js",
       "type": ".js",
-      "size": 5020,
-      "sha256": "d00f45de680775aade586b812f3708347906547dd0cecbd06167bc0c9cc51285"
+      "size": 5420,
+      "sha256": "150d0054e0b42c0cbd0fc63627cdf578e16ad2790d407933c6588145b715de03"
+    },
+    {
+      "path": "crucibleDiagnosticBridge.js",
+      "type": ".js",
+      "size": 7605,
+      "sha256": "65db20357c4a0b856190e8350a280c18f01cbc6be5871a8c56cfc3fffa97bd7b"
     },
     {
       "path": "crucibleLearningIdentity.js",
@@ -1375,8 +1441,8 @@
     {
       "path": "githubClient.js",
       "type": ".js",
-      "size": 12969,
-      "sha256": "a84970967f62b26bcfb9b0e1dd9325b09e005ca5d4b6838242d5ca83a82f2106"
+      "size": 13508,
+      "sha256": "0990f6635003a55d59ee866084d304c712c0985fb1422a66051e3d9ebf681527"
     },
     {
       "path": "githubGitAuth.js",
@@ -1729,8 +1795,8 @@
     {
       "path": "main.js",
       "type": ".js",
-      "size": 216745,
-      "sha256": "88eca177e404d14bfe5733b04f0d958328c20189b5a9fdcc15863a932149079f"
+      "size": 218534,
+      "sha256": "cb5c5c2ccf5317a84fddc6f4019b73f68488159bb6b8133f12d53e87952614cc"
     },
     {
       "path": "memoryEngine.js",
@@ -1741,14 +1807,20 @@
     {
       "path": "nexusCrucibleRepairAdapter.js",
       "type": ".js",
-      "size": 1336,
-      "sha256": "719772b666f655e1b77c35366444d09329b75bb612bd2fa5e8c1932791030a73"
+      "size": 1489,
+      "sha256": "33fb33ea89dcbd94578d43190a54034e4eaf068f03d0ca5d86644c8a15edad51"
+    },
+    {
+      "path": "nexusNativeCoding.js",
+      "type": ".js",
+      "size": 8863,
+      "sha256": "c45bb0d27801f723cd6d06391d03ec7983811ddd9e26a699e7ff4e3361f0bd80"
     },
     {
       "path": "nexusProgramRepairRuntime.js",
       "type": ".js",
-      "size": 3249,
-      "sha256": "0f761827a1d3f9eb8966f34b337fb5f47eda49bcfa5f91c3d83482266872e2a2"
+      "size": 4413,
+      "sha256": "0d789a219cf1ba152364ad652ff17f25b3d9c383fd2d0749129204b446b57ed0"
     },
     {
       "path": "nexusRepairController.js",
@@ -1777,8 +1849,8 @@
     {
       "path": "operationalDiagnostics.js",
       "type": ".js",
-      "size": 3208,
-      "sha256": "69bfa3a44c5f5644897db554c02544150ece8baed0e612a4f40d57a3d3e7fa5e"
+      "size": 4608,
+      "sha256": "02f0b51d3580db27530e017fe9727fec4638f64e39279f2f82b474ee6c500a6b"
     },
     {
       "path": "package-lock.json",
@@ -1879,8 +1951,8 @@
     {
       "path": "preload.js",
       "type": ".js",
-      "size": 28620,
-      "sha256": "6ec5060d94a2317effce34141fc4368544b697e916ba8d88a9a0c1e4d888a9fc"
+      "size": 28976,
+      "sha256": "a761c0deadaedfc5843382a233b3ca10fe87dbecf648feef4bbaeb3469df3e16"
     },
     {
       "path": "projectCloner.js",
@@ -2041,8 +2113,8 @@
     {
       "path": "scripts/nexusDiagnose.js",
       "type": ".js",
-      "size": 5336,
-      "sha256": "53c87979530548c9cfa36a5402200e0528fd5c4af00890ba113a6cab28949654"
+      "size": 6847,
+      "sha256": "78f8e0d3680c7991b1cb21a968404b67b193196db464eea103a87ece28ea3332"
     },
     {
       "path": "scripts/privacyRetryGate.js",
@@ -2113,8 +2185,8 @@
     {
       "path": "scripts/selfRepairCommit.js",
       "type": ".js",
-      "size": 9422,
-      "sha256": "2b35f180334c0e4b0894efd9e092715e9b553eb728d9e37385c1da79502cb1a6"
+      "size": 8918,
+      "sha256": "57366beba61f5912927fb18d0f77b13a7f31990dfd7fb664cb1c4343921402b7"
     },
     {
       "path": "scripts/signLocalWindows.js",
@@ -2279,6 +2351,18 @@
       "sha256": "45079f86d81e1a73814984c14a5a791d6a724f4409029866431f4a8b006cceee"
     },
     {
+      "path": "test/cruDiagnosticMemory.test.js",
+      "type": ".js",
+      "size": 2110,
+      "sha256": "60b59c7e574c4273eda512f2b7dc96a5360e71bfe4488b79fec893de07b62b29"
+    },
+    {
+      "path": "test/crucibleDiagnosticBridge.test.js",
+      "type": ".js",
+      "size": 3593,
+      "sha256": "9378bbba1ed5eb55784cc53419d60db228d90f8f3423701da44fb1d84ff17231"
+    },
+    {
       "path": "test/crucibleIntegration.test.js",
       "type": ".js",
       "size": 3554,
@@ -2389,20 +2473,20 @@
     {
       "path": "test/nexusCrucibleRepairIntegration.test.js",
       "type": ".js",
-      "size": 2582,
-      "sha256": "a469f70b5c119d3e553c6a3b06f2b2841cef663effc25d9c2cd01dc372c640d6"
+      "size": 2596,
+      "sha256": "12b1755fceb0b0824a7c45168ba2e79bd9873e8a76fa4b5426790ee09ea637d3"
     },
     {
       "path": "test/nexusDiagnose.test.js",
       "type": ".js",
-      "size": 2083,
-      "sha256": "c8883d496db5609a676ebdafbdf566a948908c08fdd35488804fdf40def408db"
+      "size": 2113,
+      "sha256": "f56928aa68a415bfcf8dd116ee7a1b25fba25403d076d61a73b967805991034b"
     },
     {
       "path": "test/nexusProgramRepairRuntime.test.js",
       "type": ".js",
-      "size": 2983,
-      "sha256": "6608efc7f195b6263e368a4007d4a372c582b7f1c589e69ab50fe2df08805777"
+      "size": 3085,
+      "sha256": "57a85f09ff687e338bdc706929ae225333d192cb7a752c55e39695e6c27c8605"
     },
     {
       "path": "test/nexusRepairController.test.js",
