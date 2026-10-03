@@ -11,6 +11,7 @@ const apply = args.has('--apply');
 const trustedStatic = args.has('--trusted-static');
 const writeReport = !args.has('--no-report');
 const reportPath = path.join(root, '.nexus-self-repair-report.json');
+const regressionLogPath = path.join(root, 'repair-regression-learning.json');
 
 function run(command, commandArgs, options = {}) {
   const result = spawnSync(command, commandArgs, {
@@ -149,11 +150,25 @@ function inventoryRepairNeeded(result) {
   return result.status !== 0 && /Repository inventory is stale|inventory count mismatch|repository-file-manifest\.json is missing/i.test(`${result.stdout}\n${result.stderr}`);
 }
 
+function priorRepairRegressions() {
+  if (!fs.existsSync(regressionLogPath)) return [];
+  try {
+    const parsed = JSON.parse(fs.readFileSync(regressionLogPath, 'utf8'));
+    return Array.isArray(parsed.records) ? parsed.records : [];
+  } catch (error) {
+    throw new Error(`Repair regression learning log is unreadable: ${error.message}`);
+  }
+}
+
+const priorRegressions = priorRepairRegressions();
+
 const report = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   mode: apply ? 'apply' : 'check',
   trustedStatic,
   head: run('git', ['rev-parse', 'HEAD']).stdout.trim(),
+  priorRepairRegressionCount: priorRegressions.length,
+  priorRepairRegressionIds: priorRegressions.map((item) => item.regressionId).filter(Boolean),
   workflowRepairs: [],
   checks: [],
   repairs: [],
