@@ -3579,6 +3579,46 @@ function setEncryptedConfigValue(cfg, key, value) {
   else cfg[key] = value;
 }
 
+const DEFAULT_AI_COLLABORATION_BASE_URL = 'https://ai-collaboration-bwkm.onrender.com';
+
+function nativeCodingConfiguration() {
+  const cfg = loadConfig();
+  return {
+    baseUrl: String(process.env.AI_COLLABORATION_BASE_URL || cfg.aiCollaborationBaseUrl || DEFAULT_AI_COLLABORATION_BASE_URL).replace(/\/$/, ''),
+    bearerToken: String(process.env.AI_COLLABORATION_BEARER_TOKEN || encryptedConfigValue(cfg, 'aiCollaborationBearerToken') || ''),
+  };
+}
+
+function nativeCodingConfigurationStatus() {
+  const value = nativeCodingConfiguration();
+  return {
+    baseUrl: value.baseUrl,
+    tokenConfigured: Boolean(value.bearerToken),
+    tokenSource: process.env.AI_COLLABORATION_BEARER_TOKEN ? 'environment' : value.bearerToken ? 'encrypted-nexus-storage' : 'missing',
+    integration: 'nexus-native-api',
+  };
+}
+
+async function saveNativeCodingConfiguration({ baseUrl, bearerToken, clearToken = false } = {}) {
+  let parsed;
+  try { parsed = new URL(String(baseUrl || DEFAULT_AI_COLLABORATION_BASE_URL)); }
+  catch { return { ok:false, error:'AI Collaboration URL must be a valid HTTP(S) URL.' }; }
+  if (!['https:', 'http:'].includes(parsed.protocol)) return { ok:false, error:'AI Collaboration URL must use HTTP or HTTPS.' };
+  if (parsed.protocol !== 'https:' && !['localhost','127.0.0.1','::1'].includes(parsed.hostname)) return { ok:false, error:'Remote AI Collaboration connections must use HTTPS.' };
+  const cfg = loadConfig();
+  cfg.aiCollaborationBaseUrl = parsed.href.replace(/\/$/, '');
+  if (clearToken) {
+    delete cfg.aiCollaborationBearerToken;
+    delete cfg.aiCollaborationBearerTokenEnc;
+  } else if (typeof bearerToken === 'string' && bearerToken.trim()) {
+    if (!safeStorage.isEncryptionAvailable()) return { ok:false, error:'Secure OS credential storage is unavailable; Nexus will not save the AI Collaboration bearer token in plaintext.' };
+    delete cfg.aiCollaborationBearerToken;
+    cfg.aiCollaborationBearerTokenEnc = safeStorage.encryptString(bearerToken.trim()).toString('base64');
+  }
+  await saveConfig(cfg);
+  return { ok:true, ...nativeCodingConfigurationStatus() };
+}
+
 function oauthConfiguration() {
   const cfg = loadConfig();
   return {
