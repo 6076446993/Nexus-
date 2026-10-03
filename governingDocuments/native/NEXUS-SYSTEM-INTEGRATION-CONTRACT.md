@@ -115,3 +115,10 @@ Cross-repository compatibility is an operational requirement, not merely documen
 ## Obsolete Assimilation
 
 Assimilation is not an active Nexus component, lifecycle stage, authority, or routing destination. Historical Assimilation records may remain as immutable history, but active code, policies, interfaces, and handoffs must not depend on Assimilation.
+
+
+## Non-parasitic diagnosis
+
+Nexus diagnosis is observation, not assimilation. The canonical diagnosis engine consumes an immutable component snapshot and emits evidence; it has no authority to write, inject, copy governance into, reconcile, repair, promote, verify, govern, or acquire custody over the diagnosed component.
+
+A diagnosis must bind findings to the registered component identity and immutable commit/version, preserve inspected-file hashes, identify uncertainty or blocked interpretation, and fail closed outside the registered Nexus component set. Remediation is a separate explicitly authorized operation performed by the component that owns the affected authority. Diagnosis output may become evidence for Crucible classification/verification and governed learning, but diagnosis itself cannot upgrade lifecycle state.
