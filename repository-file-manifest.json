@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 284,
+  "fileCount": 285,
   "types": {
     ".json": 15,
-    ".md": 47,
+    ".md": 48,
     ".cjs": 1,
     "[no extension]": 5,
     ".yml": 11,
@@ -1539,6 +1539,12 @@
       "type": ".md",
       "size": 1852,
       "sha256": "4138a142088dc529d00d558d740ab4e4b6f6701607f5a231ed75adf2d8949a73"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-SYSTEM-INTEGRATION-CONTRACT.md",
+      "type": ".md",
+      "size": 6070,
+      "sha256": "47c85bfdf8283e5df4eb67d57fca4734cacff68a98b1366352c8fe8da0d87af7"
     },
     {
       "path": "governingDocuments/native/NIM-TO-COLLABORATION.md",
