@@ -1739,8 +1739,8 @@
     {
       "path": "index.html",
       "type": ".html",
-      "size": 131209,
-      "sha256": "8e0dc46df92a3ffa9fdc37f314ce66fb78d4b591a9911a6690db135f327ababf"
+      "size": 134200,
+      "sha256": "9f04c744223f87d2dfb281b6d69fbfd97c3c9f363fa01c583ad75ed7f5cff76e"
     },
     {
       "path": "inventoryWorker.js",
