@@ -1990,6 +1990,19 @@ function ceIncludeTerminal() {
   renderCeAttachments();
 }
 
+function ceOpenNexusCoding() {
+  document.getElementById('ce-plus-menu').classList.remove('open');
+  const currentPrompt = document.getElementById('ce-prompt-instruction')?.value.trim() || '';
+  const target = document.getElementById('ce-prompt-filepath')?.value.trim() || '';
+  closeCodeEditor();
+  switchTab('workspace');
+  const promptBox = document.getElementById('nexus-coding-prompt');
+  if (promptBox) {
+    promptBox.value = [target ? `Target: ${target}` : '', currentPrompt].filter(Boolean).join('\n');
+    setTimeout(() => promptBox.focus(), 100);
+  }
+}
+
 function ceOpenFeatureBuilder() {
   document.getElementById('ce-plus-menu').classList.remove('open');
   if (!confirm('Feature Builder plans changes across multiple files, with a separate approval for each one - better suited to bigger asks than this single-file prompt bar. Switch there now? (This closes the Code Editor.)')) {
