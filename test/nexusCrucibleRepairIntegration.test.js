@@ -18,6 +18,6 @@ test('Nexus and Crucible complete a real bounded repair cycle', {skip:!crucible}
   loadRegressionMemory:async()=>[],
  });
  const result=await runtime.run({id:'NEXUS-CRUCIBLE-E2E'});
- assert.equal(result.state,'FINISHED');assert.deepEqual(result.verification.failureCodes,['CRU-0055']);assert.equal(result.verification.independent,true);
+ assert.equal(result.state,'FINISHED',JSON.stringify(result,null,2));assert.deepEqual(result.verification.failureCodes,['CRU-0055']);assert.equal(result.verification.independent,true);
  fs.rmSync(folder,{recursive:true,force:true});
 });
