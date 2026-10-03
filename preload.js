@@ -327,4 +327,8 @@ contextBridge.exposeInMainWorld('nexus', {
   diagnosticsSettings: (value) => ipcRenderer.invoke('diagnostics:settings', value),
   diagnosticsRecord: (payload) => ipcRenderer.invoke('diagnostics:record', payload),
   diagnosticsExport: () => ipcRenderer.invoke('diagnostics:export'),
+  diagnosticsCruRefresh: () => ipcRenderer.invoke('diagnostics:cru-refresh'),
+  diagnosticsCruExplain: (code) => ipcRenderer.invoke('diagnostics:cru-explain', { code }),
+  diagnosticsCruHistory: (limit) => ipcRenderer.invoke('diagnostics:cru-history', { limit }),
+  diagnosticsCruEnrich: (value) => ipcRenderer.invoke('diagnostics:cru-enrich', { value }),
 });
