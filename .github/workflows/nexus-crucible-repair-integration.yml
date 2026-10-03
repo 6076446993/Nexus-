@@ -1,0 +1,31 @@
+name: Nexus Crucible Repair Integration
+
+on:
+  push:
+    branches: [Development-branch]
+  pull_request:
+    branches: [Development-branch, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repair-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Nexus
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Checkout Crucible read-only
+        uses: actions/checkout@v5
+        with:
+          repository: 6076446993/The-Crucible
+          ref: development
+          path: .crucible-integration
+          persist-credentials: false
+      - name: Run cross-repository repair proof
+        env:
+          CRUCIBLE_INTEGRATION_ROOT: ${{ github.workspace }}/.crucible-integration
+        run: node --test test/nexusCrucibleRepairIntegration.test.js
