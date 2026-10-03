@@ -54,8 +54,9 @@ Defines authority ownership, boundaries, and violation handling.
 ## Trust Governance
 
 - Nexus Trust Model.md
+- TRUSTWORTHY-AI-GOVERNANCE-CONTRACT.md
 
-Defines trust-relevant states and prevents state conflation.
+Defines trust-relevant states and prevents state conflation. The trustworthy-AI governance contract adds architecture-wide human oversight, transparency, challengeability, robustness, accountability, lifecycle risk management, and information-integrity safeguards without transferring repository authority.
 
 ## Learning Governance
 
