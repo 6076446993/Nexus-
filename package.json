@@ -24,7 +24,8 @@
     "signing:renew-local": "pwsh -NoProfile -File scripts/renew-local-signing.ps1",
     "signing:restore-local": "pwsh -NoProfile -File scripts/restore-local-signing.ps1",
     "dist:publish": "node scripts/buildAndPublishVerified.js",
-    "inventory:package": "node scripts/verifyPackagedContents.js"
+    "inventory:package": "node scripts/verifyPackagedContents.js",
+    "verify:operations": "node scripts/verifyRepairOperations.js"
   },
   "author": "",
   "license": "MIT",

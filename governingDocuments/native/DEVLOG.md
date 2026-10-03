@@ -43,3 +43,7 @@ binding rules are in `AGENTS.md`.
 
 - **2026-08-28** — Added `AI-HANDOFF.json`, this file, and the
   agent-communication timestamp policy, per the repository owner's request.
+
+## Operational verification and repair routing — 2026-10-03
+
+Added live-evidence verification for direct Dependabot coverage across all nine Nexus repositories and separately scoped Smoke Stack; CodeQL, Worker extraction, oversight, durable proof, Council, private/public CI, scheduled monitoring, and independent learning ingestion/vetting/consumption. Missing, stale, incomplete, skipped, wrong-commit, or failed results produce nonzero status and stable repair fingerprints. Regression tests deliberately break each operation and coverage boundary. The historical live checkpoint correctly remains red for unfinished work; passing unit tests does not establish runtime success. Hourly and Tuesday repair tasks consume fresh results and route safe authorized repairs while retaining access/promotion blocks. Existing dependency rollback and oversight firewall regressions remain in place.

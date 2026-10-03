@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 279,
+  "fileCount": 282,
   "types": {
-    ".json": 13,
+    ".json": 14,
     ".md": 46,
     ".cjs": 1,
     "[no extension]": 5,
     ".yml": 11,
     ".bat": 2,
-    ".js": 188,
+    ".js": 190,
     ".html": 2,
     ".rules": 2,
     ".txt": 5,
@@ -830,6 +830,11 @@
       "resolved": "providerDiscovery.js"
     },
     {
+      "source": "test/repairOperations.test.js",
+      "reference": "../scripts/verifyRepairOperations",
+      "resolved": "scripts/verifyRepairOperations.js"
+    },
+    {
       "source": "test/repositoryMaintenance.test.js",
       "reference": "../scripts/repositoryClutterAudit",
       "resolved": "scripts/repositoryClutterAudit.js"
@@ -1040,8 +1045,8 @@
     {
       "path": "AI-HANDOFF.json",
       "type": ".json",
-      "size": 8386,
-      "sha256": "027cfe4793f9a362db83c435edfbbd44ac1949cb5ec45b711c05598661cb9aaf"
+      "size": 9312,
+      "sha256": "7990d9cb5ff4854f481b5e931c3ddfc08b5337deff41eecedd61446a865501cf"
     },
     {
       "path": "CLAUDE.md",
@@ -1058,8 +1063,8 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 8380,
-      "sha256": "adc90a505d4c72cc198bfae382d43d99fbf5b201a6af575d1c068a5e9936f5c0"
+      "size": 9274,
+      "sha256": "ea29861856da9d9bf0d659bdf8d2d8e9ea886b9296ed29606a1a80bde6bd38c9"
     },
     {
       "path": "FIREBASE_SETUP.md",
@@ -1072,6 +1077,12 @@
       "type": ".json",
       "size": 12544,
       "sha256": "9661b6c3ef0a3bba48fcff508386b9b3cb9e07a1f2ebcdae35b3b786cfcaddd3"
+    },
+    {
+      "path": "Nexus-operational-verification-evidence.json",
+      "type": ".json",
+      "size": 6391,
+      "sha256": "5d1d1715cbbfa2c3511c31b185f8b2117f5ca2deab8509945222e31f68c5e521"
     },
     {
       "path": "README.md",
@@ -1388,8 +1399,8 @@
     {
       "path": "governingDocuments/native/AI-HANDOFF.json",
       "type": ".json",
-      "size": 3625,
-      "sha256": "ccd4717a1241d18fa89c78d1eb5877425a196a45c20e0b9f2fc36abacb2fa527"
+      "size": 4602,
+      "sha256": "b7aacf6331c6cdac22730e9b642d91bd011996a66f49f6b152d276f406fea83d"
     },
     {
       "path": "governingDocuments/native/AUTHORITY-CONTRACTS.md",
@@ -1448,8 +1459,8 @@
     {
       "path": "governingDocuments/native/DEVLOG.md",
       "type": ".md",
-      "size": 2219,
-      "sha256": "695f586e8780524200fa9eeec6624391edc127326c01ee05e0ea747a8b8b9de9"
+      "size": 3113,
+      "sha256": "9cc1da6b394dfcf455bfd398df972b7db7f502d0331eb788c21d7510634c25cc"
     },
     {
       "path": "governingDocuments/native/EVIDENCE-CONTRACTS.md",
@@ -1730,8 +1741,8 @@
     {
       "path": "package.json",
       "type": ".json",
-      "size": 5746,
-      "sha256": "f65b0b3d541906b0b35e817116130eb7df56e4c9c9987112e071121d43a7d27b"
+      "size": 5813,
+      "sha256": "e21b263b0bb0df793c3d3fb208abc0e418d8486b7cdb47b5e6a14cc59c14cc6f"
     },
     {
       "path": "pipelineEngine.js",
@@ -2068,6 +2079,12 @@
       "type": ".js",
       "size": 2542,
       "sha256": "cfd2d6cfd67575751ebeb9c8eebc85d06995b7da276bd7c0152834f8f57ad4ea"
+    },
+    {
+      "path": "scripts/verifyRepairOperations.js",
+      "type": ".js",
+      "size": 5530,
+      "sha256": "fe10ea982ec282e218091bece3f6972c14da6b8dc21b0c69fb191a1fea36dab4"
     },
     {
       "path": "scripts/verifyRepositoryInventory.js",
@@ -2434,6 +2451,12 @@
       "type": ".js",
       "size": 1441,
       "sha256": "aeb4e059b2feb1b963b84265f52a3fa33aa95577dd0766717f36856a8832eaf9"
+    },
+    {
+      "path": "test/repairOperations.test.js",
+      "type": ".js",
+      "size": 5194,
+      "sha256": "ce94f96c7165f0f60257cf36f37c7ac9ae6b1d87d58b16d0708cfd4b311f0d64"
     },
     {
       "path": "test/repositoryMaintenance.test.js",

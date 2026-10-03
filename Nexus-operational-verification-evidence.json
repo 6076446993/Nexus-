@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "description": "Live checkpoint. Missing checks are intentionally omitted and fail closed. This is not a claim all operations pass.",
+  "securityScans": [
+    {
+      "repository": "6076446993/Nexus-",
+      "repositoryId": 1337803906,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 8,
+      "openAlertIds": [
+        7,
+        10,
+        11,
+        12,
+        13,
+        17,
+        18,
+        19
+      ],
+      "trackedAlertIds": [
+        7,
+        10,
+        11,
+        12,
+        13,
+        17,
+        18,
+        19
+      ]
+    },
+    {
+      "repository": "6076446993/NVIDIA-NIM-CONSOLE",
+      "repositoryId": 1380721890,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 0,
+      "openAlertIds": [],
+      "trackedAlertIds": []
+    },
+    {
+      "repository": "6076446993/AI-collaboration-",
+      "repositoryId": 1356380073,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 0,
+      "openAlertIds": [],
+      "trackedAlertIds": []
+    },
+    {
+      "repository": "6076446993/The-Crucible",
+      "repositoryId": 1344890806,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 0,
+      "openAlertIds": [],
+      "trackedAlertIds": []
+    },
+    {
+      "repository": "6076446993/Learning-Worker",
+      "repositoryId": 1351768313,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 0,
+      "openAlertIds": [],
+      "trackedAlertIds": []
+    },
+    {
+      "repository": "6076446993/Crucible-Learning-State",
+      "repositoryId": 1352932373,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 0,
+      "openAlertIds": [],
+      "trackedAlertIds": []
+    },
+    {
+      "repository": "6076446993/Crucible-Vetted-Learning-State",
+      "repositoryId": 1353131456,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 0,
+      "openAlertIds": [],
+      "trackedAlertIds": []
+    },
+    {
+      "repository": "6076446993/Vetting-and-Governance-oversite.",
+      "repositoryId": 1352354684,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 0,
+      "openAlertIds": [],
+      "trackedAlertIds": []
+    },
+    {
+      "repository": "6076446993/Nexus-Public-CI",
+      "repositoryId": 1396528394,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 0,
+      "openAlertIds": [],
+      "trackedAlertIds": []
+    },
+    {
+      "repository": "jonathanblunt1214-lgtm/Smoker-Hours-Tracker",
+      "repositoryId": 1323458139,
+      "source": "github-dependabot",
+      "authenticated": true,
+      "complete": true,
+      "observedAt": "2026-10-03T11:28:00Z",
+      "openCount": 3,
+      "openAlertIds": [
+        3,
+        4,
+        9
+      ],
+      "trackedAlertIds": [
+        3,
+        4,
+        9
+      ]
+    }
+  ],
+  "probes": [
+    {
+      "name": "worker-extraction",
+      "repository": "6076446993/Learning-Worker",
+      "observedAt": "2026-10-03T11:51:42.218Z",
+      "expectedSha": "44933a5ced7225ad08aa2a140062ed7416c79c57",
+      "actualSha": "44933a5ced7225ad08aa2a140062ed7416c79c57",
+      "status": "completed",
+      "conclusion": "success",
+      "evidenceRefs": [
+        "https://github.com/6076446993/Learning-Worker/actions/runs/37115964694"
+      ],
+      "runAttempt": 2
+    },
+    {
+      "name": "oversight",
+      "repository": "6076446993/Vetting-and-Governance-oversite.",
+      "observedAt": "2026-10-03T11:51:42.202Z",
+      "expectedSha": "9f17975e99f9fc5f3078f0110af6e599cb84e0bb",
+      "actualSha": "9f17975e99f9fc5f3078f0110af6e599cb84e0bb",
+      "status": "completed",
+      "conclusion": "failure",
+      "evidenceRefs": [
+        "https://github.com/6076446993/Vetting-and-Governance-oversite./actions/runs/37117044290"
+      ],
+      "runAttempt": 2
+    },
+    {
+      "name": "durable-learning",
+      "repository": "6076446993/The-Crucible",
+      "observedAt": "2026-10-03T11:51:42.238Z",
+      "expectedSha": "fa12966b81ab5588bcdcc2278b389ceac00d2b5b",
+      "actualSha": "fa12966b81ab5588bcdcc2278b389ceac00d2b5b",
+      "status": "completed",
+      "conclusion": "failure",
+      "evidenceRefs": [
+        "https://github.com/6076446993/The-Crucible/actions/runs/37108694557"
+      ],
+      "runAttempt": 2
+    },
+    {
+      "name": "council",
+      "repository": "6076446993/NVIDIA-NIM-CONSOLE",
+      "observedAt": "2026-10-03T11:51:42.291Z",
+      "actualSha": "d7e2e4b0221a470814f3eac1e235c0721956f44f",
+      "status": "completed",
+      "conclusion": "failure",
+      "evidenceRefs": [
+        "https://github.com/6076446993/NVIDIA-NIM-CONSOLE/actions/runs/37036514138"
+      ],
+      "runAttempt": 1
+    },
+    {
+      "name": "public-ci",
+      "repository": "6076446993/Nexus-Public-CI",
+      "observedAt": "2026-10-03T11:51:42.308Z",
+      "expectedSha": "3ca05fd7027ff01a3a2d39fffa757e67b5f67b90",
+      "actualSha": "3ca05fd7027ff01a3a2d39fffa757e67b5f67b90",
+      "status": "completed",
+      "conclusion": "failure",
+      "evidenceRefs": [
+        "https://github.com/6076446993/Nexus-Public-CI/actions/runs/37109231982"
+      ],
+      "runAttempt": 1
+    },
+    {
+      "name": "smoke-ci",
+      "repository": "jonathanblunt1214-lgtm/Smoker-Hours-Tracker",
+      "observedAt": "2026-10-03T11:51:42.314Z",
+      "expectedSha": "99a5c828cc6bf98edb944ab18dc10dd72ea26bca",
+      "actualSha": "99a5c828cc6bf98edb944ab18dc10dd72ea26bca",
+      "status": "completed",
+      "conclusion": "failure",
+      "evidenceRefs": [
+        "https://github.com/jonathanblunt1214-lgtm/Smoker-Hours-Tracker/actions/runs/37111948796"
+      ],
+      "runAttempt": 1
+    }
+  ]
+}

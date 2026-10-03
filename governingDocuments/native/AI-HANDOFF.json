@@ -21,7 +21,14 @@
   },
   "nativeGovernanceAssimilation": {
     "trigger": "A Crucible-injected governingDocuments/ tree exists on Development-branch.",
-    "nativeDocuments": ["AGENTS.md", "AI-HANDOFF.json", "AI-CONFLICTS.json", "CLAUDE.md", "DEVLOG.md", "CONSTITUTION.md"],
+    "nativeDocuments": [
+      "AGENTS.md",
+      "AI-HANDOFF.json",
+      "AI-CONFLICTS.json",
+      "CLAUDE.md",
+      "DEVLOG.md",
+      "CONSTITUTION.md"
+    ],
     "copyDestination": "governingDocuments/native/",
     "preserveRootCopies": true,
     "preserveCrucibleBaseline": true,
@@ -29,5 +36,14 @@
     "externalAuthority": "Assimilation is an internal Nexus write and does not extend or renew external write access."
   },
   "branchAuthoritySummary": "Plain language: ordinary AI work happens only on Development-branch. An AI does not create or use claude/*, codex/*, or other auxiliary branches, and does not touch main directly, unless the repository owner explicitly authorizes that exact branch or operation in the current conversation — and that authorization does not carry over to the next task. main only changes through the protected promote-development-to-main.yml workflow. See AGENTS.md for the full, binding rules.",
-  "lastUpdated": "2026-08-28 08:55:15 EDT"
+  "lastUpdated": "2026-10-03T11:54:15.541234+00:00",
+  "operationalVerificationCheckpoint": {
+    "date": "2026-10-03",
+    "request": "I also want verification tests added for all these so we know that they are working when they are supposed to; If these verification fail trigger repairs",
+    "validator": "scripts/verifyRepairOperations.js",
+    "tests": "test/repairOperations.test.js",
+    "liveEvidence": "Nexus-operational-verification-evidence.json",
+    "behavior": "Fresh direct Dependabot coverage and exact-current-commit live operation evidence are mandatory. Missing, incomplete, stale, failed or skipped evidence produces stable repair fingerprints and nonzero exit. Existing hourly repair task consumes results; safe repairs are retested, permission blocks remain visible. Unit tests do not prove live monitoring or learning.",
+    "status": "Local checks and hosted exact-tip gates pending; historical snapshot intentionally reports outstanding failures."
+  }
 }
