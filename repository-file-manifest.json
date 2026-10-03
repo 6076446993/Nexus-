@@ -1805,8 +1805,8 @@
     {
       "path": "main.js",
       "type": ".js",
-      "size": 220835,
-      "sha256": "ee3be9a71dc400684aacf2358bf6c6b46ae44ea2c316f2437b85b0b3f408ade0"
+      "size": 235651,
+      "sha256": "33bd73a90242bbbe91824ecd07f0e55031fa768c1af372a0ab58da0fb34d8f32"
     },
     {
       "path": "memoryEngine.js",
@@ -1961,8 +1961,8 @@
     {
       "path": "preload.js",
       "type": ".js",
-      "size": 28976,
-      "sha256": "a761c0deadaedfc5843382a233b3ca10fe87dbecf648feef4bbaeb3469df3e16"
+      "size": 29861,
+      "sha256": "e1d541e6dfbac9ae28022f36dfdf077719b02fa943206452d663643122200133"
     },
     {
       "path": "projectCloner.js",
