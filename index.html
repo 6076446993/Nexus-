@@ -1256,6 +1256,30 @@ Type "help" for tips.
         <div id="commit-history-list" style="margin-top:8px; max-height:280px; overflow-y:auto;"></div>
       </div>
 
+      <div class="card nexus-coding-card" style="flex-shrink:0;">
+        <label class="label">Nexus Coding — prompt to verified GitHub change</label>
+        <p class="muted small" style="margin-top:6px;">NVIDIA NIM is the coding worker. The AI council joins only when the coding or repair path is struggling. Nexus applies the exact proposal, runs local checks, publishes a feature-branch PR, and consumes The Crucible on the exact commit before showing VERIFIED.</p>
+        <div class="nexus-coding-stages">
+          <div class="nexus-coding-stage" data-stage="nim" id="nexus-coding-stage-nim">NIM · waiting</div>
+          <div class="nexus-coding-stage" data-stage="council" id="nexus-coding-stage-council">Council · standby</div>
+          <div class="nexus-coding-stage" data-stage="local" id="nexus-coding-stage-local">Local checks · waiting</div>
+          <div class="nexus-coding-stage" data-stage="crucible" id="nexus-coding-stage-crucible">Crucible · waiting</div>
+        </div>
+        <div class="nexus-coding-composer">
+          <textarea id="nexus-coding-prompt" placeholder="Tell Nexus what to build or change in the active project…"></textarea>
+          <button class="btn btn-nim" id="nexus-coding-run-btn" onclick="runNativeCodingPrompt(false)">Run with NIM</button>
+        </div>
+        <p class="muted small" id="nexus-coding-status" style="margin-top:8px;">Ready for a prompt. A clean Git working tree is required so the proposal is bound to one exact commit.</p>
+        <pre id="nexus-coding-output" class="nexus-coding-output" style="display:none;"></pre>
+        <div class="nexus-coding-actions" id="nexus-coding-actions" style="display:none;">
+          <button class="btn btn-nim" id="nexus-coding-apply-btn" onclick="applyNativeCodingSession()">Apply &amp; run local checks</button>
+          <button class="btn" id="nexus-coding-publish-btn" onclick="publishNativeCodingSession()" style="display:none;">Publish feature PR</button>
+          <button class="btn btn-secondary" id="nexus-coding-verify-btn" onclick="verifyNativeCodingSession()" style="display:none;">Check Crucible</button>
+          <button class="btn btn-secondary" id="nexus-coding-retry-btn" onclick="retryNativeCodingSession()" style="display:none;">Retry with council context</button>
+          <button class="btn btn-secondary" id="nexus-coding-rollback-btn" onclick="rollbackNativeCodingSession()" style="display:none;">Rollback local change</button>
+        </div>
+      </div>
+
       <div class="card" style="flex-shrink:0;">
         <label class="label">Feature Builder (selected coding model) — plans across files, you approve each one (or run autonomously below if that mode is on)</label>
         <div class="form-row" style="margin-top:8px;">
@@ -1618,15 +1642,21 @@ Type "help" for tips.
         <p class="muted small" style="margin-top:8px;">Numbers are assigned only after this confirmation. Approval records the current source commit and time; opening Nexus or editing code does not increment it.</p>
       </div>
 
-      <div class="card" id="ai-collaboration-provider-card">
-        <label class="label">AI Collaboration · Multi-provider coding</label>
-        <p class="muted small" style="margin-top:6px;">Use AI Collaboration for managed multi-provider coding, reasoning, and review. When its Nexus coding-provider plug-in is enabled, Nexus sends coding work through that plug-in instead of the standalone fallback below.</p>
-        <div class="form-row" style="margin-top:8px;"><button class="btn" id="open-ai-collaboration-btn" onclick="window.nexus.openExternal('https://chatgpt.com/plugins/plugin_asdk_app_6a9b823d41088191a58d97f6d3a632f8?open_in_app')">Open AI Collaboration</button></div>
+      <div class="card nim-section-accent" id="ai-collaboration-provider-card">
+        <label class="label">Native Nexus AI Collaboration connection</label>
+        <p class="muted small" style="margin-top:6px;">The integrated Nexus coding path talks directly to the AI Collaboration service. NVIDIA NIM remains the coding worker; council review is requested only when the workflow is struggling. The old Nexus-specific plug-in is not required by this path.</p>
+        <div class="form-row" style="margin-top:8px;">
+          <input type="text" id="native-coding-service-url" placeholder="https://ai-collaboration.example.com" style="flex:1;">
+          <input type="password" id="native-coding-service-token" autocomplete="new-password" placeholder="AI Collaboration bearer token">
+          <button class="btn btn-nim" onclick="saveNativeCodingConfiguration()">Save native connection</button>
+          <button class="btn btn-secondary" onclick="clearNativeCodingToken()">Clear token</button>
+        </div>
+        <p id="native-coding-service-status" class="muted small" style="margin-top:8px;">Loading native coding connection…</p>
       </div>
 
       <div class="card" id="nexus-provider-fallback-card">
         <label class="label">Nexus-only provider fallback</label>
-        <p class="muted small" style="margin-top:6px;">Used only when the AI Collaboration coding-provider plug-in is unavailable. The fallback calls NVIDIA NIM with a key stored through Nexus's Windows-encrypted provider storage; the key is never shown again.</p>
+        <p class="muted small" style="margin-top:6px;">Compatibility fallback only. Native Nexus Coding uses the AI Collaboration service directly with NVIDIA NIM as its coding worker. This direct provider path remains for local/emergency compatibility and is not the primary integrated workflow.</p>
         <div class="form-row" style="margin-top:8px;"><select id="coding-model-provider" onchange="renderCodingModelProvider()"><option value="nim">NVIDIA NIM · Qwen3 Coder Next</option></select><input type="password" id="coding-model-key" autocomplete="new-password" placeholder="NVIDIA NIM API key"><button class="btn" onclick="saveCodingModelProviderKey()">Save &amp; Activate</button><button class="btn btn-secondary" onclick="activateCodingModelProvider()">Use fallback</button><button class="btn btn-secondary" onclick="clearCodingModelProviderKey()">Clear key</button><button class="btn btn-secondary" onclick="window.nexus.openExternal('https://build.nvidia.com/models?api-key=true&amp;label=Chat')">Get NVIDIA key</button></div>
         <p id="coding-model-status" class="muted small" style="margin-top:8px;">Loading model providers…</p>
         <div class="form-row" style="margin-top:8px;"><input id="coding-model-prompt" placeholder="Ask the selected coding model…"><button class="btn" onclick="askCodingModel()">Send</button></div>
