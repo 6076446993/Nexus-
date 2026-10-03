@@ -33,6 +33,7 @@ function createNexusProgramRepairRuntime({
   folder,
   snapshotFiles,
   crucibleClassify,
+  crucibleBridge = null,
   planRepair,
   authorize,
   applyBoundedRepair,
@@ -41,9 +42,13 @@ function createNexusProgramRepairRuntime({
   loadRegressionMemory,
 }) {
   if (!repository || !folder) throw new Error('repository and folder are required.');
+  const classifier = crucibleClassify || crucibleBridge?.classifyNexusDiagnosis;
+  const verifier = crucibleVerify || crucibleBridge?.verifyNexusRepair;
+  if (typeof classifier !== 'function' || typeof verifier !== 'function') throw new Error('Crucible classification and verification adapters are required.');
+  let firstDiagnosis = null;
   const controller = new NexusRepairController({
-    diagnose: async (snapshot) => diagnoseSnapshot(snapshot),
-    classify: crucibleClassify,
+    diagnose: async (snapshot) => { const result = diagnoseSnapshot(snapshot); if (!firstDiagnosis) firstDiagnosis = result; return result; },
+    classify: classifier,
     planRepair,
     authorize,
     repair: async (ctx) => {
@@ -56,7 +61,7 @@ function createNexusProgramRepairRuntime({
       const result = await runProjectTests(ctx);
       return { passed: result?.ok === true && result?.skipped !== true, result };
     },
-    verify: crucibleVerify,
+    verify: async (ctx) => verifier({ ...ctx, beforeDiagnosis: firstDiagnosis, afterDiagnosis: ctx.diagnosis }),
     regressionMemory: loadRegressionMemory,
   });
 
