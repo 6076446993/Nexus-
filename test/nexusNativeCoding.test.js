@@ -100,7 +100,7 @@ test('apply is exact-base, auditable, and rollback restores the original tree', 
   const folder = fixture();
   const state = repositoryState(folder);
   const session = {
-    sessionId: 's1',
+    sessionId: path.basename(folder),
     repositoryReference: state.coordinates.full,
     targetVersion: state.commit,
     proposal: {

@@ -2495,8 +2495,8 @@
     {
       "path": "test/nexusNativeCoding.test.js",
       "type": ".js",
-      "size": 4692,
-      "sha256": "b552a8cc997308a49ae8d1c7a3c4ebaa691b9de5121d4f489813ef9805312f3e"
+      "size": 4709,
+      "sha256": "4bdf5371586af767b8f90b5b97c97a0be3b1973b75a7d3defc59aa3ea4bf8384"
     },
     {
       "path": "test/nexusProgramRepairRuntime.test.js",
