@@ -45,6 +45,16 @@ jobs:
           NEXUS_REPAIR_ROOT: ${{ github.workspace }}/target
         run: node scripts/selfRepairCommit.js --apply --trusted-static --no-report
 
+      - name: Preserve repair attempt evidence
+        if: github.event_name == 'push' && github.ref == 'refs/heads/Development-branch'
+        working-directory: target
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f .nexus-self-repair-report.json ]; then
+            echo "Self-repair report preserved for downstream failure attribution."
+          fi
+
       - name: Commit trusted repair and dispatch Crucible on exact repaired HEAD
         if: github.event_name == 'push' && github.ref == 'refs/heads/Development-branch'
         working-directory: target
