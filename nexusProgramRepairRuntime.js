@@ -48,16 +48,19 @@ function createNexusProgramRepairRuntime({
   if (!repository || !folder) throw new Error('repository and folder are required.');
   const classifier = crucibleClassify || (crucibleBridge ? ((ctx) => crucibleBridge.classifyDiagnosis(ctx)) : null);
   const verifier = crucibleVerify || (crucibleBridge ? (async (ctx) => {
-    if (!repositoryCoordinates?.owner || !repositoryCoordinates?.repo) throw new Error('Live Crucible verification requires GitHub repository coordinates.');
-    return crucibleBridge.verifyRepair({
-      owner: repositoryCoordinates.owner,
-      repo: repositoryCoordinates.repo,
-      repairCommit: ctx.repair?.commit,
-      beforeDiagnosis: ctx.beforeDiagnosis,
-      afterDiagnosis: ctx.afterDiagnosis,
-      classification: ctx.classification,
-      test: ctx.test,
-    });
+    if (crucibleBridge.requiresRepositoryCoordinates) {
+      if (!repositoryCoordinates?.owner || !repositoryCoordinates?.repo) throw new Error('Live Crucible verification requires GitHub repository coordinates.');
+      return crucibleBridge.verifyRepair({
+        owner: repositoryCoordinates.owner,
+        repo: repositoryCoordinates.repo,
+        repairCommit: ctx.repair?.commit,
+        beforeDiagnosis: ctx.beforeDiagnosis,
+        afterDiagnosis: ctx.afterDiagnosis,
+        classification: ctx.classification,
+        test: ctx.test,
+      });
+    }
+    return crucibleBridge.verifyRepair(ctx);
   }) : null);
   if (typeof classifier !== 'function' || typeof verifier !== 'function') throw new Error('Crucible classification and verification adapters are required.');
   let firstDiagnosis = null;
