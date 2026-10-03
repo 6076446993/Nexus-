@@ -165,7 +165,9 @@
       "crucibleDiagnosticBridge.js",
       "nexusNativeCoding.js",
       "nexusRepairController.js",
-      "nexusProgramRepairRuntime.js"
+      "nexusProgramRepairRuntime.js",
+      "scripts/nexusDiagnose.js",
+      "governingDocuments/native/CRUCIBLE-DIAGNOSTIC-BRIDGE.json"
     ],
     "releaseInfo": {
       "releaseNotesFile": "release-notes.md"
