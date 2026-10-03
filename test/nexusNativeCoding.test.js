@@ -110,9 +110,9 @@ test('apply is exact-base, auditable, and rollback restores the original tree', 
   const applied = applyCodingSession(folder, session);
   assert.equal(applied.state, 'EXECUTED');
   assert.deepEqual(applied.executedPaths, ['a.txt']);
-  assert.equal(fs.readFileSync(path.join(folder, 'a.txt'), 'utf8'), 'new\n');
+  assert.equal(fs.readFileSync(path.join(folder, 'a.txt'), 'utf8').replace(/\r\n/g, '\n'), 'new\n');
   rollbackCodingSession(folder, applied);
-  assert.equal(fs.readFileSync(path.join(folder, 'a.txt'), 'utf8'), 'old\n');
+  assert.equal(fs.readFileSync(path.join(folder, 'a.txt'), 'utf8').replace(/\r\n/g, '\n'), 'old\n');
   assert.equal(repositoryState(folder).clean, true);
   fs.rmSync(folder, { recursive: true, force: true });
 });
