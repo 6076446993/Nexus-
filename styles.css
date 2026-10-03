@@ -9,6 +9,11 @@
   --accent-hover: #8bb9ff;
   --accent-soft: rgba(110, 168, 254, 0.13);
   --success: #58c790;
+  --nim: #76b900;
+  --nim-bright: #8fd400;
+  --nim-soft: rgba(118, 185, 0, 0.14);
+  --council: #a78bfa;
+  --crucible: #f0b35a;
   --success-soft: rgba(88, 199, 144, 0.12);
   --danger: #ff7272;
   --text: #f5f7fb;
@@ -304,3 +309,25 @@ body.nexus-compact .card { padding-top:10px; padding-bottom:10px; }
 body.nexus-compact .form-row { gap:6px; }
 body.nexus-reduced-motion *, body.nexus-reduced-motion *::before, body.nexus-reduced-motion *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
 #code-editor-cm-container .CodeMirror { font-size:var(--nexus-editor-font-size, 13px); }
+
+
+/* Native Nexus coding provenance. NVIDIA green is retained from the NIM
+   console as a bounded coding-worker accent, not as a replacement Nexus theme. */
+.nexus-coding-card { border-color: color-mix(in srgb, var(--nim) 46%, var(--border)); box-shadow: inset 3px 0 0 var(--nim), var(--shadow-sm); }
+.nexus-coding-card .label { display:flex; align-items:center; gap:8px; }
+.nexus-coding-card .label::before { content:"NIM"; padding:2px 6px; border-radius:5px; background:var(--nim-soft); color:var(--nim-bright); font-family:"Cascadia Code",Consolas,monospace; font-size:10px; letter-spacing:.04em; }
+.nexus-coding-composer { display:flex; gap:8px; margin-top:10px; align-items:stretch; }
+.nexus-coding-composer textarea { flex:1; min-height:72px; padding:10px 12px; resize:vertical; }
+.btn-nim { background:var(--nim); color:#071100; border-color:var(--nim); }
+.btn-nim:hover { background:var(--nim-bright); }
+.nexus-coding-stages { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; margin-top:10px; }
+.nexus-coding-stage { padding:7px 9px; border:1px solid var(--border); border-radius:8px; background:var(--surface-2); color:var(--text-muted); font-size:11px; }
+.nexus-coding-stage[data-stage="nim"].active { border-color:var(--nim); color:var(--nim-bright); background:var(--nim-soft); }
+.nexus-coding-stage[data-stage="council"].active { border-color:var(--council); color:#c4b5fd; }
+.nexus-coding-stage[data-stage="local"].active { border-color:var(--accent); color:#cfe0ff; }
+.nexus-coding-stage[data-stage="crucible"].active { border-color:var(--crucible); color:#ffd899; }
+.nexus-coding-output { margin-top:10px; padding:10px; max-height:280px; overflow:auto; white-space:pre-wrap; background:#0b0d11; border:1px solid var(--border); border-radius:8px; font-family:"Cascadia Code",Consolas,monospace; font-size:11px; }
+.nexus-coding-actions { display:flex; gap:7px; flex-wrap:wrap; margin-top:10px; }
+.nim-section-accent { border-left:3px solid var(--nim) !important; }
+.nim-section-accent > .label:first-child, .nim-accent { color:var(--nim-bright); }
+@media (max-width:760px) { .nexus-coding-stages { grid-template-columns:1fr 1fr; } .nexus-coding-composer { flex-direction:column; } }
