@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 300,
+  "fileCount": 301,
   "types": {
     ".json": 16,
     ".md": 48,
@@ -10,7 +10,7 @@
     "[no extension]": 5,
     ".yml": 12,
     ".bat": 2,
-    ".js": 203,
+    ".js": 204,
     ".html": 2,
     ".rules": 2,
     ".txt": 5,
@@ -363,6 +363,11 @@
       "source": "main.js",
       "reference": "./crucibleDiagnosticBridge",
       "resolved": "crucibleDiagnosticBridge.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./nexusNativeCoding",
+      "resolved": "nexusNativeCoding.js"
     },
     {
       "source": "main.js",
@@ -758,6 +763,11 @@
       "source": "test/nexusDiagnose.test.js",
       "reference": "../scripts/nexusDiagnose",
       "resolved": "scripts/nexusDiagnose.js"
+    },
+    {
+      "source": "test/nexusNativeCoding.test.js",
+      "reference": "../nexusNativeCoding",
+      "resolved": "nexusNativeCoding.js"
     },
     {
       "source": "test/nexusProgramRepairRuntime.test.js",
@@ -1795,8 +1805,8 @@
     {
       "path": "main.js",
       "type": ".js",
-      "size": 218534,
-      "sha256": "cb5c5c2ccf5317a84fddc6f4019b73f68488159bb6b8133f12d53e87952614cc"
+      "size": 220807,
+      "sha256": "d5df0e92420a563e03e7b28838dc02566620ce91ce93901f388ee17392360e0c"
     },
     {
       "path": "memoryEngine.js",
@@ -2481,6 +2491,12 @@
       "type": ".js",
       "size": 2113,
       "sha256": "f56928aa68a415bfcf8dd116ee7a1b25fba25403d076d61a73b967805991034b"
+    },
+    {
+      "path": "test/nexusNativeCoding.test.js",
+      "type": ".js",
+      "size": 4564,
+      "sha256": "a0aafd9a96a47c6f688ddd9bd0657ab58d3a05a675c2c3e8d97cdcc329a6b755"
     },
     {
       "path": "test/nexusProgramRepairRuntime.test.js",
