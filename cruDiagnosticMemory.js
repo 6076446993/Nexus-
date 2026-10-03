@@ -24,6 +24,7 @@ function validateCatalog(catalog) {
     if (!entry || !/^CRU-\d{4}$/.test(entry.code || '')) throw new Error('CRU catalog contains an invalid code.');
     if (seen.has(entry.code)) throw new Error(`CRU catalog contains duplicate code ${entry.code}.`);
     if (!entry.category || !entry.meaning || !entry.next || !entry.remedy?.kind) throw new Error(`CRU catalog entry ${entry.code} is incomplete.`);
+    if (entry.status && !['active-classification','operational-or-historical','diagnosis-coverage-marker'].includes(entry.status)) throw new Error(`CRU catalog entry ${entry.code} has invalid status.`);
     seen.add(entry.code);
   }
   return true;
@@ -85,7 +86,6 @@ class CruDiagnosticMemory {
 
   remember({ code, component, event, repository = null, commit = null, evidenceDigest = null, outcome = null, correlationId = null, observedAt = new Date().toISOString() }) {
     const explanation = this.explain(code);
-    if (!explanation) throw new Error(`Cannot remember unknown or uninstalled CRU code ${code}.`);
     if (!component || !event) throw new Error('CRU occurrence requires component and event.');
     const record = {
       schemaVersion: 1,
@@ -99,8 +99,9 @@ class CruDiagnosticMemory {
       outcome,
       correlationId,
       observedAt,
-      crucibleSourceCommit: explanation.sourceCommit,
-      catalogSha256: explanation.catalogSha256,
+      crucibleSourceCommit: explanation?.sourceCommit || this.catalogEnvelope()?.sourceCommit || null,
+      catalogSha256: explanation?.catalogSha256 || this.catalogEnvelope()?.catalogSha256 || null,
+      definitionStatus: explanation ? (explanation.status || 'catalogued') : 'unresolved-pending-catalog-refresh',
       effect: 'diagnostic-memory-only',
     };
     fs.appendFileSync(this.occurrenceFile, `${JSON.stringify(record)}\n`, { encoding: 'utf8', mode: 0o600 });
@@ -113,7 +114,7 @@ class CruDiagnosticMemory {
   }
 
   enrich(value) {
-    return extractCruCodes(value).map((code) => ({ code, explanation: this.explain(code) }));
+    return extractCruCodes(value).map((code) => ({ code, explanation: this.explain(code), status: this.explain(code) ? 'catalogued' : 'unresolved-pending-catalog-refresh' }));
   }
 }
 
