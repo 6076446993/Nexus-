@@ -5,7 +5,7 @@ const {createLocalCrucibleRepairBridge}=require('../nexusCrucibleRepairAdapter')
 const crucible=process.env.CRUCIBLE_INTEGRATION_ROOT;
 test('Nexus and Crucible complete a real bounded repair cycle', {skip:!crucible}, async()=>{
  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'nexus-crucible-e2e-'));
- execFileSync('git',['init'],{cwd:folder});execFileSync('git',['config','user.email','integration@test.invalid'],{cwd:folder});execFileSync('git',['config','user.name','Nexus Integration'],{cwd:folder});
+ execFileSync('git',['init'],{cwd:folder});execFileSync('git',['config','user.email','git@github.com'],{cwd:folder});execFileSync('git',['config','user.name','Nexus Integration'],{cwd:folder});
  const file=path.join(folder,'NEXUS-SYSTEM-CONFORMANCE.md');fs.writeFileSync(file,'canonical Nexus authority and lineage\nRoute failures into Assimilation for reconciliation.\n');
  execFileSync('git',['add','.'],{cwd:folder});execFileSync('git',['commit','-m','defective fixture'],{cwd:folder});
  const bridge=createLocalCrucibleRepairBridge(crucible);
