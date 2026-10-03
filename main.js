@@ -74,9 +74,11 @@ const officialLanguageServers = require('./officialLanguageServers');
 const gitWorkflow = require('./gitWorkflow');
 const portableProjectConfig = require('./portableProjectConfig');
 const { CrucibleDiagnosticBridge } = require('./crucibleDiagnosticBridge');
+const { requestCodingSession, applyCodingSession, rollbackCodingSession, repositoryState } = require('./nexusNativeCoding');
 
 let mainWindow;
 let crucibleDiagnosticBridge = null;
+const nativeCodingSessions = new Map();
 let projectsForExitSync = [];
 let exitSyncInProgress = false;
 let exitSyncComplete = false;
