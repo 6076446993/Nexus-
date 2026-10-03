@@ -11,6 +11,7 @@ const apply = args.has('--apply');
 const trustedStatic = args.has('--trusted-static');
 const writeReport = !args.has('--no-report');
 const reportPath = path.join(root, '.nexus-self-repair-report.json');
+const regressionLogPath = path.join(root, 'repair-regression-learning.json');
 
 function run(command, commandArgs, options = {}) {
   const result = spawnSync(command, commandArgs, {
@@ -90,7 +91,7 @@ function safeStaticInventoryRefresh() {
   const currentMap = new Map(current.map((item) => [item.path, item]));
 
   const changedJs = current.filter((item) => {
-    if (!/\.(?:c|m)?js$/i.test(item.path)) return false;
+    if (!/\.(?:[cm]?js|jsx|ts|tsx)$/i.test(item.path)) return false;
     const before = previous.get(item.path);
     return !before || before.sha256 !== item.sha256;
   });
@@ -108,52 +109,55 @@ function safeStaticInventoryRefresh() {
     { cwd: root, encoding: 'utf8' },
   ).trim();
 
+  const tracked = new Set(files.map((file) => file.replace(/\\/g, '/')));
+  const extensions = ['', '.js', '.jsx', '.ts', '.tsx', '.cjs', '.mjs', '.json', '.css', '.html'];
+  const unresolvedReferences = [];
   for (const item of changedJs) {
     const currentText = fs.readFileSync(path.join(root, item.path), 'utf8');
     const currentReferences = relativeReferences(currentText);
-    let baselineText = null;
-    if (manifestBaseline) {
-      const baseline = spawnSync('git', ['show', `${manifestBaseline}:${item.path}`], {
-        cwd: root,
-        encoding: 'utf8',
-        shell: false,
-      });
-      if (baseline.status === 0) baselineText = baseline.stdout;
+    for (const reference of currentReferences) {
+      const base = path.posix.normalize(path.posix.join(path.posix.dirname(item.path), reference));
+      const resolved = extensions.some((extension) => tracked.has(`${base}${extension}`))
+        || extensions.slice(1).some((extension) => tracked.has(`${base}/index${extension}`));
+      if (!resolved) unresolvedReferences.push(`${item.path} -> ${reference}`);
     }
-
-    if (baselineText === null) {
-      if (currentReferences.length) {
-        throw new Error(`Static inventory refresh refused because ${item.path} is new relative-reference-bearing JavaScript.`);
-      }
-      continue;
-    }
-
-    const baselineReferences = relativeReferences(baselineText);
-    if (JSON.stringify(currentReferences) !== JSON.stringify(baselineReferences)) {
-      throw new Error(`Static inventory refresh refused because ${item.path} changed relative module references.`);
-    }
+  }
+  if (unresolvedReferences.length) {
+    throw new Error(`Static inventory refresh refused because changed source files have unresolved relative references: ${unresolvedReferences.join(', ')}.`);
   }
 
   const removedJs = [...previous.keys()].filter((file) => /\.(?:c|m)?js$/i.test(file) && !currentMap.has(file));
   if (removedJs.length) throw new Error(`Static inventory refresh refused because JavaScript files were removed: ${removedJs.join(', ')}`);
 
-  const types = {};
-  for (const item of current) types[item.type] = (types[item.type] || 0) + 1;
-  manifest.fileCount = current.length;
-  manifest.types = types;
-  manifest.files = current;
-  fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+  const generated = run('node', ['scripts/verifyRepositoryInventory.js', '--write']);
+  if (generated.status !== 0) {
+    throw new Error(`Static inventory generator failed after reference validation: ${(generated.stderr || generated.stdout || 'unknown error').trim()}`);
+  }
 }
 
 function inventoryRepairNeeded(result) {
   return result.status !== 0 && /Repository inventory is stale|inventory count mismatch|repository-file-manifest\.json is missing/i.test(`${result.stdout}\n${result.stderr}`);
 }
 
+function priorRepairRegressions() {
+  if (!fs.existsSync(regressionLogPath)) return [];
+  try {
+    const parsed = JSON.parse(fs.readFileSync(regressionLogPath, 'utf8'));
+    return Array.isArray(parsed.records) ? parsed.records : [];
+  } catch (error) {
+    throw new Error(`Repair regression learning log is unreadable: ${error.message}`);
+  }
+}
+
+const priorRegressions = priorRepairRegressions();
+
 const report = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   mode: apply ? 'apply' : 'check',
   trustedStatic,
   head: run('git', ['rev-parse', 'HEAD']).stdout.trim(),
+  priorRepairRegressionCount: priorRegressions.length,
+  priorRepairRegressionIds: priorRegressions.map((item) => item.regressionId).filter(Boolean),
   workflowRepairs: [],
   checks: [],
   repairs: [],

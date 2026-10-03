@@ -25,7 +25,9 @@
     "signing:restore-local": "pwsh -NoProfile -File scripts/restore-local-signing.ps1",
     "dist:publish": "node scripts/buildAndPublishVerified.js",
     "inventory:package": "node scripts/verifyPackagedContents.js",
-    "verify:operations": "node scripts/verifyRepairOperations.js"
+    "verify:operations": "node scripts/verifyRepairOperations.js",
+    "diagnose:nexus": "node scripts/nexusDiagnose.js",
+    "test:repair-controller": "node --test test/nexusDiagnose.test.js test/nexusRepairController.test.js test/nexusProgramRepairRuntime.test.js test/nexusNativeCoding.test.js test/crucibleDiagnosticBridge.test.js test/cruDiagnosticMemory.test.js"
   },
   "author": "",
   "license": "MIT",
@@ -158,7 +160,14 @@
       "learning_sources/system_instruction.md.txt",
       "learning_sources/TECHNICAL_MANUAL.md.txt",
       "learning_sources/SPEC.md.txt",
-      "release-notes.md"
+      "release-notes.md",
+      "cruDiagnosticMemory.js",
+      "crucibleDiagnosticBridge.js",
+      "nexusNativeCoding.js",
+      "nexusRepairController.js",
+      "nexusProgramRepairRuntime.js",
+      "scripts/nexusDiagnose.js",
+      "governingDocuments/native/CRUCIBLE-DIAGNOSTIC-BRIDGE.json"
     ],
     "releaseInfo": {
       "releaseNotesFile": "release-notes.md"

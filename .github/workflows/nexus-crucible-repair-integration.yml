@@ -1,0 +1,32 @@
+name: Nexus Crucible Repair Integration
+
+on:
+  push:
+    branches: [Development-branch]
+  pull_request:
+    branches: [Development-branch, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repair-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Nexus
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        with:
+          persist-credentials: false
+      # Crucible owns the live CRU registry; Nexus never vendors or redefines it here.
+      - name: Checkout Crucible read-only
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        with:
+          repository: 6076446993/The-Crucible
+          ref: development
+          path: .crucible-integration
+          persist-credentials: false
+      - name: Run cross-repository repair proof
+        env:
+          CRUCIBLE_INTEGRATION_ROOT: ${{ github.workspace }}/.crucible-integration
+        run: node --test test/nexusCrucibleRepairIntegration.test.js

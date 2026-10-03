@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 283,
+  "fileCount": 301,
   "types": {
-    ".json": 14,
-    ".md": 47,
+    ".json": 16,
+    ".md": 48,
     ".cjs": 1,
     "[no extension]": 5,
-    ".yml": 11,
+    ".yml": 12,
     ".bat": 2,
-    ".js": 190,
+    ".js": 204,
     ".html": 2,
     ".rules": 2,
     ".txt": 5,
@@ -361,6 +361,16 @@
     },
     {
       "source": "main.js",
+      "reference": "./crucibleDiagnosticBridge",
+      "resolved": "crucibleDiagnosticBridge.js"
+    },
+    {
+      "source": "main.js",
+      "reference": "./nexusNativeCoding",
+      "resolved": "nexusNativeCoding.js"
+    },
+    {
+      "source": "main.js",
       "reference": "./codingModelProviders",
       "resolved": "codingModelProviders.js"
     },
@@ -418,6 +428,21 @@
       "source": "main.js",
       "reference": "./accountVault",
       "resolved": "accountVault.js"
+    },
+    {
+      "source": "nexusProgramRepairRuntime.js",
+      "reference": "./nexusRepairController",
+      "resolved": "nexusRepairController.js"
+    },
+    {
+      "source": "nexusProgramRepairRuntime.js",
+      "reference": "./scripts/nexusDiagnose",
+      "resolved": "scripts/nexusDiagnose.js"
+    },
+    {
+      "source": "operationalDiagnostics.js",
+      "reference": "./cruDiagnosticMemory",
+      "resolved": "cruDiagnosticMemory.js"
     },
     {
       "source": "pipelineEngine.test.js",
@@ -630,6 +655,21 @@
       "resolved": "codingModelProviders.js"
     },
     {
+      "source": "test/cruDiagnosticMemory.test.js",
+      "reference": "../cruDiagnosticMemory",
+      "resolved": "cruDiagnosticMemory.js"
+    },
+    {
+      "source": "test/crucibleDiagnosticBridge.test.js",
+      "reference": "../operationalDiagnostics",
+      "resolved": "operationalDiagnostics.js"
+    },
+    {
+      "source": "test/crucibleDiagnosticBridge.test.js",
+      "reference": "../crucibleDiagnosticBridge",
+      "resolved": "crucibleDiagnosticBridge.js"
+    },
+    {
       "source": "test/crucibleLearningIdentity.test.js",
       "reference": "../crucibleLearningIdentity",
       "resolved": "crucibleLearningIdentity.js"
@@ -708,6 +748,36 @@
       "source": "test/memoryEngine.test.js",
       "reference": "../memoryEngine",
       "resolved": "memoryEngine.js"
+    },
+    {
+      "source": "test/nexusCrucibleRepairIntegration.test.js",
+      "reference": "../nexusProgramRepairRuntime",
+      "resolved": "nexusProgramRepairRuntime.js"
+    },
+    {
+      "source": "test/nexusCrucibleRepairIntegration.test.js",
+      "reference": "../nexusCrucibleRepairAdapter",
+      "resolved": "nexusCrucibleRepairAdapter.js"
+    },
+    {
+      "source": "test/nexusDiagnose.test.js",
+      "reference": "../scripts/nexusDiagnose",
+      "resolved": "scripts/nexusDiagnose.js"
+    },
+    {
+      "source": "test/nexusNativeCoding.test.js",
+      "reference": "../nexusNativeCoding",
+      "resolved": "nexusNativeCoding.js"
+    },
+    {
+      "source": "test/nexusProgramRepairRuntime.test.js",
+      "reference": "../nexusProgramRepairRuntime",
+      "resolved": "nexusProgramRepairRuntime.js"
+    },
+    {
+      "source": "test/nexusRepairController.test.js",
+      "reference": "../nexusRepairController",
+      "resolved": "nexusRepairController.js"
     },
     {
       "source": "test/oauthIntegrations.test.js",
@@ -979,8 +1049,14 @@
     {
       "path": ".github/workflows/commit-self-repair.yml",
       "type": ".yml",
-      "size": 3382,
-      "sha256": "b90c98b7d1f49388fccb5263cc2ac7cfa9c92f00536e66b8635b4cb04873e70a"
+      "size": 4208,
+      "sha256": "eb358f65cf8de91521f02f2f8a5b631d43f4c0bdf2cc2680c40e471e36ca520a"
+    },
+    {
+      "path": ".github/workflows/nexus-crucible-repair-integration.yml",
+      "type": ".yml",
+      "size": 1002,
+      "sha256": "3b2b850d3e972a821d20f5d6176e8e3d09ccf418843dad3391f4005eece7d539"
     },
     {
       "path": ".github/workflows/promote-development-to-main.yml",
@@ -1033,8 +1109,8 @@
     {
       "path": "AGENTS.md",
       "type": ".md",
-      "size": 4649,
-      "sha256": "f2977e86e789b88831bb2ef8f81ec67b939e0a46f96b355f1da717960f6adc92"
+      "size": 3930,
+      "sha256": "cf4d80dd12dc91f03ab6d99eddc420fc857cae7aa966100fbd28b12c9dea96f4"
     },
     {
       "path": "AI-CONFLICTS.json",
@@ -1253,6 +1329,18 @@
       "sha256": "ce3c1fb7d869c360d22db89fb5c12e2ecbb577a7b4b115b21f37acbca4327197"
     },
     {
+      "path": "cruDiagnosticMemory.js",
+      "type": ".js",
+      "size": 5420,
+      "sha256": "150d0054e0b42c0cbd0fc63627cdf578e16ad2790d407933c6588145b715de03"
+    },
+    {
+      "path": "crucibleDiagnosticBridge.js",
+      "type": ".js",
+      "size": 9066,
+      "sha256": "6060f9613f752e105e411e588db99552531277931750c9cff8672a8bf74fa4fd"
+    },
+    {
       "path": "crucibleLearningIdentity.js",
       "type": ".js",
       "size": 3724,
@@ -1363,8 +1451,8 @@
     {
       "path": "githubClient.js",
       "type": ".js",
-      "size": 12969,
-      "sha256": "a84970967f62b26bcfb9b0e1dd9325b09e005ca5d4b6838242d5ca83a82f2106"
+      "size": 13508,
+      "sha256": "0990f6635003a55d59ee866084d304c712c0985fb1422a66051e3d9ebf681527"
     },
     {
       "path": "githubGitAuth.js",
@@ -1387,8 +1475,8 @@
     {
       "path": "governingDocuments/native/AGENTS.md",
       "type": ".md",
-      "size": 4649,
-      "sha256": "f2977e86e789b88831bb2ef8f81ec67b939e0a46f96b355f1da717960f6adc92"
+      "size": 3930,
+      "sha256": "cf4d80dd12dc91f03ab6d99eddc420fc857cae7aa966100fbd28b12c9dea96f4"
     },
     {
       "path": "governingDocuments/native/AI-CONFLICTS.json",
@@ -1399,8 +1487,8 @@
     {
       "path": "governingDocuments/native/AI-HANDOFF.json",
       "type": ".json",
-      "size": 4602,
-      "sha256": "b7aacf6331c6cdac22730e9b642d91bd011996a66f49f6b152d276f406fea83d"
+      "size": 4193,
+      "sha256": "8b1f37aa1ff379f9d449f68801a12997c916d3563f4658c18e5b9c08eb112795"
     },
     {
       "path": "governingDocuments/native/AUTHORITY-CONTRACTS.md",
@@ -1439,6 +1527,12 @@
       "sha256": "86db849ea4c76c73e3503e935f0e9fd85ca343719385dc7f6b817bcf0b45de86"
     },
     {
+      "path": "governingDocuments/native/CRUCIBLE-DIAGNOSTIC-BRIDGE.json",
+      "type": ".json",
+      "size": 542,
+      "sha256": "0222e4f39b6fec30c2daf08ecb628b2882811e445afa31ce8b296146c0eea530"
+    },
+    {
       "path": "governingDocuments/native/CRUCIBLE-TO-NIM.md",
       "type": ".md",
       "size": 8296,
@@ -1471,8 +1565,8 @@
     {
       "path": "governingDocuments/native/FAILURE-CONTRACTS.md",
       "type": ".md",
-      "size": 4262,
-      "sha256": "d1e818826524f2f55a0137a7d133151e7cb99dbaf4e63bf4ec912e77e960d60b"
+      "size": 5753,
+      "sha256": "88b01c2b680b9730a85bdab2cfa79606f842b3505d2ec1fafb163f65c12722ce"
     },
     {
       "path": "governingDocuments/native/GOVERNANCE-CONTRACTS.md",
@@ -1525,8 +1619,8 @@
     {
       "path": "governingDocuments/native/NEXUS-GOVERNANCE-MANIFEST.md",
       "type": ".md",
-      "size": 4404,
-      "sha256": "8f655c8765bcac37b5cf300c2dc623bf4ead56d8476529df9db89a8392e645bf"
+      "size": 4555,
+      "sha256": "97c3961574e04753ac91ff2d406e0bb2482b67d542ba690b2af51ef7d81b39c0"
     },
     {
       "path": "governingDocuments/native/NEXUS-INTEGRATION-RULES.md",
@@ -1539,6 +1633,12 @@
       "type": ".md",
       "size": 1852,
       "sha256": "4138a142088dc529d00d558d740ab4e4b6f6701607f5a231ed75adf2d8949a73"
+    },
+    {
+      "path": "governingDocuments/native/NEXUS-SYSTEM-INTEGRATION-CONTRACT.md",
+      "type": ".md",
+      "size": 6907,
+      "sha256": "cf389cb80dbc833f1e07f16575e4a43987218052c50b5c4a079e10aa807ee9ff"
     },
     {
       "path": "governingDocuments/native/NIM-TO-COLLABORATION.md",
@@ -1639,8 +1739,8 @@
     {
       "path": "index.html",
       "type": ".html",
-      "size": 131209,
-      "sha256": "8e0dc46df92a3ffa9fdc37f314ce66fb78d4b591a9911a6690db135f327ababf"
+      "size": 134311,
+      "sha256": "07065715aa317d32218788d8b5c958ed37cf929433d458278bacaebb95350610"
     },
     {
       "path": "inventoryWorker.js",
@@ -1705,14 +1805,38 @@
     {
       "path": "main.js",
       "type": ".js",
-      "size": 216745,
-      "sha256": "88eca177e404d14bfe5733b04f0d958328c20189b5a9fdcc15863a932149079f"
+      "size": 236353,
+      "sha256": "255416a129d6c00ee0be68a4c7ef54d66656168a4646834526b9878568332845"
     },
     {
       "path": "memoryEngine.js",
       "type": ".js",
       "size": 2935,
       "sha256": "df65895439c6db65754c1827954b268aeabb9b8166015a260f8f9a682d760de1"
+    },
+    {
+      "path": "nexusCrucibleRepairAdapter.js",
+      "type": ".js",
+      "size": 1489,
+      "sha256": "33fb33ea89dcbd94578d43190a54034e4eaf068f03d0ca5d86644c8a15edad51"
+    },
+    {
+      "path": "nexusNativeCoding.js",
+      "type": ".js",
+      "size": 8863,
+      "sha256": "c45bb0d27801f723cd6d06391d03ec7983811ddd9e26a699e7ff4e3361f0bd80"
+    },
+    {
+      "path": "nexusProgramRepairRuntime.js",
+      "type": ".js",
+      "size": 4413,
+      "sha256": "0d789a219cf1ba152364ad652ff17f25b3d9c383fd2d0749129204b446b57ed0"
+    },
+    {
+      "path": "nexusRepairController.js",
+      "type": ".js",
+      "size": 6880,
+      "sha256": "fa704f854441ca5c31b8ba9aceaed58f2041971013dce2bea34c60c5dc2fae59"
     },
     {
       "path": "oauthIntegrations.js",
@@ -1735,8 +1859,8 @@
     {
       "path": "operationalDiagnostics.js",
       "type": ".js",
-      "size": 3208,
-      "sha256": "69bfa3a44c5f5644897db554c02544150ece8baed0e612a4f40d57a3d3e7fa5e"
+      "size": 4608,
+      "sha256": "02f0b51d3580db27530e017fe9727fec4638f64e39279f2f82b474ee6c500a6b"
     },
     {
       "path": "package-lock.json",
@@ -1747,8 +1871,8 @@
     {
       "path": "package.json",
       "type": ".json",
-      "size": 5813,
-      "sha256": "e21b263b0bb0df793c3d3fb208abc0e418d8486b7cdb47b5e6a14cc59c14cc6f"
+      "size": 6388,
+      "sha256": "dc04d658e743f2417103985616e7f7d44ed72fc817863c16c67e36c5e96c869f"
     },
     {
       "path": "pipelineEngine.js",
@@ -1837,8 +1961,8 @@
     {
       "path": "preload.js",
       "type": ".js",
-      "size": 28620,
-      "sha256": "6ec5060d94a2317effce34141fc4368544b697e916ba8d88a9a0c1e4d888a9fc"
+      "size": 29861,
+      "sha256": "e1d541e6dfbac9ae28022f36dfdf077719b02fa943206452d663643122200133"
     },
     {
       "path": "projectCloner.js",
@@ -1933,8 +2057,14 @@
     {
       "path": "renderer.js",
       "type": ".js",
-      "size": 274584,
-      "sha256": "4e22e71f99687bcecf4ec2339921dec37b0228fa9b1268e7384769d3f84874bd"
+      "size": 285833,
+      "sha256": "1a8f76e8caa4412619374ade0c07d02ab0667a50991d14f1995173885e9e934d"
+    },
+    {
+      "path": "repair-regression-learning.json",
+      "type": ".json",
+      "size": 2179,
+      "sha256": "8dbe71e8510e9af39a888394c46b160b292a7fdb4b4eea6071b7750479eb4f30"
     },
     {
       "path": "runtimeDebugger.js",
@@ -1989,6 +2119,12 @@
       "type": ".js",
       "size": 288,
       "sha256": "68af54120c745ae94ad82fe6b1dd38dae25a08e870fa83949465767e1b40f26f"
+    },
+    {
+      "path": "scripts/nexusDiagnose.js",
+      "type": ".js",
+      "size": 6847,
+      "sha256": "78f8e0d3680c7991b1cb21a968404b67b193196db464eea103a87ece28ea3332"
     },
     {
       "path": "scripts/privacyRetryGate.js",
@@ -2059,8 +2195,8 @@
     {
       "path": "scripts/selfRepairCommit.js",
       "type": ".js",
-      "size": 8236,
-      "sha256": "3e7b33e85027c543501734bbaccdb209beb0b922d556f6947323ef2a0cde8ee6"
+      "size": 8918,
+      "sha256": "57366beba61f5912927fb18d0f77b13a7f31990dfd7fb664cb1c4343921402b7"
     },
     {
       "path": "scripts/signLocalWindows.js",
@@ -2143,8 +2279,8 @@
     {
       "path": "styles.css",
       "type": ".css",
-      "size": 18856,
-      "sha256": "1206b1d44d7608ec9e3a7bccb2292032be7163f02c96ec4af95e9b02237289fb"
+      "size": 21202,
+      "sha256": "9c77761f94e5683b2a1703dd0f9039f65d48999ee4e84707b02064abd5cdf081"
     },
     {
       "path": "test/accountVault.test.js",
@@ -2223,6 +2359,18 @@
       "type": ".js",
       "size": 2567,
       "sha256": "45079f86d81e1a73814984c14a5a791d6a724f4409029866431f4a8b006cceee"
+    },
+    {
+      "path": "test/cruDiagnosticMemory.test.js",
+      "type": ".js",
+      "size": 2110,
+      "sha256": "60b59c7e574c4273eda512f2b7dc96a5360e71bfe4488b79fec893de07b62b29"
+    },
+    {
+      "path": "test/crucibleDiagnosticBridge.test.js",
+      "type": ".js",
+      "size": 4011,
+      "sha256": "6dd01ffdcb13d44a8e724fd448a5347132e547b0842c65aacbb3c908a668f0c5"
     },
     {
       "path": "test/crucibleIntegration.test.js",
@@ -2331,6 +2479,36 @@
       "type": ".js",
       "size": 1936,
       "sha256": "b242a6d15fdec14800d73737537286b2f3b214029acb1b23638dcd738294f3f7"
+    },
+    {
+      "path": "test/nexusCrucibleRepairIntegration.test.js",
+      "type": ".js",
+      "size": 2596,
+      "sha256": "12b1755fceb0b0824a7c45168ba2e79bd9873e8a76fa4b5426790ee09ea637d3"
+    },
+    {
+      "path": "test/nexusDiagnose.test.js",
+      "type": ".js",
+      "size": 2113,
+      "sha256": "f56928aa68a415bfcf8dd116ee7a1b25fba25403d076d61a73b967805991034b"
+    },
+    {
+      "path": "test/nexusNativeCoding.test.js",
+      "type": ".js",
+      "size": 4692,
+      "sha256": "b552a8cc997308a49ae8d1c7a3c4ebaa691b9de5121d4f489813ef9805312f3e"
+    },
+    {
+      "path": "test/nexusProgramRepairRuntime.test.js",
+      "type": ".js",
+      "size": 3085,
+      "sha256": "57a85f09ff687e338bdc706929ae225333d192cb7a752c55e39695e6c27c8605"
+    },
+    {
+      "path": "test/nexusRepairController.test.js",
+      "type": ".js",
+      "size": 3480,
+      "sha256": "6989a1e144b44fdec52e738cb19e95a92d4fd5c965677245466896fb7e1371ea"
     },
     {
       "path": "test/oauthIntegrations.test.js",
@@ -2521,8 +2699,8 @@
     {
       "path": "test/settingsAutomationRegression.test.js",
       "type": ".js",
-      "size": 6154,
-      "sha256": "197d6a188df9920f656295133f55ff90cc4116ab573641266aec5f0846277586"
+      "size": 6291,
+      "sha256": "930af9d2996d561e030a46619e8bbf3520b41e96dba0573961c6d298546b8062"
     },
     {
       "path": "test/settingsScroll.test.js",

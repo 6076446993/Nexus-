@@ -89,9 +89,11 @@ test('obsolete manual build approval UI is removed at launch because build assig
 
 test('Settings presents AI Collaboration with one Nexus-only provider fallback', () => {
   assert.match(indexHtml, /id="ai-collaboration-provider-card"/);
-  assert.match(indexHtml, /plugin_asdk_app_6a9b823d41088191a58d97f6d3a632f8\?open_in_app/);
+  assert.match(indexHtml, /id="native-coding-service-url"/);
+  assert.match(indexHtml, /id="native-coding-service-token"/);
   assert.match(indexHtml, /id="nexus-provider-fallback-card"/);
-  assert.match(indexHtml, /AI Collaboration · Multi-provider coding/);
+  assert.match(indexHtml, /Native Nexus AI Collaboration connection/);
+  assert.match(indexHtml, /integrated Nexus coding path talks directly to the AI Collaboration service/);
   assert.match(indexHtml, /Nexus-only provider fallback/);
   assert.match(indexHtml, /<select id="coding-model-provider"[^>]*><option value="nim"[^>]*>[^<]*<\/option><\/select>/);
   assert.doesNotMatch(indexHtml, /Get Kimi key|Get DeepSeek key|Safe Provider Discovery/);

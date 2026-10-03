@@ -278,7 +278,8 @@ function getCommandList() {
     { label: 'Refresh Git Status', category: 'Ship / Git', keywords: 'git status branch', action: () => { switchTab('workspace'); refreshGitStatus(); } },
     { label: 'Commit & Push', category: 'Ship / Git', keywords: 'git commit push save', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('git-commit-message')?.focus(), 100); } },
     { label: 'Create Branch', category: 'Ship / Git', keywords: 'git branch checkout', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('git-branch-input')?.focus(), 100); } },
-    { label: 'Plan a Feature (Feature Builder)', category: 'Ship / Git', keywords: 'feature builder multi-file', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('feature-description')?.focus(), 100); } },
+    { label: 'Nexus Coding Prompt', category: 'AI Assist', keywords: 'nim council crucible prompt code build repair', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('nexus-coding-prompt')?.focus(), 100); } },
+    { label: 'Plan a Feature (legacy compatibility)', category: 'Ship / Git', keywords: 'feature builder multi-file legacy', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('feature-description')?.focus(), 100); } },
     { label: 'Generate Changelog Entry', category: 'Ship / Git', keywords: 'changelog release notes', action: () => { switchTab('workspace'); generateChangelog(); } },
     { label: 'Run Pipeline (Audit → Repair → Test → Gate)', category: 'Ship / Git', keywords: 'pipeline test gate audit', action: () => { switchTab('workspace'); runPipeline(); } },
     { label: 'Run Deploy', category: 'Ship / Git', keywords: 'deploy ship release', action: () => { switchTab('workspace'); runDeploy(); } },
@@ -405,7 +406,7 @@ function switchTab(tabId) {
   document.querySelectorAll('.nav-btn').forEach((b) => b.classList.remove('active'));
   view.classList.add('active');
   button.classList.add('active');
-  if (tabId === 'cloud') setSettingsSection(requestedSettings ? 'github' : (currentSettingsSection || 'account'));
+  if (tabId === 'cloud') { setSettingsSection(requestedSettings ? 'github' : (currentSettingsSection || 'account')); refreshNativeCodingConfiguration(); }
   if (tabId === 'workspace') {
     setTimeout(() => document.getElementById('term-input').focus(), 50);
     if (!currentAssistFolder) onTargetChange();
@@ -1989,6 +1990,19 @@ function ceIncludeTerminal() {
   renderCeAttachments();
 }
 
+function ceOpenNexusCoding() {
+  document.getElementById('ce-plus-menu').classList.remove('open');
+  const currentPrompt = document.getElementById('ce-prompt-instruction')?.value.trim() || '';
+  const target = document.getElementById('ce-prompt-filepath')?.value.trim() || '';
+  closeCodeEditor();
+  switchTab('workspace');
+  const promptBox = document.getElementById('nexus-coding-prompt');
+  if (promptBox) {
+    promptBox.value = [target ? `Target: ${target}` : '', currentPrompt].filter(Boolean).join('\n');
+    setTimeout(() => promptBox.focus(), 100);
+  }
+}
+
 function ceOpenFeatureBuilder() {
   document.getElementById('ce-plus-menu').classList.remove('open');
   if (!confirm('Feature Builder plans changes across multiple files, with a separate approval for each one - better suited to bigger asks than this single-file prompt bar. Switch there now? (This closes the Code Editor.)')) {
@@ -2364,6 +2378,165 @@ async function updatePrompt(cwdMaybe) {
 function shorten(p) {
   const parts = p.split(/[\\/]/).filter(Boolean);
   return parts.length ? parts[parts.length - 1] : p;
+}
+
+// ---------- Native Nexus prompt coding ----------
+let nativeCodingCurrentSession = null;
+
+function setNativeCodingStage(id, text, active) {
+  const el = document.getElementById(`nexus-coding-stage-${id}`);
+  if (!el) return;
+  el.innerText = text;
+  el.classList.toggle('active', Boolean(active));
+}
+
+function renderNativeCodingSession(session, message = '') {
+  nativeCodingCurrentSession = session || nativeCodingCurrentSession;
+  const current = nativeCodingCurrentSession;
+  const status = document.getElementById('nexus-coding-status');
+  const output = document.getElementById('nexus-coding-output');
+  const actions = document.getElementById('nexus-coding-actions');
+  if (!current) {
+    if (status) status.innerText = message || 'Ready for a prompt.';
+    return;
+  }
+
+  const state = current.state || 'UNKNOWN';
+  setNativeCodingStage('nim', `NIM · ${['PROPOSED','LOCAL_CHECKS_PASSED','LOCAL_CHECKS_INCONCLUSIVE','AWAITING_CRUCIBLE','CRUCIBLE_FAILED','VERIFIED'].includes(state) ? 'proposal ready' : state.toLowerCase()}`, true);
+  setNativeCodingStage('council', current.councilInvoked ? 'Council · consulted' : 'Council · standby', current.councilInvoked);
+  setNativeCodingStage('local', state === 'ROLLED_BACK' ? 'Local checks · failed / rolled back' : current.localVerification ? (current.localVerification.passed === false ? 'Local checks · failed' : current.localVerification.passed === true ? 'Local checks · passed' : 'Local checks · inconclusive') : 'Local checks · waiting', Boolean(current.localVerification));
+  setNativeCodingStage('crucible', state === 'VERIFIED' ? 'Crucible · VERIFIED' : state === 'CRUCIBLE_FAILED' ? 'Crucible · failed' : state === 'AWAITING_CRUCIBLE' ? 'Crucible · pending' : 'Crucible · waiting', ['VERIFIED','CRUCIBLE_FAILED','AWAITING_CRUCIBLE'].includes(state));
+
+  if (status) {
+    const detail = message || ({
+      PROPOSED:'NIM returned an exact-commit coding proposal. Review the diff, then apply it.',
+      LOCAL_CHECKS_PASSED:'The proposal is applied and local guardrails passed. Publish it as a feature PR for Crucible verification.',
+      LOCAL_CHECKS_INCONCLUSIVE:'The proposal is applied. This project has no local guardrail suite, so hosted Crucible verification is required.',
+      ROLLED_BACK:'Local verification failed and Nexus restored the pre-prompt commit. Retry will carry the failure forward as struggle context.',
+      AWAITING_CRUCIBLE:'The feature PR is published. Crucible verification is pending on the exact commit.',
+      CRUCIBLE_FAILED:'Crucible did not pass the exact commit. Retry will give the council the failure context before NIM proposes another change.',
+      VERIFIED:'The exact published commit passed The Crucible.',
+      COMMITTED_PUSH_FAILED:'The change was committed locally but the push failed. Resolve Git connectivity before continuing.',
+      PUSHED_PR_FAILED:'The feature branch was pushed but the PR could not be created. Retry Publish to create the PR.',
+    })[state] || `Session state: ${state}`;
+    status.innerText = detail;
+  }
+
+  if (output) {
+    const pieces = [];
+    if (current.proposal?.proposedChanges?.content) pieces.push(current.proposal.proposedChanges.content);
+    if (current.executedPaths?.length) pieces.push(`\nChanged paths: ${current.executedPaths.join(', ')}`);
+    if (current.pullRequest?.htmlUrl) pieces.push(`\nPull request: ${current.pullRequest.htmlUrl}`);
+    if (current.commit) pieces.push(`Commit: ${current.commit}`);
+    if (current.crucibleVerification?.reason) pieces.push(`Crucible: ${current.crucibleVerification.reason}`);
+    output.innerText = pieces.join('\n');
+    output.style.display = pieces.length ? 'block' : 'none';
+  }
+
+  if (actions) actions.style.display = 'flex';
+  const apply = document.getElementById('nexus-coding-apply-btn');
+  const publish = document.getElementById('nexus-coding-publish-btn');
+  const verify = document.getElementById('nexus-coding-verify-btn');
+  const retry = document.getElementById('nexus-coding-retry-btn');
+  const rollback = document.getElementById('nexus-coding-rollback-btn');
+  if (apply) apply.style.display = state === 'PROPOSED' ? '' : 'none';
+  if (publish) publish.style.display = ['LOCAL_CHECKS_PASSED','LOCAL_CHECKS_INCONCLUSIVE','PUSHED_PR_FAILED'].includes(state) ? '' : 'none';
+  if (verify) verify.style.display = ['AWAITING_CRUCIBLE','CRUCIBLE_FAILED'].includes(state) ? '' : 'none';
+  if (retry) retry.style.display = ['ROLLED_BACK','CRUCIBLE_FAILED'].includes(state) ? '' : 'none';
+  if (rollback) rollback.style.display = ['LOCAL_CHECKS_PASSED','LOCAL_CHECKS_INCONCLUSIVE'].includes(state) ? '' : 'none';
+  if (state === 'VERIFIED' && actions) actions.style.display = 'none';
+}
+
+async function runNativeCodingPrompt(retry = false) {
+  const folder = shipFolder();
+  if (!folder) return showToast('error','Nexus Coding','Launch an active project first.');
+  let promptText = document.getElementById('nexus-coding-prompt')?.value.trim() || '';
+  if (!promptText && retry && nativeCodingCurrentSession?.taskDescription) promptText = nativeCodingCurrentSession.taskDescription;
+  if (!promptText) return showToast('error','Nexus Coding','Describe what you want Nexus to build or change.');
+  const button = document.getElementById('nexus-coding-run-btn');
+  if (button) { button.disabled = true; button.innerText = retry ? 'Retrying…' : 'Working…'; }
+  setNativeCodingStage('nim','NIM · coding…',true);
+  if (retry) setNativeCodingStage('council','Council · reviewing struggle…',true);
+  const result = await window.nexus.proposeNativeCoding(folder, promptText, retry ? nativeCodingCurrentSession?.sessionId : null);
+  if (button) { button.disabled = false; button.innerText = 'Run with NIM'; }
+  if (!result.ok) {
+    showToast('error','Nexus Coding blocked',result.error || 'No coding proposal was produced.');
+    document.getElementById('nexus-coding-status').innerText = result.error || 'Native coding request failed.';
+    return;
+  }
+  renderNativeCodingSession(result.session);
+}
+
+async function applyNativeCodingSession() {
+  const folder = shipFolder();
+  if (!folder || !nativeCodingCurrentSession) return;
+  const result = await window.nexus.applyNativeCoding(folder, nativeCodingCurrentSession.sessionId);
+  if (result.session) renderNativeCodingSession(result.session, result.error || '');
+  if (!result.ok) showToast(result.rolledBack ? 'info' : 'error', result.rolledBack ? 'Nexus rolled the change back' : 'Could not apply coding proposal', result.error || '');
+  else showToast('success','NIM proposal applied',result.session.localVerification?.statement || 'Local checks completed.');
+  refreshGitStatus();
+}
+
+async function rollbackNativeCodingSession() {
+  const folder = shipFolder();
+  if (!folder || !nativeCodingCurrentSession) return;
+  if (!confirm('Restore the exact pre-prompt commit and discard this uncommitted Nexus coding change?')) return;
+  const result = await window.nexus.rollbackNativeCoding(folder, nativeCodingCurrentSession.sessionId);
+  if (result.session) renderNativeCodingSession(result.session);
+  showToast(result.ok ? 'info' : 'error', result.ok ? 'Coding change rolled back' : 'Rollback failed', result.error || '');
+  refreshGitStatus();
+}
+
+async function publishNativeCodingSession() {
+  const folder = shipFolder();
+  if (!folder || !nativeCodingCurrentSession) return;
+  if (!confirm('Create a Nexus coding feature branch, commit the exact applied diff, push it, and open a pull request for Crucible verification?')) return;
+  document.getElementById('nexus-coding-status').innerText = 'Publishing the exact proposal as a feature-branch pull request…';
+  const result = await window.nexus.publishNativeCoding(folder, nativeCodingCurrentSession.sessionId);
+  if (result.session) renderNativeCodingSession(result.session, result.error || '');
+  showToast(result.ok ? 'success' : 'error', result.ok ? 'Feature PR published' : 'Publication incomplete', result.error || result.session?.pullRequest?.htmlUrl || '');
+  refreshGitStatus();
+}
+
+async function verifyNativeCodingSession() {
+  const folder = shipFolder();
+  if (!folder || !nativeCodingCurrentSession) return;
+  const result = await window.nexus.verifyNativeCoding(folder, nativeCodingCurrentSession.sessionId);
+  if (result.session) renderNativeCodingSession(result.session, result.error || '');
+  if (result.ok) showToast('success','Crucible verified the exact commit',result.session?.commit || '');
+  else if (result.pending) showToast('info','Crucible is still pending',result.error || '');
+  else showToast('error','Crucible verification failed',result.error || '');
+}
+
+async function retryNativeCodingSession() {
+  await runNativeCodingPrompt(true);
+}
+
+async function refreshNativeCodingConfiguration() {
+  const result = await window.nexus.nativeCodingConfiguration();
+  const url = document.getElementById('native-coding-service-url');
+  const status = document.getElementById('native-coding-service-status');
+  if (!result?.ok) { if (status) status.innerText = result?.error || 'Native coding configuration unavailable.'; return; }
+  if (url) url.value = result.baseUrl || '';
+  if (status) status.innerText = result.tokenConfigured
+    ? `Connected natively · token from ${result.tokenSource} · ${result.baseUrl}`
+    : `Service URL set · bearer token missing · ${result.baseUrl}`;
+}
+
+async function saveNativeCodingConfiguration() {
+  const baseUrl = document.getElementById('native-coding-service-url')?.value.trim();
+  const bearerToken = document.getElementById('native-coding-service-token')?.value.trim();
+  const result = await window.nexus.configureNativeCoding({ baseUrl, bearerToken });
+  if (result.ok && document.getElementById('native-coding-service-token')) document.getElementById('native-coding-service-token').value = '';
+  showToast(result.ok ? 'success' : 'error', result.ok ? 'Native coding connection saved' : 'Could not save native coding connection', result.error || '');
+  refreshNativeCodingConfiguration();
+}
+
+async function clearNativeCodingToken() {
+  const baseUrl = document.getElementById('native-coding-service-url')?.value.trim();
+  const result = await window.nexus.configureNativeCoding({ baseUrl, clearToken:true });
+  showToast(result.ok ? 'info' : 'error', result.ok ? 'Native coding token cleared' : 'Could not clear token', result.error || '');
+  refreshNativeCodingConfiguration();
 }
 
 // ---------- Cloud / Gemini ----------

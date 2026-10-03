@@ -335,3 +335,52 @@ Remediation must preserve lineage.
 ## Purpose
 
 Represents a collection of related failures and remediation activities
+
+
+# RepairRegressionRecord
+
+## Purpose
+
+Represents a failure introduced or materially contributed to by an automated self-repair action. These records are negative learning evidence and must be retained for future repair selection and prevention.
+
+## Required Fields
+
+Regression Identifier
+
+Repair Commit Reference
+
+Repair Attempt Reference
+
+Pre-Repair Head Reference
+
+Affected Component
+
+Observed Failure References
+
+Failure Evidence References
+
+Detection Timestamp
+
+Correction Reference
+
+Prevention Lesson
+
+Learning Disposition
+
+Lineage Reference
+
+## Rules
+
+A self-repair regression must never be erased when the repository is corrected.
+
+The original repair attempt, resulting failure evidence, and corrective action must remain linked.
+
+A repair regression must be supplied to the governed failure-learning path as negative evidence; ingestion does not make it verified knowledge.
+
+Future automated repair selection must consult applicable prior RepairRegressionRecords and must not knowingly repeat a recorded harmful repair without new evidence that addresses the recorded failure mode.
+
+Attribution must be evidence-backed. A coincident failure must not be labeled repair-caused without a causal or materially-contributing link.
+
+The-Crucible retains failure-classification authority. Learning, custody, governance, and verification authority remain separate.
+
+Correction or successful rerun does not delete or supersede the historical regression record; it adds remediation lineage.
