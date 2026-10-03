@@ -11,12 +11,17 @@ function bridgeCli(crucibleRoot,action,payload){
 }
 
 function createLocalCrucibleRepairBridge(crucibleRoot){
- return {
-  classifyNexusDiagnosis:async(ctx)=>bridgeCli(crucibleRoot,'classify',{diagnosis:ctx.diagnosis,task:ctx.task||null}),
-  verifyNexusRepair:async(ctx)=>bridgeCli(crucibleRoot,'verify',{
+ const classifyDiagnosis=async(ctx)=>bridgeCli(crucibleRoot,'classify',{diagnosis:ctx.diagnosis,task:ctx.task||null});
+ const verifyRepair=async(ctx)=>bridgeCli(crucibleRoot,'verify',{
    beforeDiagnosis:ctx.beforeDiagnosis,afterDiagnosis:ctx.afterDiagnosis,classification:ctx.classification,
    test:ctx.test,repair:ctx.repair,
-  }),
+ });
+ return {
+  requiresRepositoryCoordinates:false,
+  classifyDiagnosis,
+  verifyRepair,
+  classifyNexusDiagnosis:classifyDiagnosis,
+  verifyNexusRepair:verifyRepair,
  };
 }
 module.exports={createLocalCrucibleRepairBridge,bridgeCli};
