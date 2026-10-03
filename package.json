@@ -27,7 +27,7 @@
     "inventory:package": "node scripts/verifyPackagedContents.js",
     "verify:operations": "node scripts/verifyRepairOperations.js",
     "diagnose:nexus": "node scripts/nexusDiagnose.js",
-    "test:repair-controller": "node --test test/nexusDiagnose.test.js test/nexusRepairController.test.js"
+    "test:repair-controller": "node --test test/nexusDiagnose.test.js test/nexusRepairController.test.js test/nexusProgramRepairRuntime.test.js"
   },
   "author": "",
   "license": "MIT",
