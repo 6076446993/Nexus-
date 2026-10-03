@@ -22,14 +22,14 @@ function requireFunction(value, name) {
   if (typeof value !== 'function') throw new TypeError(`${name} is required`);
 }
 
-function applicableRegression(regressions, plan) {
+function applicableRegressionMemory(regressions, plan) {
   return (regressions || []).find((record) => {
     if (!record || typeof record !== 'object') return false;
     const componentMatches = !record.component || !plan.component || record.component === plan.component;
     const strategy = String(plan.strategy || plan.remedy || '');
     const lesson = String(record.preventionLesson || '');
-    const repeatsKnownHarm = strategy && lesson && lesson.toLowerCase().includes(strategy.toLowerCase());
-    return componentMatches && repeatsKnownHarm;
+    const repeatsRecordedFailure = strategy && lesson && lesson.toLowerCase().includes(strategy.toLowerCase());
+    return componentMatches && repeatsRecordedFailure;
   }) || null;
 }
 
@@ -76,9 +76,9 @@ class NexusRepairController {
         return { state: STATES.BLOCKED, reason: 'repair-plan-not-bounded-to-current-immutable-base', snapshot: current, diagnosis, classification, plan, history };
       }
 
-      const knownHarm = applicableRegression(await this.regressionMemory({ task, snapshot: current, classification, plan }), plan);
-      if (knownHarm && plan.addressesRegressionId !== knownHarm.regressionId) {
-        return { state: STATES.QUARANTINED, reason: 'repair-strategy-matches-known-harmful-regression', regression: knownHarm, snapshot: current, diagnosis, classification, plan, history };
+      const priorFailure = applicableRegressionMemory(await this.regressionMemory({ task, snapshot: current, classification, plan }), plan);
+      if (priorFailure && plan.addressesRegressionId !== priorFailure.regressionId) {
+        return { state: STATES.QUARANTINED, reason: 'repair-strategy-repeats-recorded-failure-without-addressing-it', regressionMemory: priorFailure, snapshot: current, diagnosis, classification, plan, history };
       }
 
       const authorization = await this.authorize({ task, snapshot: current, diagnosis, classification, plan });
@@ -119,4 +119,4 @@ class NexusRepairController {
   }
 }
 
-module.exports = { NexusRepairController, STATES, digest, applicableRegression };
+module.exports = { NexusRepairController, STATES, digest, applicableRegressionMemory };
