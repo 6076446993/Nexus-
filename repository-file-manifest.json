@@ -1805,8 +1805,8 @@
     {
       "path": "main.js",
       "type": ".js",
-      "size": 235651,
-      "sha256": "33bd73a90242bbbe91824ecd07f0e55031fa768c1af372a0ab58da0fb34d8f32"
+      "size": 236353,
+      "sha256": "255416a129d6c00ee0be68a4c7ef54d66656168a4646834526b9878568332845"
     },
     {
       "path": "memoryEngine.js",
@@ -1871,8 +1871,8 @@
     {
       "path": "package.json",
       "type": ".json",
-      "size": 6287,
-      "sha256": "11cb7fc2461bf9c1aad45650bff17165a25bd9199bf7beedbb1d8b7770fef7a0"
+      "size": 6388,
+      "sha256": "dc04d658e743f2417103985616e7f7d44ed72fc817863c16c67e36c5e96c869f"
     },
     {
       "path": "pipelineEngine.js",
