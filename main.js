@@ -3787,11 +3787,17 @@ ipcMain.handle('native-coding:commit-push', async (_event, { folder, sessionId }
     if (denied) return denied;
     let session = getNativeCodingSession(sessionId);
     if (!session) return { ok:false, error:'Native coding session not found.' };
-    if (!['LOCAL_CHECKS_PASSED','LOCAL_CHECKS_INCONCLUSIVE','PUSHED_PR_FAILED'].includes(session.state)) return { ok:false, error:`Session cannot be published from state ${session.state}.` };
+    if (!['LOCAL_CHECKS_PASSED','LOCAL_CHECKS_INCONCLUSIVE','COMMITTED_PUSH_FAILED','PUSHED_PR_FAILED'].includes(session.state)) return { ok:false, error:`Session cannot be published from state ${session.state}.` };
     const token = getGithubToken();
     if (!token) return { ok:false, authRequired:true, error:NOT_CONNECTED_ERROR };
     const current = repositoryState(folder);
-    if (session.state !== 'PUSHED_PR_FAILED') {
+    if (session.state === 'COMMITTED_PUSH_FAILED') {
+      if (!session.commit || current.commit !== session.commit || current.branch !== session.featureBranch) return { ok:false, error:'Committed retry state no longer matches the recorded Nexus coding branch and commit.' };
+      const push = await runGitArgs(folder, ['push','-u','origin','HEAD']);
+      session = { ...session, state:push.ok ? 'PUSHED' : 'COMMITTED_PUSH_FAILED', pushOutput:push.output, updatedAt:new Date().toISOString() };
+      persistNativeCodingSession(session);
+      if (!push.ok) return { ok:false, committed:true, session:nativeCodingSessionView(session), error:push.output || push.error };
+    } else if (session.state !== 'PUSHED_PR_FAILED') {
       if (current.commit !== session.targetVersion) return { ok:false, error:'Repository HEAD moved after the proposal was generated.' };
       const currentDiff = (await runGitArgs(folder, ['diff','--binary',session.targetVersion])).output;
       if (!currentDiff || nativeCodingSha256(currentDiff + '\n') !== session.executedDiffSha256) return { ok:false, error:'Working-tree diff no longer matches the applied Nexus coding proposal.' };
