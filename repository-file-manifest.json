@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 276,
+  "fileCount": 283,
   "types": {
-    ".json": 12,
-    ".md": 46,
+    ".json": 14,
+    ".md": 47,
     ".cjs": 1,
     "[no extension]": 5,
     ".yml": 11,
     ".bat": 2,
-    ".js": 186,
+    ".js": 190,
     ".html": 2,
     ".rules": 2,
     ".txt": 5,
@@ -515,6 +515,11 @@
       "resolved": "scripts/scrubRepositoryPrivacy.js"
     },
     {
+      "source": "scripts/releaseAudit.js",
+      "reference": "./dependencySecurityPolicy",
+      "resolved": "scripts/dependencySecurityPolicy.js"
+    },
+    {
       "source": "scripts/remediateDevelopmentForPromotion.js",
       "reference": "../codeChecker",
       "resolved": "codeChecker.js"
@@ -633,6 +638,16 @@
       "source": "test/debugAdapter.test.js",
       "reference": "../debugAdapter",
       "resolved": "debugAdapter.js"
+    },
+    {
+      "source": "test/dependencySecurityPolicy.test.js",
+      "reference": "../scripts/dependencySecurityPolicy",
+      "resolved": "scripts/dependencySecurityPolicy.js"
+    },
+    {
+      "source": "test/dependencySecurityPolicy.test.js",
+      "reference": "../package-lock.json",
+      "resolved": "package-lock.json"
     },
     {
       "source": "test/evalsEngine.test.js",
@@ -815,6 +830,11 @@
       "resolved": "providerDiscovery.js"
     },
     {
+      "source": "test/repairOperations.test.js",
+      "reference": "../scripts/verifyRepairOperations",
+      "resolved": "scripts/verifyRepairOperations.js"
+    },
+    {
       "source": "test/repositoryMaintenance.test.js",
       "reference": "../scripts/repositoryClutterAudit",
       "resolved": "scripts/repositoryClutterAudit.js"
@@ -947,20 +967,20 @@
     {
       "path": ".github/workflows/branch-integrity.yml",
       "type": ".yml",
-      "size": 1586,
-      "sha256": "7c7a502d8c47f794d9c1b3a60eb409f81179188e7ad3413a17247de7a85dbca6"
+      "size": 1644,
+      "sha256": "bb2175a1977bd2d78b164105cadc28ad251bfcafa49f073d91baf1f1eeb68db3"
     },
     {
       "path": ".github/workflows/commit-self-repair-apply.yml",
       "type": ".yml",
-      "size": 2491,
-      "sha256": "82e1a033818833b140eb088c172e215f70528a088435e0d520c3981fa6b33728"
+      "size": 2684,
+      "sha256": "67ab5a44571c851f2029f35876a5857e15c3aa88f7ced98db29b93d376c8c672"
     },
     {
       "path": ".github/workflows/commit-self-repair.yml",
       "type": ".yml",
-      "size": 3199,
-      "sha256": "fbd6404e72e5902282f6cea908b2d5c410d1e1112d39eae68f1161b5d4ffabc8"
+      "size": 3382,
+      "sha256": "b90c98b7d1f49388fccb5263cc2ac7cfa9c92f00536e66b8635b4cb04873e70a"
     },
     {
       "path": ".github/workflows/promote-development-to-main.yml",
@@ -995,8 +1015,8 @@
     {
       "path": ".github/workflows/the-crucible.yml",
       "type": ".yml",
-      "size": 6333,
-      "sha256": "5946a29d92cce58be939941ec706ccc3e4828ec7cfe9ce2ca1961aa4937ac2f8"
+      "size": 6284,
+      "sha256": "31a749c8b51c9da718ec5a4e05649ceb86dfe6462296f027207fbd61cc1db113"
     },
     {
       "path": ".gitignore",
@@ -1007,8 +1027,8 @@
     {
       "path": ".thecrucible.json",
       "type": ".json",
-      "size": 5436,
-      "sha256": "28fea6da42430d7d05411e5f165d35d17e8ee9aaa9de3f6d3ba2042aa2e9955d"
+      "size": 5424,
+      "sha256": "49590dd48e9563a8e41121f230f4269c0b039d7689a0da1dd04b143dfb63b2c2"
     },
     {
       "path": "AGENTS.md",
@@ -1025,8 +1045,8 @@
     {
       "path": "AI-HANDOFF.json",
       "type": ".json",
-      "size": 7314,
-      "sha256": "f86dcd4bd8532871305f0701fdcd9a1aff0cea852baea0763cc3cce3da137d0c"
+      "size": 9312,
+      "sha256": "7990d9cb5ff4854f481b5e931c3ddfc08b5337deff41eecedd61446a865501cf"
     },
     {
       "path": "CLAUDE.md",
@@ -1043,14 +1063,26 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 6057,
-      "sha256": "7b5a98b451572b679fd5a405b648ecab16126524bc3c7fb4716ba65fad9a41a1"
+      "size": 9274,
+      "sha256": "ea29861856da9d9bf0d659bdf8d2d8e9ea886b9296ed29606a1a80bde6bd38c9"
     },
     {
       "path": "FIREBASE_SETUP.md",
       "type": ".md",
       "size": 4346,
       "sha256": "39b2bc3ff0dfc9886fb4d333fb65eb6e6e2c79fad7f9cacf41c5332c77eb5068"
+    },
+    {
+      "path": "Nexus-dependency-repair-evidence.json",
+      "type": ".json",
+      "size": 12544,
+      "sha256": "9661b6c3ef0a3bba48fcff508386b9b3cb9e07a1f2ebcdae35b3b786cfcaddd3"
+    },
+    {
+      "path": "Nexus-operational-verification-evidence.json",
+      "type": ".json",
+      "size": 6391,
+      "sha256": "5d1d1715cbbfa2c3511c31b185f8b2117f5ca2deab8509945222e31f68c5e521"
     },
     {
       "path": "README.md",
@@ -1367,8 +1399,8 @@
     {
       "path": "governingDocuments/native/AI-HANDOFF.json",
       "type": ".json",
-      "size": 3625,
-      "sha256": "ccd4717a1241d18fa89c78d1eb5877425a196a45c20e0b9f2fc36abacb2fa527"
+      "size": 4602,
+      "sha256": "b7aacf6331c6cdac22730e9b642d91bd011996a66f49f6b152d276f406fea83d"
     },
     {
       "path": "governingDocuments/native/AUTHORITY-CONTRACTS.md",
@@ -1427,8 +1459,8 @@
     {
       "path": "governingDocuments/native/DEVLOG.md",
       "type": ".md",
-      "size": 2219,
-      "sha256": "695f586e8780524200fa9eeec6624391edc127326c01ee05e0ea747a8b8b9de9"
+      "size": 3113,
+      "sha256": "9cc1da6b394dfcf455bfd398df972b7db7f502d0331eb788c21d7510634c25cc"
     },
     {
       "path": "governingDocuments/native/EVIDENCE-CONTRACTS.md",
@@ -1493,8 +1525,8 @@
     {
       "path": "governingDocuments/native/NEXUS-GOVERNANCE-MANIFEST.md",
       "type": ".md",
-      "size": 3698,
-      "sha256": "09f47905a67a0d28c3beb5f0797910a886548c18f68914dd42cde712406216c8"
+      "size": 4404,
+      "sha256": "8f655c8765bcac37b5cf300c2dc623bf4ead56d8476529df9db89a8392e645bf"
     },
     {
       "path": "governingDocuments/native/NEXUS-INTEGRATION-RULES.md",
@@ -1505,8 +1537,8 @@
     {
       "path": "governingDocuments/native/NEXUS-REPOSITORY-MAP.md",
       "type": ".md",
-      "size": 1096,
-      "sha256": "04600883a949e62f6772de2c78b13254786dc75848b7a8ca7129d44d4b5588fd"
+      "size": 1852,
+      "sha256": "4138a142088dc529d00d558d740ab4e4b6f6701607f5a231ed75adf2d8949a73"
     },
     {
       "path": "governingDocuments/native/NIM-TO-COLLABORATION.md",
@@ -1561,6 +1593,12 @@
       "type": ".json",
       "size": 2390,
       "sha256": "a924b449c8df105cb68d086cc75b4d4293c0c752d139ab2fc4e1ec3c099d5616"
+    },
+    {
+      "path": "governingDocuments/native/TRUSTWORTHY-AI-GOVERNANCE-CONTRACT.md",
+      "type": ".md",
+      "size": 8011,
+      "sha256": "3f69c28a91255e27e24b6ad47c532e7779a5b97777e7e2bb38fed871af15f415"
     },
     {
       "path": "governingDocuments/native/VERIFICATION-CONTRACTS.md",
@@ -1704,13 +1742,13 @@
       "path": "package-lock.json",
       "type": ".json",
       "size": 158463,
-      "sha256": "5b6245fc16648ee0cbc41a9d738da3153e46f55484c0462b23e2550d55c1fa57"
+      "sha256": "5b667abaf73e11c16bfc8f09c4031eb910a0bfb746e97f56b6c0b72d88cf77a1"
     },
     {
       "path": "package.json",
       "type": ".json",
-      "size": 5758,
-      "sha256": "ab5f6957f9b00778be96e150c196be040967d457b6b34665d5454a33c61edc06"
+      "size": 5813,
+      "sha256": "e21b263b0bb0df793c3d3fb208abc0e418d8486b7cdb47b5e6a14cc59c14cc6f"
     },
     {
       "path": "pipelineEngine.js",
@@ -1781,8 +1819,8 @@
     {
       "path": "plugins/the-crucible/index.js",
       "type": ".js",
-      "size": 45872,
-      "sha256": "c989e881703edcafaa6f3a19d1ceb228d2478d2a67f5590ed8727bee1d55ca7c"
+      "size": 45860,
+      "sha256": "9fdd5b3575bf97ae1b162f9894cec11b9dc3ecd3388ed70c08d3e7cc5ed40bc1"
     },
     {
       "path": "plugins/the-crucible/nexus.plugin.json",
@@ -1890,7 +1928,7 @@
       "path": "release-notes.md",
       "type": ".md",
       "size": 6622,
-      "sha256": "d3f3ac215495cdadf2c606308b24d0c85055847ba8338d9667b34732f85e6a56"
+      "sha256": "c71737bc8204c708b8be9decf29a5c5f4a5d1d6dd24dbf5e9b16d726e051e727"
     },
     {
       "path": "renderer.js",
@@ -1923,10 +1961,16 @@
       "sha256": "cc2587f7f05f4036becfd68fcb676be19a9a4385588edf0d402e4f54885c7394"
     },
     {
+      "path": "scripts/dependencySecurityPolicy.js",
+      "type": ".js",
+      "size": 1951,
+      "sha256": "58d46183c818de32f2102519d0f9213d574bc85a5d9babe555814d82edf9fb22"
+    },
+    {
       "path": "scripts/githubModelsRepairAgent.js",
       "type": ".js",
-      "size": 8601,
-      "sha256": "bdfaa0a5590c2982f392b281ba6004b01dcff10a161231f6a48db5e9f6d8dd48"
+      "size": 8600,
+      "sha256": "932aab67e8bfc116f241f9c6ee39b73e93b0e1d11e3dc9878f03fd440f9c0317"
     },
     {
       "path": "scripts/heavyWorkloadWorker.js",
@@ -1961,8 +2005,8 @@
     {
       "path": "scripts/releaseAudit.js",
       "type": ".js",
-      "size": 5514,
-      "sha256": "0616a34e392ddd521ad60334021a2464268d79ac8f5b3c96328bae79842b0480"
+      "size": 5671,
+      "sha256": "47a14a352d5e98ddbd64a65c77dae865968788e557592aedf1de51bd89923c73"
     },
     {
       "path": "scripts/releaseStressGate.js",
@@ -2015,8 +2059,8 @@
     {
       "path": "scripts/selfRepairCommit.js",
       "type": ".js",
-      "size": 7096,
-      "sha256": "c0ca55799f280ed7119949abd31956a6ea882c29023a87e3c150fe7176291bd8"
+      "size": 8236,
+      "sha256": "3e7b33e85027c543501734bbaccdb209beb0b922d556f6947323ef2a0cde8ee6"
     },
     {
       "path": "scripts/signLocalWindows.js",
@@ -2041,6 +2085,12 @@
       "type": ".js",
       "size": 2542,
       "sha256": "cfd2d6cfd67575751ebeb9c8eebc85d06995b7da276bd7c0152834f8f57ad4ea"
+    },
+    {
+      "path": "scripts/verifyRepairOperations.js",
+      "type": ".js",
+      "size": 5530,
+      "sha256": "fe10ea982ec282e218091bece3f6972c14da6b8dc21b0c69fb191a1fea36dab4"
     },
     {
       "path": "scripts/verifyRepositoryInventory.js",
@@ -2141,8 +2191,8 @@
     {
       "path": "test/branchPromotionProtocol.test.js",
       "type": ".js",
-      "size": 3624,
-      "sha256": "f536d5c8a154358fb44ed9daddea32e6ef5043b0e765e36b475f662dce6f5638"
+      "size": 3612,
+      "sha256": "820117b40652d87d348d161bc29cf4c7944d3e655aa3c25fdf36061af9c823de"
     },
     {
       "path": "test/branchSyncWorkflow.test.js",
@@ -2191,6 +2241,12 @@
       "type": ".js",
       "size": 1347,
       "sha256": "1e45b46510d3db745f4a940277c8c08fc57a73863283f2a97258235a39ef1895"
+    },
+    {
+      "path": "test/dependencySecurityPolicy.test.js",
+      "type": ".js",
+      "size": 1688,
+      "sha256": "a321a7bb1798b1aba348c18e0f1f808e726c538777f5b2b9e04a7c879e606117"
     },
     {
       "path": "test/evalsEngine.test.js",
@@ -2403,6 +2459,12 @@
       "sha256": "aeb4e059b2feb1b963b84265f52a3fa33aa95577dd0766717f36856a8832eaf9"
     },
     {
+      "path": "test/repairOperations.test.js",
+      "type": ".js",
+      "size": 5194,
+      "sha256": "ce94f96c7165f0f60257cf36f37c7ac9ae6b1d87d58b16d0708cfd4b311f0d64"
+    },
+    {
       "path": "test/repositoryMaintenance.test.js",
       "type": ".js",
       "size": 4057,
@@ -2489,8 +2551,8 @@
     {
       "path": "test/updaterIntegration.test.js",
       "type": ".js",
-      "size": 7781,
-      "sha256": "074525c2eba96ca7efb32600709ba77a43d7a7325e70d9407ef39074da5b9836"
+      "size": 7769,
+      "sha256": "a6681e037b779841df1585f081de77888254ec055f8bcf1c34cd591e2d6fb03f"
     },
     {
       "path": "test/visualContext.test.js",

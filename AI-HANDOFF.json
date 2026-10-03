@@ -43,7 +43,7 @@
     "provisioning": "The plugin security view installs and enables the bundled Crucible plugin, invokes its secure configuration action, and fails closed unless the plugin reports learning readiness as green.",
     "verification": "Automated tests cover workspace separation, OIDC signature and claims, short token lifetime, secret scoping, installation, configuration persistence, and final readiness. Hosted exact-tip CI remains required after push."
   },
-  "lastUpdated": "2026-09-29T20:49:16.522563Z",
+  "lastUpdated": "2026-10-03T11:54:15.541234+00:00",
   "repairCheckpoint": {
     "task": "fix both of these Live Render/NIM behavior and the broader Crucible/Nexus failures",
     "agent": "Codex",
@@ -92,5 +92,40 @@
     "historicalPolicy": "Original failed results remain evidence. Passing current gates do not rewrite historical results.",
     "evidenceFile": "Nexus-release-audit-evidence.json",
     "approvalPolicy": "Required checks must have actually completed successfully on the exact final commit before requesting release/promotion approval. Pending, missing or skipped required checks are not approval readiness."
+  },
+  "dependencyRepairCheckpoint": {
+    "baselineCommit": "756140948f83743fc00cd948ab538f5ea1a7df8b",
+    "alertNumbers": [
+      7,
+      10,
+      11,
+      12,
+      13,
+      18,
+      19
+    ],
+    "evidenceFile": "Nexus-dependency-repair-evidence.json",
+    "status": "repair commit af060af passed all hosted checks; main ancestry reconciliation prepared; protected promotion, alert closure and production learning ingestion pending",
+    "completed": [
+      "Updated Electron and both Undici copies within their existing major versions",
+      "Added nested dependency security floors to the release audit and negative rollback regressions",
+      "Hosted full release audits and Crucible both passed on af060af; Windows package smoke passed"
+    ],
+    "remaining": [
+      "Verify final reconciliation commit hosted checks",
+      "Promote only through protected owner-reviewed route",
+      "Confirm GitHub alerts close as fixed",
+      "Import repair evidence and independently vet prevention candidates"
+    ],
+    "productionLearningIngested": false
+  },
+  "operationalVerificationCheckpoint": {
+    "date": "2026-10-03",
+    "request": "I also want verification tests added for all these so we know that they are working when they are supposed to; If these verification fail trigger repairs",
+    "validator": "scripts/verifyRepairOperations.js",
+    "tests": "test/repairOperations.test.js",
+    "liveEvidence": "Nexus-operational-verification-evidence.json",
+    "behavior": "Fresh direct Dependabot coverage and exact-current-commit live operation evidence are mandatory. Missing, incomplete, stale, failed or skipped evidence produces stable repair fingerprints and nonzero exit. Existing hourly repair task consumes results; safe repairs are retested, permission blocks remain visible. Unit tests do not prove live monitoring or learning.",
+    "status": "Local checks and hosted exact-tip gates pending; historical snapshot intentionally reports outstanding failures."
   }
 }

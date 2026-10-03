@@ -10,9 +10,23 @@ Nexus coordinates interaction between repositories.
 
 ---
 
+## GitHub Organization
+
+The Nexus system repositories are owned by the GitHub organization `6076446993`.
+
+Canonical repository namespace:
+
+`https://github.com/6076446993/<repository>`
+
+`Smoker-Hours-Tracker` is a separate Smoke Stack project and is not part of the Nexus organization architecture.
+
+---
+
 ## Repository Structure
 
 Nexus
+
+├── Nexus-
 
 ├── NVIDIA-NIM-CONSOLE
 
@@ -22,13 +36,21 @@ Nexus
 
 ├── Learning-Worker
 
+├── Crucible-Learning-State
+
 ├── Crucible-Vetted-Learning-State
 
-└── Vetting-and-Governance-oversite.
+├── Vetting-and-Governance-oversite.
+
+└── Nexus-Public-CI
 
 ---
 
 ## Repository Roles
+
+### Nexus-
+
+Architecture coordination and integration-governance repository.
 
 ### NVIDIA-NIM-CONSOLE
 
@@ -46,17 +68,21 @@ Verification authority.
 
 Candidate extraction authority.
 
+### Crucible-Learning-State
+
+Encrypted project-bound durable learning-state custody used by The Crucible learning pipeline.
+
 ### Crucible-Vetted-Learning-State
 
-Custody authority.
+Independently vetted learning custody authority.
 
 ### Vetting-and-Governance-oversite.
 
-Governance authority.
+Governance and independent vetting authority.
 
-### Nexus
+### Nexus-Public-CI
 
-Coordination authority.
+Public hosted-CI boundary used to test and publish status for private Nexus components without exposing their source or secrets.
 
 ---
 

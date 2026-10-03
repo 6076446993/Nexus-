@@ -1,6 +1,6 @@
 {
   "name": "nexus-devos",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Nexus Developer OS - a real desktop control panel for local dev projects. Now with TypeScript, React, and Vite support.",
   "main": "bootstrapEntry.js",
   "scripts": {
@@ -24,7 +24,8 @@
     "signing:renew-local": "pwsh -NoProfile -File scripts/renew-local-signing.ps1",
     "signing:restore-local": "pwsh -NoProfile -File scripts/restore-local-signing.ps1",
     "dist:publish": "node scripts/buildAndPublishVerified.js",
-    "inventory:package": "node scripts/verifyPackagedContents.js"
+    "inventory:package": "node scripts/verifyPackagedContents.js",
+    "verify:operations": "node scripts/verifyRepairOperations.js"
   },
   "author": "",
   "license": "MIT",
@@ -44,7 +45,7 @@
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
-    "electron": "^43.4.1",
+    "electron": "^43.7.7",
     "electron-builder": "^26.15.3",
     "playwright-core": "^1.62.1",
     "tsx": "^4.21.0"
@@ -164,7 +165,7 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "jonathanblunt1214-lgtm",
+      "owner": "6076446993",
       "repo": "Nexus-"
     },
     "win": {

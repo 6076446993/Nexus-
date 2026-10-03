@@ -8,7 +8,7 @@ const failedSha = process.env.FAILED_SHA || '';
 const attempt = process.env.ATTEMPT || '1';
 const endpoint = 'https://models.github.ai/inference/chat/completions';
 const model = process.env.NEXUS_REPAIR_MODEL || 'openai/gpt-4.1';
-const maxTurns = 18;
+const maxTurns = 4;
 
 if (!token) throw new Error('GITHUB_TOKEN is required for GitHub Models repair.');
 
@@ -109,7 +109,7 @@ async function ask(messages) {
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
     },
-    body: JSON.stringify({ model, temperature: 0.1, max_tokens: 5000, messages }),
+    body: JSON.stringify({ model, temperature: 0.1, max_tokens: 1200, messages }),
   });
   const body = await response.text();
   if (!response.ok) throw new Error(`GitHub Models request failed ${response.status}: ${body.slice(0, 1000)}`);

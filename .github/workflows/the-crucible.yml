@@ -16,7 +16,7 @@ permissions:
 jobs:
   crucible:
     name: The Crucible
-    uses: jonathanblunt1214-lgtm/The-Crucible/.github/workflows/the-crucible.yml@9d52a29bade03027cb523dd3aa0dd629cecb31a1
+    uses: 6076446993/The-Crucible/.github/workflows/the-crucible.yml@9d52a29bade03027cb523dd3aa0dd629cecb31a1
     with:
       core_ref: 9d52a29bade03027cb523dd3aa0dd629cecb31a1
       config_path: .thecrucible.json
@@ -36,14 +36,14 @@ jobs:
           test "${{ needs.crucible.result }}" = "success"
 
   autonomous-repair:
-    name: Autonomous Development repair
+    name: Manual Development repair
     needs: crucible
     if: >-
       ${{ always() && needs.crucible.result == 'failure' &&
           github.ref == 'refs/heads/Development-branch' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
+          github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 15
     permissions:
       contents: write
       actions: write

@@ -80,5 +80,7 @@ jobs:
           fi
           echo "Dispatching Crucible for exact Development HEAD $repaired"
           gh workflow run the-crucible.yml --repo "$GITHUB_REPOSITORY" --ref Development-branch
+          echo "Dispatching branch integrity for exact Development HEAD $repaired"
+          gh workflow run branch-integrity.yml --repo "$GITHUB_REPOSITORY" --ref Development-branch
           echo "Dispatching full release audit for exact Development HEAD $repaired"
           gh workflow run release-audit.yml --repo "$GITHUB_REPOSITORY" --ref Development-branch
