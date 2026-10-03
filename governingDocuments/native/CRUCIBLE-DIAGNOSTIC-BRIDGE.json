@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "authority": "Nexus architecture coordination",
+  "crucibleRepository": "6076446993/The-Crucible",
+  "crucibleCommit": "8163dc8200bc07e5a0960f992846415c4f99f27e",
+  "cruCatalogPath": "governingDocuments/cru-code-catalog.json",
+  "repairContractPath": "governingDocuments/nexus-repair-contract.json",
+  "mode": "exact-ref-read-only",
+  "note": "Nexus may read, explain, and remember Crucible CRU semantics from this exact ref. Nexus may not redefine CRU codes or treat diagnostic memory as verification authority."
+}
