@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 283,
+  "fileCount": 284,
   "types": {
-    ".json": 14,
+    ".json": 15,
     ".md": 47,
     ".cjs": 1,
     "[no extension]": 5,
@@ -979,8 +979,8 @@
     {
       "path": ".github/workflows/commit-self-repair.yml",
       "type": ".yml",
-      "size": 3382,
-      "sha256": "b90c98b7d1f49388fccb5263cc2ac7cfa9c92f00536e66b8635b4cb04873e70a"
+      "size": 4208,
+      "sha256": "eb358f65cf8de91521f02f2f8a5b631d43f4c0bdf2cc2680c40e471e36ca520a"
     },
     {
       "path": ".github/workflows/promote-development-to-main.yml",
@@ -1471,8 +1471,8 @@
     {
       "path": "governingDocuments/native/FAILURE-CONTRACTS.md",
       "type": ".md",
-      "size": 4262,
-      "sha256": "d1e818826524f2f55a0137a7d133151e7cb99dbaf4e63bf4ec912e77e960d60b"
+      "size": 5753,
+      "sha256": "88b01c2b680b9730a85bdab2cfa79606f842b3505d2ec1fafb163f65c12722ce"
     },
     {
       "path": "governingDocuments/native/GOVERNANCE-CONTRACTS.md",
@@ -1937,6 +1937,12 @@
       "sha256": "4e22e71f99687bcecf4ec2339921dec37b0228fa9b1268e7384769d3f84874bd"
     },
     {
+      "path": "repair-regression-learning.json",
+      "type": ".json",
+      "size": 2179,
+      "sha256": "8dbe71e8510e9af39a888394c46b160b292a7fdb4b4eea6071b7750479eb4f30"
+    },
+    {
       "path": "runtimeDebugger.js",
       "type": ".js",
       "size": 9347,
@@ -2059,8 +2065,8 @@
     {
       "path": "scripts/selfRepairCommit.js",
       "type": ".js",
-      "size": 8236,
-      "sha256": "3e7b33e85027c543501734bbaccdb209beb0b922d556f6947323ef2a0cde8ee6"
+      "size": 8865,
+      "sha256": "2cf75893aa9f1f8ab6c3283b1dcf4ec05b2066bcac135d5648e16822583fc649"
     },
     {
       "path": "scripts/signLocalWindows.js",
