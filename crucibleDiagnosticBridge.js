@@ -124,6 +124,34 @@ class CrucibleDiagnosticBridge {
     };
   }
 
+  async verifyCodingCommit({ owner, repo, commit }) {
+    const state = this.requireState();
+    if (!/^[a-f0-9]{40}$/i.test(String(commit || ''))) throw new Error('Coding verification requires the exact commit SHA.');
+    const checkName = state.contract.verificationRules.githubRequiredCheck;
+    const checks = await this.githubClient.getCommitCheckRuns(this.token, owner, repo, commit);
+    const matching = checks.filter((check) => check.name === checkName);
+    const passed = matching.some((check) => check.status === 'completed' && check.conclusion === 'success');
+    const pending = matching.some((check) => check.status !== 'completed');
+    return {
+      passed,
+      pending: !passed && pending,
+      independent: true,
+      verifier: 'The-Crucible/GitHub-required-check',
+      requiredCheck: checkName,
+      exactCommit: commit,
+      checks: matching,
+      crucibleAuthority: {
+        repository: state.pin.crucibleRepository,
+        commit: state.pin.crucibleCommit,
+        catalogSha256: state.catalogSha256,
+        contractBlobSha: state.contractBlobSha,
+      },
+      reason: passed ? null : pending
+        ? `Required check "${checkName}" is still running on the exact coding commit.`
+        : `Required check "${checkName}" has not completed successfully on the exact coding commit.`,
+    };
+  }
+
   async verifyRepair({ owner, repo, repairCommit, beforeDiagnosis, afterDiagnosis, classification, test }) {
     const state = this.requireState();
     if (!/^[a-f0-9]{40}$/i.test(String(repairCommit || ''))) throw new Error('Verification requires the exact repair commit SHA.');
