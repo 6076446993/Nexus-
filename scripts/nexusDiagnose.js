@@ -48,7 +48,8 @@ function findActiveAssimilation(text) {
     if (/obsolete|historical|retired|provenance only|must not|do not route/i.test(line)) return;
     if (/learning_sources\//i.test(line)) return;
     findings.push({
-      code: 'NXD-ASSIMILATION-ACTIVE',\n      crucibleCode: 'CRU-0055',
+      code: 'NXD-ASSIMILATION-ACTIVE',
+      crucibleCode: 'CRU-0055',
       severity: 'error',
       line: index + 1,
       message: 'Active Assimilation semantics remain; Assimilation is obsolete and cannot be a routing, lifecycle, or authority mechanism.',
@@ -69,7 +70,8 @@ function diagnoseSnapshot(input) {
     if (/NEXUS-SYSTEM-CONFORMANCE\.md$/i.test(file)) {
       if (!/canonical Nexus/i.test(text) || !/authority/i.test(text) || !/lineage/i.test(text)) {
         findings.push({
-          code: 'NXD-CONFORMANCE-INCOMPLETE',\n          crucibleCode: 'CRU-0055',
+          code: 'NXD-CONFORMANCE-INCOMPLETE',
+          crucibleCode: 'CRU-0055',
           severity: 'error',
           file,
           message: 'Component conformance contract does not preserve canonical Nexus authority and lineage semantics.',
@@ -82,7 +84,8 @@ function diagnoseSnapshot(input) {
     || snapshot.repository === 'Nexus-';
   if (!hasConformance) {
     findings.push({
-      code: 'NXD-CONFORMANCE-MISSING',\n      crucibleCode: 'CRU-0055',
+      code: 'NXD-CONFORMANCE-MISSING',
+      crucibleCode: 'CRU-0055',
       severity: 'error',
       file: null,
       message: 'Registered component snapshot does not include its Nexus system conformance contract.',
