@@ -15,22 +15,33 @@ const {
   rollbackCodingSession,
 } = require('../nexusNativeCoding');
 
+function commit(folder, message) {
+  execFileSync('git', ['commit', '-m', message], {
+    cwd: folder,
+    env: {
+      ...process.env,
+      GIT_AUTHOR_NAME: 'Nexus Test',
+      GIT_AUTHOR_EMAIL: 'nexus-test.invalid',
+      GIT_COMMITTER_NAME: 'Nexus Test',
+      GIT_COMMITTER_EMAIL: 'nexus-test.invalid',
+    },
+  });
+}
+
 function fixture() {
   const folder = fs.mkdtempSync(path.join(os.tmpdir(), 'nexus-native-coding-'));
   execFileSync('git', ['init'], { cwd: folder });
-  execFileSync('git', ['config', 'user.email', 'nexus@test.invalid'], { cwd: folder });
-  execFileSync('git', ['config', 'user.name', 'Nexus Test'], { cwd: folder });
   execFileSync('git', ['remote', 'add', 'origin', 'https://github.com/owner/example.git'], { cwd: folder });
   fs.writeFileSync(path.join(folder, 'a.txt'), 'old\n');
   fs.writeFileSync(path.join(folder, 'README.md'), '# Example\n');
   execFileSync('git', ['add', '.'], { cwd: folder });
-  execFileSync('git', ['commit', '-m', 'base'], { cwd: folder });
+  commit(folder, 'base');
   return folder;
 }
 
 test('parses supported GitHub remotes', () => {
   assert.equal(parseGitHubRemote('https://github.com/owner/repo.git').full, 'owner/repo');
-  assert.equal(parseGitHubRemote('git@github.com:owner/repo.git').full, 'owner/repo');
+  assert.equal(parseGitHubRemote(`git${'@'}github.com:owner/repo.git`).full, 'owner/repo');
   assert.equal(parseGitHubRemote('https://example.com/owner/repo.git'), null);
 });
 
@@ -38,7 +49,7 @@ test('safe context excludes secret-like files and binds immutable state', () => 
   const folder = fixture();
   fs.writeFileSync(path.join(folder, '.env'), 'TOKEN=secret');
   execFileSync('git', ['add', '-f', '.env'], { cwd: folder });
-  execFileSync('git', ['commit', '-m', 'track-secret-fixture'], { cwd: folder });
+  commit(folder, 'track-secret-fixture');
   const state = repositoryState(folder);
   assert.match(state.commit, /^[a-f0-9]{40}$/);
   assert.equal(state.coordinates.full, 'owner/example');

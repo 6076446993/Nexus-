@@ -2495,8 +2495,8 @@
     {
       "path": "test/nexusNativeCoding.test.js",
       "type": ".js",
-      "size": 4564,
-      "sha256": "a0aafd9a96a47c6f688ddd9bd0657ab58d3a05a675c2c3e8d97cdcc329a6b755"
+      "size": 4646,
+      "sha256": "3ee869dae2357b4a56c62a7c96bafdc256a6049a02524f16c138c0ec6c7a6d41"
     },
     {
       "path": "test/nexusProgramRepairRuntime.test.js",
@@ -2699,8 +2699,8 @@
     {
       "path": "test/settingsAutomationRegression.test.js",
       "type": ".js",
-      "size": 6154,
-      "sha256": "197d6a188df9920f656295133f55ff90cc4116ab573641266aec5f0846277586"
+      "size": 6291,
+      "sha256": "930af9d2996d561e030a46619e8bbf3520b41e96dba0573961c6d298546b8062"
     },
     {
       "path": "test/settingsScroll.test.js",
