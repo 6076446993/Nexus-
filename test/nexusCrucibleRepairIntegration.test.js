@@ -10,7 +10,7 @@ test('Nexus and Crucible complete a real bounded repair cycle', {skip:!crucible}
  execFileSync('git',['add','.'],{cwd:folder});execFileSync('git',['commit','-m','defective fixture'],{cwd:folder});
  const bridge=createLocalCrucibleRepairBridge(crucible);
  const runtime=createNexusProgramRepairRuntime({
-  repository:'Nexus-',folder,snapshotFiles:['NEXUS-SYSTEM-CONFORMANCE.md'],crucibleBridge:bridge,
+  repository:'Nexus-',scope:'nexus-component',folder,snapshotFiles:['NEXUS-SYSTEM-CONFORMANCE.md'],crucibleBridge:bridge,
   planRepair:async({snapshot,classification})=>({bounded:true,baseCommit:snapshot.commit,strategy:'retire-obsolete-assimilation-routing',component:'integration',failureCodes:classification.codes}),
   authorize:async({snapshot,plan})=>makeExactPlanAuthorization({authorizationId:'E2E-AUTH',baseCommit:snapshot.commit,plan}),
   applyBoundedRepair:async()=>{fs.writeFileSync(file,'canonical Nexus authority and lineage\nAssimilation is obsolete and must not route new work.\n');execFileSync('git',['add','.'],{cwd:folder});execFileSync('git',['commit','-m','bounded integration repair'],{cwd:folder});return{ok:true};},
