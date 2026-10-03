@@ -36,3 +36,9 @@ test('failed required check cannot be self-certified by Nexus',async()=>{
  const result=await bridge.verifyRepair({owner:'o',repo:'r',repairCommit:'b'.repeat(40),beforeDiagnosis:{evidenceDigest:'1'.repeat(64)},afterDiagnosis:{evidenceDigest:'2'.repeat(64),summary:{errorCount:0}},classification:{classifiedFailures:[]},test:{passed:true}});
  assert.equal(result.passed,false);fs.rmSync(root,{recursive:true,force:true});
 });
+
+test('native coding verification consumes the required Crucible check on the exact commit',async()=>{
+ const {root,bridge}=setup();await bridge.refresh();
+ const result=await bridge.verifyCodingCommit({owner:'o',repo:'r',commit:'b'.repeat(40)});
+ assert.equal(result.passed,true);assert.equal(result.independent,true);assert.equal(result.requiredCheck,'The Crucible');fs.rmSync(root,{recursive:true,force:true});
+});
