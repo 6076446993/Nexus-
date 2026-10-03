@@ -1040,8 +1040,8 @@
     {
       "path": "AI-HANDOFF.json",
       "type": ".json",
-      "size": 8225,
-      "sha256": "bf353cdf1fe2fe8f4994e4e45883a876bc9252573c80357e24d1942f00afd121"
+      "size": 8386,
+      "sha256": "027cfe4793f9a362db83c435edfbbd44ac1949cb5ec45b711c05598661cb9aaf"
     },
     {
       "path": "CLAUDE.md",
@@ -1058,8 +1058,8 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 7357,
-      "sha256": "272dcfd37a2ed428e20a0a36478c75c8ff62ae2c7457fba51000f1e04554f3cd"
+      "size": 8380,
+      "sha256": "adc90a505d4c72cc198bfae382d43d99fbf5b201a6af575d1c068a5e9936f5c0"
     },
     {
       "path": "FIREBASE_SETUP.md",
@@ -1070,8 +1070,8 @@
     {
       "path": "Nexus-dependency-repair-evidence.json",
       "type": ".json",
-      "size": 12231,
-      "sha256": "ddb26a09df365703e1ecc14816e8900db4e98b1540980016261d48cc3e5fc8bb"
+      "size": 12544,
+      "sha256": "9661b6c3ef0a3bba48fcff508386b9b3cb9e07a1f2ebcdae35b3b786cfcaddd3"
     },
     {
       "path": "README.md",

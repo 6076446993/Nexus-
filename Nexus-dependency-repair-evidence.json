@@ -154,7 +154,19 @@
     "syntax": "passed; 189 files",
     "architecture": "passed",
     "npmAudit": "seven supplied advisories absent; 10 unrelated dependency findings remain (9 high, 1 moderate)",
-    "hosted": "pending",
+    "hosted": {
+      "commit": "af060af867602abea27e3be5c59b872b775f9c06",
+      "releaseAudits": [
+        37118312451,
+        37118326914
+      ],
+      "crucible": [
+        37118312728,
+        37118324198
+      ],
+      "result": "all succeeded including Windows package smoke",
+      "finalReconciliationChecks": "pending"
+    },
     "main": "still contains original vulnerable versions",
     "releaseCrucible": {
       "passed": true,
