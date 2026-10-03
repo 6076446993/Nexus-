@@ -124,7 +124,14 @@ function safeStaticInventoryRefresh() {
 
     if (baselineText === null) {
       if (currentReferences.length) {
-        throw new Error(`Static inventory refresh refused because ${item.path} is new relative-reference-bearing JavaScript.`);
+        const tracked = new Set(files.map((file) => file.replace(/\\/g, '/')));
+        const extensions = ['', '.js', '.cjs', '.mjs', '.json'];
+        const unresolved = currentReferences.filter((reference) => {
+          const base = path.posix.normalize(path.posix.join(path.posix.dirname(item.path), reference));
+          return !extensions.some((extension) => tracked.has(`${base}${extension}`))
+            && !extensions.slice(1).some((extension) => tracked.has(`${base}/index${extension}`));
+        });
+        if (unresolved.length) throw new Error(`Static inventory refresh refused because ${item.path} has unresolved new relative references: ${unresolved.join(', ')}.`);
       }
       continue;
     }
