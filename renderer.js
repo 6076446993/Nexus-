@@ -278,7 +278,8 @@ function getCommandList() {
     { label: 'Refresh Git Status', category: 'Ship / Git', keywords: 'git status branch', action: () => { switchTab('workspace'); refreshGitStatus(); } },
     { label: 'Commit & Push', category: 'Ship / Git', keywords: 'git commit push save', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('git-commit-message')?.focus(), 100); } },
     { label: 'Create Branch', category: 'Ship / Git', keywords: 'git branch checkout', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('git-branch-input')?.focus(), 100); } },
-    { label: 'Plan a Feature (Feature Builder)', category: 'Ship / Git', keywords: 'feature builder multi-file', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('feature-description')?.focus(), 100); } },
+    { label: 'Nexus Coding Prompt', category: 'AI Assist', keywords: 'nim council crucible prompt code build repair', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('nexus-coding-prompt')?.focus(), 100); } },
+    { label: 'Plan a Feature (legacy compatibility)', category: 'Ship / Git', keywords: 'feature builder multi-file legacy', action: () => { switchTab('workspace'); setTimeout(() => document.getElementById('feature-description')?.focus(), 100); } },
     { label: 'Generate Changelog Entry', category: 'Ship / Git', keywords: 'changelog release notes', action: () => { switchTab('workspace'); generateChangelog(); } },
     { label: 'Run Pipeline (Audit → Repair → Test → Gate)', category: 'Ship / Git', keywords: 'pipeline test gate audit', action: () => { switchTab('workspace'); runPipeline(); } },
     { label: 'Run Deploy', category: 'Ship / Git', keywords: 'deploy ship release', action: () => { switchTab('workspace'); runDeploy(); } },
@@ -405,7 +406,7 @@ function switchTab(tabId) {
   document.querySelectorAll('.nav-btn').forEach((b) => b.classList.remove('active'));
   view.classList.add('active');
   button.classList.add('active');
-  if (tabId === 'cloud') setSettingsSection(requestedSettings ? 'github' : (currentSettingsSection || 'account'));
+  if (tabId === 'cloud') { setSettingsSection(requestedSettings ? 'github' : (currentSettingsSection || 'account')); refreshNativeCodingConfiguration(); }
   if (tabId === 'workspace') {
     setTimeout(() => document.getElementById('term-input').focus(), 50);
     if (!currentAssistFolder) onTargetChange();
