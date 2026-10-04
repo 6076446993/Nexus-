@@ -164,6 +164,19 @@ async function getRepositoryOperations(token, owner, repo) {
   };
 }
 
+async function getCommitCheckRuns(token, owner, repo, sha) {
+  if (!/^[a-f0-9]{40}$/i.test(String(sha || ''))) throw new Error('An exact 40-character commit SHA is required.');
+  const data = await githubRequest(token, 'GET', `/repos/${owner}/${repo}/commits/${sha}/check-runs?per_page=100`);
+  return (data.check_runs || []).map((check) => ({
+    id: check.id,
+    name: check.name,
+    status: check.status,
+    conclusion: check.conclusion,
+    htmlUrl: check.html_url,
+    app: check.app?.slug || null,
+  }));
+}
+
 async function getWorkflowRun(token, owner, repo, runId) {
   const [run, jobs, artifacts] = await Promise.all([
     githubRequest(token, 'GET', `/repos/${owner}/${repo}/actions/runs/${runId}`),
@@ -212,6 +225,7 @@ module.exports = {
   getBranchProtection,
   getRepositoryOperations,
   getWorkflowRun,
+  getCommitCheckRuns,
   rerunWorkflow,
   createRelease,
   rollbackDeployment,

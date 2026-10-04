@@ -98,7 +98,8 @@ Defines approved cross-repository transitions.
 ## Operational Governance
 
 - required-check-rollout.md
-- nexus-native-assimilation.md
+- nexus-native-assimilation.md — historical/obsolete; retained for provenance only
+- NEXUS-SYSTEM-INTEGRATION-CONTRACT.md — active canonical cross-component integration contract
 - ai-conflict-resolution.md
 - AI-CONFLICTS.json
 - AI-HANDOFF.json

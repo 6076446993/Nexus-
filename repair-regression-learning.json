@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "regressionId": "RR-2026-10-03-NEXUS-SELF-REPAIR-INVENTORY-PR",
+      "repairCommit": "dc47f474ba031632d4accebda05a4db05711eb6c",
+      "preRepairHead": "5572ac2b2a22bd6ad649c31a6aac8535a29ceda9",
+      "component": "Nexus Commit Self-Repair / repository inventory / protected PR checks",
+      "observedFailures": [
+        "PR-context workflows on bot-authored repair tip entered action_required with zero jobs",
+        "temporary normal-author audit commit changed DEVLOG.md without synchronized inventory",
+        "self-repair then regenerated repository-file-manifest.json against the temporary DEVLOG, so reverting DEVLOG alone left inventory inconsistent"
+      ],
+      "evidence": {
+        "failedRuns": [
+          37131062475,
+          37131062507,
+          37131062856,
+          37131242954,
+          37131243023
+        ],
+        "successfulCorrectedHead": "9fd6132b642af661a9c717d70c67ea2a4612943c",
+        "successfulRequiredCrucibleRun": 37131319384,
+        "promotedMain": "47921821d7887aa2ff134ffcbe8b4008711afb55"
+      },
+      "correction": "Restored the previously verified DEVLOG.md and matching repository-file-manifest.json pair under a normal repository-authored head, reran protected PR checks, then squash-promoted only after required Crucible passed.",
+      "preventionLesson": "Treat inventory source content and repository-file-manifest.json as an atomic repair unit; validate post-repair PR-event eligibility and exact-head required checks; retain repair-caused regressions as negative learning evidence.",
+      "learningDisposition": "CANDIDATE_NEGATIVE_EVIDENCE",
+      "classificationAuthority": "The-Crucible",
+      "authorityNote": "This record does not itself establish verified knowledge, governance approval, or custody authority.",
+      "detectedAt": "2026-10-03T14:50:00Z",
+      "lineage": [
+        "dc47f474ba031632d4accebda05a4db05711eb6c",
+        "7f6dd540225bdc27e90c2646f195c49d27d389a0",
+        "7abb42da7667ead86d3d7903ff0256156d79c4ce",
+        "9fd6132b642af661a9c717d70c67ea2a4612943c",
+        "47921821d7887aa2ff134ffcbe8b4008711afb55"
+      ]
+    }
+  ]
+}

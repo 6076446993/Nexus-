@@ -73,8 +73,12 @@ const { createExportPreflight, exportVerifiedProject } = require('./projectExpor
 const officialLanguageServers = require('./officialLanguageServers');
 const gitWorkflow = require('./gitWorkflow');
 const portableProjectConfig = require('./portableProjectConfig');
+const { CrucibleDiagnosticBridge } = require('./crucibleDiagnosticBridge');
+const { requestCodingSession, applyCodingSession, rollbackCodingSession, repositoryState, sha256: nativeCodingSha256 } = require('./nexusNativeCoding');
 
 let mainWindow;
+let crucibleDiagnosticBridge = null;
+const nativeCodingSessions = new Map();
 let projectsForExitSync = [];
 let exitSyncInProgress = false;
 let exitSyncComplete = false;
@@ -352,6 +356,7 @@ app.whenReady().then(async () => {
   diagnostics.record('info', 'app', 'ready', { startupMs: Math.round(performance.now() - startupStartedAt), crashDumps: app.getPath('crashDumps') });
   setupPreviewSession();
   setupPopupAllowlist();
+  refreshCrucibleDiagnosticAuthority().catch((error) => diagnostics.record('warning', 'crucible-diagnostics', 'authority-refresh-failed', { message:error.message }));
   const buildInfo = await computeBuildInfo();
   if (mainWindow && !mainWindow.isDestroyed()) {
     if (buildInfo.ok) {
@@ -1019,13 +1024,15 @@ ipcMain.handle('language-services:clear', async (_event, { provider }) => {
 
 async function checkerPromptContext(folder, filePath, content) {
   const result = await runIntegratedCodeCheck(folder, filePath, content);
-  const diagnostics = result.diagnostics || [];
+  const checkerDiagnostics = result.diagnostics || [];
+  const cruContext = diagnostics.enrichCru(checkerDiagnostics).filter((item) => item.explanation);
   return [
     'NEXUS CODE CHECKER RESULT:',
     `Language: ${result.language}; checker: ${result.checker || 'unregistered'}; full checker available: ${result.available}.`,
     result.restricted ? 'External compiler or linter checks are restricted until Workspace Trust permits checker access.' : '',
     result.install && !result.available ? `Checker setup: ${result.install}` : '',
-    diagnostics.length ? diagnostics.map((item) => `- line ${item.line + 1}, column ${item.column + 1}, ${item.source || result.checker} ${item.code}: ${item.message}`).join('\n') : 'No diagnostics were reported by the available checker.',
+    checkerDiagnostics.length ? checkerDiagnostics.map((item) => `- line ${item.line + 1}, column ${item.column + 1}, ${item.source || result.checker} ${item.code}: ${item.message}`).join('\n') : 'No diagnostics were reported by the available checker.',
+    cruContext.length ? `CRUCIBLE DIAGNOSTIC MEMORY:\n${cruContext.map(({code,explanation}) => `- ${code}: ${explanation.meaning} Next: ${explanation.next} [authority ${explanation.sourceCommit}]`).join('\n')}` : '',
     'Use these diagnostics as evidence. Do not claim the code is fully valid when a language checker is unavailable.',
   ].filter(Boolean).join('\n');
 }
@@ -2230,6 +2237,12 @@ ipcMain.handle('github-operations:download', async (_event, { folder, url, name 
   try { const buffer = await require('./githubClient').downloadGitHubArchive(token, url); const safeName = String(name || 'github-download').replace(/[^A-Za-z0-9._-]/g, '-').slice(0, 100); const target = path.join(app.getPath('downloads'), `${safeName}.zip`); fs.writeFileSync(target, buffer); return { ok: true, path: target }; } catch (error) { return { ok: false, error: error.message }; }
 });
 ipcMain.handle('diagnostics:get', (_event, { limit }) => ({ ok: true, settings: diagnostics.settings(), entries: diagnostics.recent(limit), crashDumps: app.getPath('crashDumps') }));
+
+ipcMain.handle('diagnostics:cru-refresh', async () => { try { return { ok:true, ...(await refreshCrucibleDiagnosticAuthority()) }; } catch (error) { return { ok:false, error:error.message }; } });
+ipcMain.handle('diagnostics:cru-explain', (_event, { code }) => ({ ok:true, code, explanation:diagnostics.explainCruCode(String(code || '').toUpperCase()) }));
+ipcMain.handle('diagnostics:cru-history', (_event, { limit }) => ({ ok:true, occurrences:diagnostics.cruOccurrences(limit || 500) }));
+ipcMain.handle('diagnostics:cru-enrich', (_event, { value }) => ({ ok:true, codes:diagnostics.enrichCru(value) }));
+
 ipcMain.handle('diagnostics:settings', (_event, value) => ({ ok: true, settings: diagnostics.saveSettings(value || {}) }));
 ipcMain.handle('diagnostics:record', (_event, { level, component, event, data, correlationId }) => ({ ok: true, correlationId: diagnostics.record(level || 'info', component || 'renderer', event || 'event', data || {}, correlationId) }));
 ipcMain.handle('diagnostics:export', async () => { const result = await dialog.showOpenDialog(mainWindow, { title: 'Choose support bundle destination', properties: ['openDirectory', 'createDirectory'] }); if (result.canceled || !result.filePaths[0]) return { ok: false, canceled: true }; try { return { ok: true, path: diagnostics.exportBundle(result.filePaths[0], { appVersion: app.getVersion(), crashDumps: app.getPath('crashDumps') }) }; } catch (error) { return { ok: false, error: error.message }; } });
@@ -3526,6 +3539,20 @@ function getGithubToken() {
 // that GitHub would just reject.
 const NOT_CONNECTED_ERROR = 'No GitHub token saved - connect GitHub in the Config tab first.';
 
+async function refreshCrucibleDiagnosticAuthority() {
+  const token = getGithubToken();
+  if (!token) return { ok:false, authRequired:true, error:NOT_CONNECTED_ERROR };
+  const bridge = new CrucibleDiagnosticBridge({ token, githubClient:require('./githubClient'), diagnostics });
+  const result = await bridge.refresh();
+  crucibleDiagnosticBridge = bridge;
+  diagnostics.record('info', 'crucible-diagnostics', 'authority-refreshed', {
+    commit:result.crucibleCommit, catalogSha256:result.catalogSha256, codeCount:result.codeCount,
+  });
+  return result;
+}
+
+
+
 ipcMain.handle('github-list-repos', async () => {
   const token = getGithubToken();
   if (!token) return { ok: false, error: NOT_CONNECTED_ERROR };
@@ -3551,6 +3578,306 @@ function setEncryptedConfigValue(cfg, key, value) {
   if (safeStorage.isEncryptionAvailable()) cfg[`${key}Enc`] = safeStorage.encryptString(value).toString('base64');
   else cfg[key] = value;
 }
+
+const DEFAULT_AI_COLLABORATION_BASE_URL = 'https://ai-collaboration-bwkm.onrender.com';
+
+function nativeCodingConfiguration() {
+  const cfg = loadConfig();
+  return {
+    baseUrl: String(process.env.AI_COLLABORATION_BASE_URL || cfg.aiCollaborationBaseUrl || DEFAULT_AI_COLLABORATION_BASE_URL).replace(/\/$/, ''),
+    bearerToken: String(process.env.AI_COLLABORATION_BEARER_TOKEN || encryptedConfigValue(cfg, 'aiCollaborationBearerToken') || ''),
+  };
+}
+
+function nativeCodingConfigurationStatus() {
+  const value = nativeCodingConfiguration();
+  return {
+    baseUrl: value.baseUrl,
+    tokenConfigured: Boolean(value.bearerToken),
+    tokenSource: process.env.AI_COLLABORATION_BEARER_TOKEN ? 'environment' : value.bearerToken ? 'encrypted-nexus-storage' : 'missing',
+    integration: 'nexus-native-api',
+  };
+}
+
+async function saveNativeCodingConfiguration({ baseUrl, bearerToken, clearToken = false } = {}) {
+  let parsed;
+  try { parsed = new URL(String(baseUrl || DEFAULT_AI_COLLABORATION_BASE_URL)); }
+  catch { return { ok:false, error:'AI Collaboration URL must be a valid HTTP(S) URL.' }; }
+  if (!['https:', 'http:'].includes(parsed.protocol)) return { ok:false, error:'AI Collaboration URL must use HTTP or HTTPS.' };
+  if (parsed.protocol !== 'https:' && !['localhost','127.0.0.1','::1'].includes(parsed.hostname)) return { ok:false, error:'Remote AI Collaboration connections must use HTTPS.' };
+  const cfg = loadConfig();
+  cfg.aiCollaborationBaseUrl = parsed.href.replace(/\/$/, '');
+  if (clearToken) {
+    delete cfg.aiCollaborationBearerToken;
+    delete cfg.aiCollaborationBearerTokenEnc;
+  } else if (typeof bearerToken === 'string' && bearerToken.trim()) {
+    if (!safeStorage.isEncryptionAvailable()) return { ok:false, error:'Secure OS credential storage is unavailable; Nexus will not save the AI Collaboration bearer token in plaintext.' };
+    delete cfg.aiCollaborationBearerToken;
+    cfg.aiCollaborationBearerTokenEnc = safeStorage.encryptString(bearerToken.trim()).toString('base64');
+  }
+  await saveConfig(cfg);
+  return { ok:true, ...nativeCodingConfigurationStatus() };
+}
+
+
+const NATIVE_CODING_STATE_DIR = path.join(app.getPath('userData'), 'native-coding-sessions');
+fs.mkdirSync(NATIVE_CODING_STATE_DIR, { recursive:true });
+
+function nativeCodingSessionFile(sessionId) {
+  if (!/^nexus-coding-[a-f0-9-]+$/i.test(String(sessionId || ''))) throw new Error('Invalid native coding session id.');
+  return path.join(NATIVE_CODING_STATE_DIR, `${sessionId}.json`);
+}
+
+function persistNativeCodingSession(session) {
+  const file = nativeCodingSessionFile(session.sessionId);
+  const temp = `${file}.tmp-${process.pid}`;
+  fs.writeFileSync(temp, `${JSON.stringify(session, null, 2)}\n`, { encoding:'utf8', mode:0o600 });
+  fs.renameSync(temp, file);
+  nativeCodingSessions.set(session.sessionId, session);
+  return session;
+}
+
+function getNativeCodingSession(sessionId) {
+  if (nativeCodingSessions.has(sessionId)) return nativeCodingSessions.get(sessionId);
+  const file = nativeCodingSessionFile(sessionId);
+  if (!fs.existsSync(file)) return null;
+  const session = JSON.parse(fs.readFileSync(file, 'utf8'));
+  nativeCodingSessions.set(sessionId, session);
+  return session;
+}
+
+function nativeCodingSessionView(session) {
+  if (!session) return null;
+  return {
+    schemaVersion:session.schemaVersion,
+    sessionId:session.sessionId,
+    state:session.state,
+    taskDescription:session.taskDescription,
+    repositoryReference:session.repositoryReference,
+    targetVersion:session.targetVersion,
+    baseBranch:session.branch,
+    coder:session.coder,
+    councilInvoked:session.councilInvoked === true,
+    proposal:session.proposal ? {
+      proposedChanges:session.proposal.proposedChanges,
+      reasoningReference:session.proposal.reasoningReference,
+      collaborationArtifactSha256:session.proposal.collaborationArtifactSha256,
+      authorizationGranted:false,
+    } : null,
+    executedPaths:session.executedPaths || [],
+    localVerification:session.localVerification || null,
+    featureBranch:session.featureBranch || null,
+    commit:session.commit || null,
+    pullRequest:session.pullRequest || null,
+    crucibleVerification:session.crucibleVerification || null,
+    requestedAt:session.requestedAt,
+    updatedAt:session.updatedAt || session.requestedAt,
+    authorizationGranted:false,
+  };
+}
+
+ipcMain.handle('native-coding:configuration', () => ({ ok:true, ...nativeCodingConfigurationStatus() }));
+ipcMain.handle('native-coding:configure', async (_event, value) => saveNativeCodingConfiguration(value || {}));
+
+ipcMain.handle('native-coding:propose', async (_event, { folder, prompt, retrySessionId = null }) => {
+  try {
+    if (!folder || !fs.existsSync(folder)) return { ok:false, error:'Project folder not found.' };
+    const configuration = nativeCodingConfiguration();
+    if (!configuration.bearerToken) return { ok:false, configurationRequired:true, error:'Connect the AI Collaboration native service in Settings before using Nexus Coding.' };
+    let struggle = null;
+    if (retrySessionId) {
+      const prior = getNativeCodingSession(retrySessionId);
+      if (!prior) return { ok:false, error:'The previous Nexus coding session could not be found.' };
+      const reasons = [];
+      if (prior.state === 'ROLLED_BACK') reasons.push('previous-local-verification-failed');
+      if (prior.state === 'CRUCIBLE_FAILED') reasons.push('previous-crucible-verification-failed');
+      if (prior.state === 'BLOCKED') reasons.push('previous-coding-attempt-blocked');
+      if (prior.repairRegressionCandidate) reasons.push('repair-regression');
+      if (!reasons.length) reasons.push('explicit-retry-after-incomplete-attempt');
+      const recent = diagnostics.cruOccurrences(500)
+        .filter((entry) => !entry.repository || entry.repository === prior.repositoryReference)
+        .slice(-20);
+      struggle = {
+        reasons,
+        previousFailureCodes:[...new Set(recent.map((entry) => entry.code).filter(Boolean))],
+        previousAttemptSummary:`Previous session ${prior.sessionId} ended in ${prior.state}. Local verification: ${JSON.stringify(prior.localVerification || null)}. Crucible verification: ${JSON.stringify(prior.crucibleVerification || null)}.`.slice(0,12000),
+      };
+    }
+    const session = await requestCodingSession({
+      baseUrl:configuration.baseUrl,
+      bearerToken:configuration.bearerToken,
+      folder,
+      taskDescription:prompt,
+      struggle,
+    });
+    session.folder = fs.realpathSync(folder);
+    session.updatedAt = new Date().toISOString();
+    persistNativeCodingSession(session);
+    diagnostics.record('info','native-coding','proposal-ready',{repository:session.repositoryReference,commit:session.targetVersion,coder:session.coder,councilInvoked:session.councilInvoked,sessionId:session.sessionId});
+    return { ok:true, session:nativeCodingSessionView(session) };
+  } catch (error) {
+    diagnostics.record('error','native-coding','proposal-failed',{message:error.message});
+    return { ok:false, error:error.message };
+  }
+});
+
+ipcMain.handle('native-coding:apply', async (_event, { folder, sessionId }) => {
+  try {
+    const denied = requireWorkspacePermission(folder, 'git-write');
+    if (denied) return denied;
+    let session = getNativeCodingSession(sessionId);
+    if (!session) return { ok:false, error:'Native coding session not found.' };
+    if (fs.realpathSync(folder) !== session.folder) return { ok:false, error:'Native coding session belongs to a different project.' };
+    if (session.state !== 'PROPOSED') return { ok:false, error:`Session cannot be applied from state ${session.state}.` };
+    session = applyCodingSession(folder, session);
+    const guardrails = await aiGuardrailTester.runGuardrailTests(folder);
+    const guardrailFailure = !guardrails?.ok || (guardrails.hasGuardrails && guardrails.passed !== guardrails.total);
+    if (guardrailFailure) {
+      const rolledBack = rollbackCodingSession(folder, session);
+      session = {
+        ...rolledBack,
+        state:'ROLLED_BACK',
+        localVerification:{ passed:false, guardrails, reason:'Project guardrails failed; Nexus restored the exact pre-prompt commit.' },
+        repairRegressionCandidate:{
+          source:'native-coding',
+          preRepairCommit:session.targetVersion,
+          proposalArtifactSha256:session.proposal?.collaborationArtifactSha256 || null,
+          outcome:'local-verification-failed',
+        },
+        updatedAt:new Date().toISOString(),
+      };
+      persistNativeCodingSession(session);
+      diagnostics.record('error','native-coding','CRU-native-coding-local-verification-failed',{repository:session.repositoryReference,commit:session.targetVersion,sessionId:session.sessionId,outcome:'rolled-back'});
+      return { ok:false, rolledBack:true, session:nativeCodingSessionView(session), error:'Local project verification failed. The proposal was rolled back.' };
+    }
+    session.localVerification = {
+      passed:guardrails.hasGuardrails ? true : null,
+      hasGuardrails:Boolean(guardrails.hasGuardrails),
+      passedChecks:guardrails.passed || 0,
+      totalChecks:guardrails.total || 0,
+      results:guardrails.results || [],
+      statement:guardrails.hasGuardrails ? 'Project guardrails passed locally.' : 'No project guardrail scripts were available; hosted Crucible verification is still required.',
+    };
+    session.state = guardrails.hasGuardrails ? 'LOCAL_CHECKS_PASSED' : 'LOCAL_CHECKS_INCONCLUSIVE';
+    session.updatedAt = new Date().toISOString();
+    persistNativeCodingSession(session);
+    diagnostics.record('info','native-coding','proposal-applied',{repository:session.repositoryReference,commit:session.targetVersion,sessionId:session.sessionId,outcome:session.state});
+    return { ok:true, session:nativeCodingSessionView(session) };
+  } catch (error) {
+    return { ok:false, error:error.message };
+  }
+});
+
+ipcMain.handle('native-coding:rollback', async (_event, { folder, sessionId }) => {
+  try {
+    const denied = requireWorkspacePermission(folder, 'git-write');
+    if (denied) return denied;
+    let session = getNativeCodingSession(sessionId);
+    if (!session) return { ok:false, error:'Native coding session not found.' };
+    if (session.commit) return { ok:false, error:'Committed sessions must be reverted through Git history rather than destructive local rollback.' };
+    session = { ...rollbackCodingSession(folder, session), updatedAt:new Date().toISOString() };
+    persistNativeCodingSession(session);
+    return { ok:true, session:nativeCodingSessionView(session) };
+  } catch (error) { return { ok:false, error:error.message }; }
+});
+
+ipcMain.handle('native-coding:commit-push', async (_event, { folder, sessionId }) => {
+  try {
+    const denied = requireWorkspacePermission(folder, 'git-write');
+    if (denied) return denied;
+    let session = getNativeCodingSession(sessionId);
+    if (!session) return { ok:false, error:'Native coding session not found.' };
+    if (!['LOCAL_CHECKS_PASSED','LOCAL_CHECKS_INCONCLUSIVE','COMMITTED_PUSH_FAILED','PUSHED_PR_FAILED'].includes(session.state)) return { ok:false, error:`Session cannot be published from state ${session.state}.` };
+    const token = getGithubToken();
+    if (!token) return { ok:false, authRequired:true, error:NOT_CONNECTED_ERROR };
+    const current = repositoryState(folder);
+    if (session.state === 'COMMITTED_PUSH_FAILED') {
+      if (!session.commit || current.commit !== session.commit || current.branch !== session.featureBranch) return { ok:false, error:'Committed retry state no longer matches the recorded Nexus coding branch and commit.' };
+      const push = await runGitArgs(folder, ['push','-u','origin','HEAD']);
+      session = { ...session, state:push.ok ? 'PUSHED' : 'COMMITTED_PUSH_FAILED', pushOutput:push.output, updatedAt:new Date().toISOString() };
+      persistNativeCodingSession(session);
+      if (!push.ok) return { ok:false, committed:true, session:nativeCodingSessionView(session), error:push.output || push.error };
+    } else if (session.state !== 'PUSHED_PR_FAILED') {
+      if (current.commit !== session.targetVersion) return { ok:false, error:'Repository HEAD moved after the proposal was generated.' };
+      const currentDiff = (await runGitArgs(folder, ['diff','--binary',session.targetVersion])).output;
+      if (!currentDiff || nativeCodingSha256(currentDiff + '\n') !== session.executedDiffSha256) return { ok:false, error:'Working-tree diff no longer matches the applied Nexus coding proposal.' };
+      const stage = await runGitArgs(folder, ['add','--',...(session.executedPaths || [])]);
+      if (!stage.ok) return { ok:false, error:stage.output || stage.error };
+      const secretScan = await require('./secretScanner').scanStaged(folder);
+      if (secretScan.findings.length) {
+        await runGitArgs(folder, ['reset']);
+        return { ok:false, secretScanBlocked:true, findings:secretScan.findings, error:'Potential secrets found in the Nexus coding proposal; publication is blocked.' };
+      }
+      const slug = String(session.taskDescription || 'change').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,36) || 'change';
+      const featureBranch = `nexus-coding/${slug}-${session.sessionId.slice(-8)}`;
+      const branchResult = await runGitArgs(folder, ['checkout','-b',featureBranch]);
+      if (!branchResult.ok) return { ok:false, error:branchResult.output || branchResult.error };
+      const message = `Nexus coding: ${String(session.taskDescription || 'prompt change').replace(/[\r\n]+/g,' ').slice(0,120)}`;
+      const commitResult = await runGitArgs(folder, ['commit','-m',message]);
+      if (!commitResult.ok) return { ok:false, error:commitResult.output || commitResult.error };
+      const commit = (await runGitArgs(folder, ['rev-parse','HEAD'])).output.trim();
+      const push = await runGitArgs(folder, ['push','-u','origin','HEAD']);
+      session = { ...session, featureBranch, commit, state:push.ok ? 'PUSHED' : 'COMMITTED_PUSH_FAILED', pushOutput:push.output, updatedAt:new Date().toISOString() };
+      persistNativeCodingSession(session);
+      if (!push.ok) return { ok:false, committed:true, session:nativeCodingSessionView(session), error:push.output || push.error };
+    }
+    const coordinates = session.repositoryReference.split('/');
+    const pr = await require('./githubClient').createPullRequest(
+      token,
+      coordinates[0],
+      coordinates[1],
+      `Nexus coding: ${String(session.taskDescription || 'prompt change').replace(/[\r\n]+/g,' ').slice(0,100)}`,
+      [
+        'Generated through the native Nexus prompt-coding path.',
+        '',
+        `Base commit: ${session.targetVersion}`,
+        `Coding worker: ${session.coder}`,
+        `Council invoked: ${session.councilInvoked ? 'yes' : 'no'}`,
+        `Nexus session: ${session.sessionId}`,
+        '',
+        'This PR remains unverified until The Crucible passes on the exact commit.',
+      ].join('\n'),
+      session.featureBranch,
+      session.branch
+    );
+    session.pullRequest = { number:pr.number, htmlUrl:pr.html_url, head:session.featureBranch, base:session.branch };
+    session.state = 'AWAITING_CRUCIBLE';
+    session.updatedAt = new Date().toISOString();
+    persistNativeCodingSession(session);
+    return { ok:true, session:nativeCodingSessionView(session) };
+  } catch (error) {
+    const session = (()=>{try{return getNativeCodingSession(sessionId);}catch{return null;}})();
+    if (session?.state === 'PUSHED') { session.state='PUSHED_PR_FAILED'; session.updatedAt=new Date().toISOString(); persistNativeCodingSession(session); }
+    return { ok:false, session:nativeCodingSessionView(session), error:error.message };
+  }
+});
+
+ipcMain.handle('native-coding:verify-crucible', async (_event, { folder, sessionId }) => {
+  try {
+    let session = getNativeCodingSession(sessionId);
+    if (!session?.commit) return { ok:false, error:'Native coding session has no published commit to verify.' };
+    const token = getGithubToken();
+    if (!token) return { ok:false, authRequired:true, error:NOT_CONNECTED_ERROR };
+    if (!crucibleDiagnosticBridge) {
+      const refreshed = await refreshCrucibleDiagnosticAuthority();
+      if (!refreshed.ok && refreshed.authRequired) return refreshed;
+      if (!crucibleDiagnosticBridge) return { ok:false, error:'Crucible diagnostic authority could not be loaded.' };
+    }
+    const [owner, repo] = session.repositoryReference.split('/');
+    const verification = await crucibleDiagnosticBridge.verifyCodingCommit({ owner, repo, commit:session.commit });
+    session.crucibleVerification = verification;
+    session.state = verification.passed ? 'VERIFIED' : verification.pending ? 'AWAITING_CRUCIBLE' : 'CRUCIBLE_FAILED';
+    session.updatedAt = new Date().toISOString();
+    if (session.state === 'CRUCIBLE_FAILED') {
+      const codes = verification.checks.flatMap((check) => diagnostics.enrichCru(check)).map((item) => item.code);
+      for (const code of [...new Set(codes)]) diagnostics.record('error','native-coding','crucible-verification-failed',{code,repository:session.repositoryReference,commit:session.commit,sessionId:session.sessionId,outcome:'failed'});
+    }
+    persistNativeCodingSession(session);
+    return { ok:verification.passed, pending:verification.pending, session:nativeCodingSessionView(session), error:verification.passed ? null : verification.reason };
+  } catch (error) { return { ok:false, error:error.message }; }
+});
+
+ipcMain.handle('native-coding:session', (_event, { sessionId }) => ({ ok:true, session:nativeCodingSessionView(getNativeCodingSession(sessionId)) }));
 
 function oauthConfiguration() {
   const cfg = loadConfig();
