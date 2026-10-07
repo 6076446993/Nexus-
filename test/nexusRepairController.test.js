@@ -1,6 +1,6 @@
 'use strict';
 const test=require('node:test');const assert=require('node:assert/strict');
-const {NexusRepairController,OperationalLearningStore,digest,applicability,adaptiveVerificationPlan,chooseProbe}=require('./nexusRepairController');
+const {NexusRepairController,OperationalLearningStore,digest,applicability,adaptiveVerificationPlan,chooseProbe}=require('../nexusRepairController');
 const snapshot={repository:'Nexus-',commit:'abcdef1234567',files:{}};
 const diagnosis=(errors=1)=>({evidenceDigest:'d'.repeat(64),summary:{errorCount:errors,status:errors?'BLOCKED':'DIAGNOSED'}});
 function deps(overrides={}){const plan={bounded:true,baseCommit:snapshot.commit,strategy:'safe-fix'};return{diagnose:async(s)=>s.commit===snapshot.commit?diagnosis(1):diagnosis(0),classify:async()=>({classified:true,repairEligible:true,failureCode:'CRU-0004'}),planRepair:async()=>plan,authorize:async()=>({approved:true,authorizationId:'A1',baseCommit:snapshot.commit,planDigest:digest(plan)}),repair:async()=>({commit:'fedcba7654321',snapshot:{...snapshot,commit:'fedcba7654321'}}),retest:async()=>({passed:true}),verify:async()=>({passed:true,independent:true}),regressionMemory:async()=>[],...overrides};}
