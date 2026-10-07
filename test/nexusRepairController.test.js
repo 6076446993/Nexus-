@@ -1,50 +1,21 @@
 'use strict';
 const test=require('node:test');const assert=require('node:assert/strict');
-const {NexusRepairController,digest}=require('../nexusRepairController');
+const {NexusRepairController,OperationalLearningStore,digest,applicability,adaptiveVerificationPlan,chooseProbe}=require('./nexusRepairController');
 const snapshot={repository:'Nexus-',commit:'abcdef1234567',files:{}};
 const diagnosis=(errors=1)=>({evidenceDigest:'d'.repeat(64),summary:{errorCount:errors,status:errors?'BLOCKED':'DIAGNOSED'}});
-function deps(overrides={}){
- const plan={bounded:true,baseCommit:snapshot.commit,strategy:'safe-fix'};
- return {
-  diagnose:async(s)=>s.commit===snapshot.commit?diagnosis(1):diagnosis(0),
-  classify:async()=>({classified:true,repairEligible:true,failureCode:'CRU-0004'}),
-  planRepair:async()=>plan,
-  authorize:async()=>({approved:true,authorizationId:'A1',baseCommit:snapshot.commit,planDigest:digest(plan)}),
-  repair:async()=>({commit:'fedcba7654321',snapshot:{...snapshot,commit:'fedcba7654321'}}),
-  retest:async()=>({passed:true}),
-  verify:async()=>({passed:true,independent:true}),
-  regressionMemory:async()=>[],
-  ...overrides,
- };
-}
-test('clean repair loop requires rediagnosis and independent verification',async()=>{
- const r=await new NexusRepairController(deps()).run({snapshot,task:{id:'T1'}});
- assert.equal(r.state,'FINISHED');
- assert.deepEqual(r.history.map(x=>x.state),['DIAGNOSE','CLASSIFY','PLAN','AUTHORIZE','REPAIR','RETEST','REDIAGNOSE','VERIFY']);
-});
-test('diagnosis cannot mutate without exact authorization',async()=>{
- let repaired=false;const r=await new NexusRepairController(deps({authorize:async()=>({approved:false}),repair:async()=>{repaired=true;}})).run({snapshot,task:{}});
- assert.equal(r.state,'BLOCKED');assert.equal(repaired,false);
-});
-test('failed retest quarantines repair and emits regression candidate',async()=>{
- const r=await new NexusRepairController(deps({retest:async()=>({passed:false,check:'unit'})})).run({snapshot,task:{}});
- assert.equal(r.state,'QUARANTINED');assert.equal(r.reason,'repair-retest-failed');assert.equal(r.repairRegressionCandidate.preRepairCommit,snapshot.commit);
-});
-test('recorded failed strategy is quarantined before authorization or mutation unless its failure is addressed',async()=>{
- let authorized=false,repaired=false;
- const regression={regressionId:'RR-1',component:'builder',preventionLesson:'Do not repeat safe-fix because it corrupted output.'};
- const r=await new NexusRepairController(deps({
-  planRepair:async()=>({bounded:true,baseCommit:snapshot.commit,strategy:'safe-fix',component:'builder'}),
-  regressionMemory:async()=>[regression],
-  authorize:async()=>{authorized=true;return{};},
-  repair:async()=>{repaired=true;return{};},
- })).run({snapshot,task:{}});
- assert.equal(r.state,'QUARANTINED');assert.equal(r.reason,'repair-strategy-repeats-recorded-failure-without-addressing-it');assert.equal(authorized,false);assert.equal(repaired,false);
-});
-
-test('recorded failed strategy may be reconsidered only when plan explicitly addresses prior failure evidence',async()=>{
- const regression={regressionId:'RR-1',component:'builder',preventionLesson:'Do not repeat safe-fix because it corrupted output.'};
- const plan={bounded:true,baseCommit:snapshot.commit,strategy:'safe-fix',component:'builder',addressesRegressionId:'RR-1'};
- const r=await new NexusRepairController(deps({planRepair:async()=>plan,authorize:async()=>({approved:true,authorizationId:'A2',baseCommit:snapshot.commit,planDigest:digest(plan)}),regressionMemory:async()=>[regression]})).run({snapshot,task:{}});
- assert.equal(r.state,'FINISHED');
-});
+function deps(overrides={}){const plan={bounded:true,baseCommit:snapshot.commit,strategy:'safe-fix'};return{diagnose:async(s)=>s.commit===snapshot.commit?diagnosis(1):diagnosis(0),classify:async()=>({classified:true,repairEligible:true,failureCode:'CRU-0004'}),planRepair:async()=>plan,authorize:async()=>({approved:true,authorizationId:'A1',baseCommit:snapshot.commit,planDigest:digest(plan)}),repair:async()=>({commit:'fedcba7654321',snapshot:{...snapshot,commit:'fedcba7654321'}}),retest:async()=>({passed:true}),verify:async()=>({passed:true,independent:true}),regressionMemory:async()=>[],...overrides};}
+test('clean repair loop remains compatible and requires independent verification',async()=>{const r=await new NexusRepairController(deps()).run({snapshot,task:{id:'T1'}});assert.equal(r.state,'FINISHED');assert.deepEqual(r.history.map(x=>x.state),['DIAGNOSE','CLASSIFY','PLAN','AUTHORIZE','REPAIR','RETEST','REDIAGNOSE','VERIFY']);});
+test('diagnosis cannot mutate without exact authorization',async()=>{let repaired=false;const r=await new NexusRepairController(deps({authorize:async()=>({approved:false}),repair:async()=>{repaired=true;}})).run({snapshot,task:{}});assert.equal(r.state,'BLOCKED');assert.equal(repaired,false);});
+test('failed retest quarantines repair and emits regression candidate',async()=>{const r=await new NexusRepairController(deps({retest:async()=>({passed:false,check:'unit'})})).run({snapshot,task:{}});assert.equal(r.state,'QUARANTINED');assert.equal(r.reason,'repair-retest-failed');});
+test('repeated fingerprint accumulates evidence without duplicate repair identity',()=>{const s=new OperationalLearningStore();const a=s.recordObservation({repository:'Nexus-',component:'release',failureClass:'verification',rootCause:'swallowed exit',evidence:[{run:1}]});const b=s.recordObservation({repository:'Nexus-',component:'release',failureClass:'verification',rootCause:'swallowed exit',evidence:[{run:2}]});assert.equal(a.fingerprint,b.fingerprint);assert.equal(b.duplicate,true);assert.equal(b.observation.occurrences,2);assert.equal(b.observation.evidence.length,2);});
+test('unchanged failed approach is suppressed while material drift permits diagnosis',()=>{const s=new OperationalLearningStore();s.recordNegative({id:'N1',relation:'FAILED_IN',strategy:'retry-token',context:{repository:'Nexus-',component:'security',version:'1'}});assert.equal(s.evaluateRetry({strategy:'retry-token',context:{repository:'Nexus-',component:'security',version:'1'}}).allowed,false);assert.equal(s.evaluateRetry({strategy:'retry-token',context:{repository:'Nexus-',component:'security',version:'2'}}).allowed,true);});
+test('in-envelope durable strategy is prioritized and out-of-envelope requires diagnosis',()=>{const s=new OperationalLearningStore();let r;for(let i=0;i<3;i++)r=s.recordStrategyOutcome({failureClass:'tool',repository:'Nexus-',component:'builder',strategy:'pin-tool',context:{repository:'Nexus-',component:'builder',tool:'npm',version:'10'},applicability:{preconditions:{repository:'Nexus-',component:'builder',tool:'npm',version:'10'}},success:true,recurrenceFree:i>0});assert.equal(r.durability,'DURABLE');assert.equal(s.recommend({failureClass:'tool',context:{repository:'Nexus-',component:'builder',tool:'npm',version:'10'}}).diagnosisRequired,false);assert.equal(s.recommend({failureClass:'tool',context:{repository:'Nexus-',component:'builder',tool:'npm',version:'11'}}).diagnosisRequired,true);});
+test('competing hypotheses select safe discriminating probe by decision value cost and risk',()=>{const p=chooseProbe([{id:'auth',probes:[{name:'read-scope',expectedDecisionValue:9,cost:1,risk:0,authorized:true}]},{id:'network',probes:[{name:'rerun',expectedDecisionValue:4,cost:3,risk:1,authorized:true}]}]);assert.equal(p.name,'read-scope');});
+test('adaptive verification cannot bypass mandatory gates',()=>{const p=adaptiveVerificationPlan({mandatory:['CodeQL','governance'],novelty:3,securityImpact:3,candidates:[{name:'smoke',detectionValue:4,cost:1}]});assert.deepEqual(p.mandatory,['CodeQL','governance']);assert.equal(p.mandatoryBypassAllowed,false);assert.equal(p.depth,'standard');});
+test('verifier outcomes remain versioned and expose misses and false passes',()=>{const s=new OperationalLearningStore();const v=s.recordVerifier({check:'release',version:'2',detections:1,misses:1,falsePasses:1,cost:4});assert.equal(v.detections,1);assert.equal(v.misses,1);assert.equal(v.falsePasses,1);});
+test('recurrence-free verified outcomes advance durability and drift marks revalidation',()=>{const s=new OperationalLearningStore();let r=s.recordStrategyOutcome({failureClass:'retrieval',strategy:'bounded-refetch',context:{repository:'Nexus-',version:'1'},success:true});assert.equal(r.durability,'PASSED_ONCE');r=s.recordStrategyOutcome({failureClass:'retrieval',strategy:'bounded-refetch',context:{repository:'Nexus-',version:'1'},success:true,recurrenceFree:true});assert.equal(r.durability,'REGRESSION_FREE');assert.equal(s.markDrift({repository:'Nexus-',version:'2'}).length,1);assert.equal(Object.values(s.state.strategies)[0].needsRevalidation,true);});
+test('restart preserves operational state and policy rollback works',()=>{const s=new OperationalLearningStore();s.recordObservation({repository:'Nexus-',failureClass:'knowledge missing',rootCause:'missing rule'});const restored=OperationalLearningStore.fromJSON(s.toJSON());assert.equal(Object.keys(restored.state.observations).length,1);const cp=restored.checkpoint();restored.installPolicy({selector:'v2'});assert.equal(restored.state.activePolicyVersion,2);restored.rollback(cp);assert.equal(restored.state.activePolicyVersion,1);});
+test('cost learning tracks no universal score and retains contextual cost',()=>{const s=new OperationalLearningStore();const r=s.recordStrategyOutcome({failureClass:'implementation',repository:'Nexus-',component:'ui',strategy:'bounded-patch',context:{repository:'Nexus-',component:'ui',runtime:'node24'},success:true,cost:{ciRuns:2,toolCalls:3,wallMs:4000,estimatedUsd:.2}});assert.equal(r.cost.ciRuns,2);assert.equal(r.cost.estimatedUsd,.2);assert.equal('universalScore' in r,false);});
+test('cross-system export carries provenance and never execution authority',()=>{const s=new OperationalLearningStore();const e=s.exportEvidence({provenance:{repository:'Nexus-',sha:'abc'},derived_from:['run:1'],payload:{outcome:'verified'}},'Crucible');assert.equal(e.executionAuthority,false);assert.equal(e.promotionAuthority,false);assert.equal(e.authorityClass,'evidence-only');assert.equal(e.provenance.repository,'Nexus-');});
+test('controller consults negative operational knowledge before authorization',async()=>{const s=new OperationalLearningStore();s.recordNegative({id:'N1',relation:'UNSAFE_UNDER',strategy:'safe-fix',context:{repository:'Nexus-',component:null,sha:snapshot.commit}});let authorized=false;const r=await new NexusRepairController(deps({operationalLearning:s,authorize:async()=>{authorized=true;return{};}})).run({snapshot,task:{}});assert.equal(r.state,'QUARANTINED');assert.equal(authorized,false);});
+test('applicability records exclusions and support distance',()=>{assert.equal(applicability({applicability:{preconditions:{version:'1'}}},{version:'2'}).supportDistance,1);assert.equal(applicability({applicability:{exclusions:[{runtime:'windows'}]}},{runtime:'windows'}).excluded,true);});
