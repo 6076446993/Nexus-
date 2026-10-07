@@ -1835,8 +1835,8 @@
     {
       "path": "nexusRepairController.js",
       "type": ".js",
-      "size": 6880,
-      "sha256": "fa704f854441ca5c31b8ba9aceaed58f2041971013dce2bea34c60c5dc2fae59"
+      "size": 17647,
+      "sha256": "c5a0bf8104bd6bc4a3515532fed8b73557caa9da0afeb22a7146b54cc9abb559"
     },
     {
       "path": "oauthIntegrations.js",
@@ -2507,8 +2507,8 @@
     {
       "path": "test/nexusRepairController.test.js",
       "type": ".js",
-      "size": 3480,
-      "sha256": "6989a1e144b44fdec52e738cb19e95a92d4fd5c965677245466896fb7e1371ea"
+      "size": 7803,
+      "sha256": "999c5a4a9a6b0978e59f46eb94fda40b352bcf58e809e7f8e8e6ca0fc3a850e7"
     },
     {
       "path": "test/oauthIntegrations.test.js",
