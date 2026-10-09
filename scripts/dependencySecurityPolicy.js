@@ -1,11 +1,12 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-// Minimum patched stable versions for the captured 2026-10-03 advisories.
+// Minimum patched stable versions for captured dependency advisories.
 // This bounded policy supplements npm audit; it does not predict new advisories.
 const floors = {
   electron: { 42: '42.10.0', 43: '43.5.0' },
   undici: { 6: '6.28.1', 7: '7.29.1', 8: '8.10.2' },
+  'brace-expansion': { 1: '1.1.21', 2: '2.1.7', 5: '5.0.12' },
 };
 
 function dependencySecurityFindings(lock) {
@@ -15,7 +16,7 @@ function dependencySecurityFindings(lock) {
   const findings = [];
   if (!lock.packages['node_modules/electron']) findings.push('Electron is missing from the release lockfile.');
   for (const [location, pkg] of Object.entries(lock.packages)) {
-    const match = location.match(/(?:^|\/)node_modules\/(electron|undici)$/);
+    const match = location.match(/(?:^|\/)node_modules\/(electron|undici|brace-expansion)$/);
     if (!match) continue;
     const version = /^(\d+)\.(\d+)\.(\d+)(-[^+]+)?(?:\+.*)?$/.exec(pkg.version || '');
     if (!version) { findings.push(`${location}: invalid dependency version.`); continue; }

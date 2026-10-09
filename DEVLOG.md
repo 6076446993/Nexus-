@@ -90,3 +90,13 @@ Repair af060af passed both hosted release audits (37118312451/37118326914), both
 ## Operational verification and repair routing — 2026-10-03
 
 Added live-evidence verification for direct Dependabot coverage across all nine Nexus repositories and separately scoped Smoke Stack; CodeQL, Worker extraction, oversight, durable proof, Council, private/public CI, scheduled monitoring, and independent learning ingestion/vetting/consumption. Missing, stale, incomplete, skipped, wrong-commit, or failed results produce nonzero status and stable repair fingerprints. Regression tests deliberately break each operation and coverage boundary. The historical live checkpoint correctly remains red for unfinished work; passing unit tests does not establish runtime success. Hourly and Tuesday repair tasks consume fresh results and route safe authorized repairs while retaining access/promotion blocks. Existing dependency rollback and oversight firewall regressions remain in place.
+
+## Brace-expansion advisory repair — 2026-10-09
+
+Fresh authenticated Dependabot reconciliation found three occurrences of
+GHSA-q2hr-2g5m-vwhr in the development-only Electron packaging tree. Added
+major-compatible lockfile overrides for brace-expansion 1.1.21, 2.1.7 and
+5.0.12 and extended the existing dependency security policy with independent
+rollback regressions for every affected major. The separate high-severity
+http-cache-semantics alert remains open because its advisory publishes no
+patched version; it was not hidden with a downgrade or dismissal.

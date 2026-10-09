@@ -33,3 +33,18 @@ test('fails closed on missing lock metadata or missing Electron', () => {
 test('the installed release lockfile contains only patched captured dependencies', () => {
   assert.deepEqual(dependencySecurityFindings(require('../package-lock.json')), []);
 });
+
+test('enforces every patched brace-expansion major without collapsing dependency compatibility', () => {
+  const braceLock = (one, two, five) => ({ packages: {
+    'node_modules/electron': { version: '43.7.7' },
+    'node_modules/@electron/asar/node_modules/brace-expansion': { version: one },
+    'node_modules/@electron/universal/node_modules/brace-expansion': { version: two },
+    'node_modules/brace-expansion': { version: five },
+  } });
+  assert.deepEqual(dependencySecurityFindings(braceLock('1.1.21', '2.1.7', '5.0.12')), []);
+  for (const versions of [['1.1.20', '2.1.7', '5.0.12'], ['1.1.21', '2.1.6', '5.0.12'], ['1.1.21', '2.1.7', '5.0.11']]) {
+    const findings = dependencySecurityFindings(braceLock(...versions));
+    assert.equal(findings.length, 1);
+    assert.match(findings[0], /brace-expansion/);
+  }
+});

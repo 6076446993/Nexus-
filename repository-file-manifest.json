@@ -1139,8 +1139,8 @@
     {
       "path": "DEVLOG.md",
       "type": ".md",
-      "size": 9274,
-      "sha256": "ea29861856da9d9bf0d659bdf8d2d8e9ea886b9296ed29606a1a80bde6bd38c9"
+      "size": 9839,
+      "sha256": "a801e53f0aa5ed49e2d37bd8783296b31f22db4f958f28c0585c5f764da59aba"
     },
     {
       "path": "FIREBASE_SETUP.md",
@@ -1865,14 +1865,14 @@
     {
       "path": "package-lock.json",
       "type": ".json",
-      "size": 158463,
-      "sha256": "5b667abaf73e11c16bfc8f09c4031eb910a0bfb746e97f56b6c0b72d88cf77a1"
+      "size": 158465,
+      "sha256": "cf8c5bd3cbbd4989654d936b394e61047dfafbdfc461c0610cdded500fe4013f"
     },
     {
       "path": "package.json",
       "type": ".json",
-      "size": 6388,
-      "sha256": "dc04d658e743f2417103985616e7f7d44ed72fc817863c16c67e36c5e96c869f"
+      "size": 6546,
+      "sha256": "e481320c8d88b206fe47b6122cea2180cea5ddebd9d524853cd8e8ec002f7bf7"
     },
     {
       "path": "pipelineEngine.js",
@@ -2093,8 +2093,8 @@
     {
       "path": "scripts/dependencySecurityPolicy.js",
       "type": ".js",
-      "size": 1951,
-      "sha256": "58d46183c818de32f2102519d0f9213d574bc85a5d9babe555814d82edf9fb22"
+      "size": 2026,
+      "sha256": "3de791bc0b367188b4bf371439b25c94d50d121ef1ecbfee963f5d94a3eb0a72"
     },
     {
       "path": "scripts/githubModelsRepairAgent.js",
@@ -2393,8 +2393,8 @@
     {
       "path": "test/dependencySecurityPolicy.test.js",
       "type": ".js",
-      "size": 1688,
-      "sha256": "a321a7bb1798b1aba348c18e0f1f808e726c538777f5b2b9e04a7c879e606117"
+      "size": 2516,
+      "sha256": "59ea1ede3888dd381f7a99be4438b9bfbdc82b205444be44b527b6499b769534"
     },
     {
       "path": "test/evalsEngine.test.js",
