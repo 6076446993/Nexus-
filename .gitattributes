@@ -1,0 +1,4 @@
+# Preserve the exact reviewed Codex policy bytes on Windows, macOS and Linux.
+# In particular, keep the 1,998-character compact policy and original CRLF-bearing source unchanged.
+docs/CODEX_FULL_POLICY.md -text
+docs/CODEX_CUSTOM_INSTRUCTIONS.txt -text
