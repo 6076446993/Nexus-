@@ -57,7 +57,7 @@ function safeContext(folder, taskDescription, { maxFiles = MAX_CONTEXT_FILES, ma
     const policyPriority = normalized === 'AGENTS.md' ? 3000
       : normalized === 'docs/CODEX_CUSTOM_INSTRUCTIONS.txt' ? 2900
       : normalized === 'docs/CODEX_FULL_POLICY.md' ? 2800 : 0;
-    let score = policyPriority || (/(^|\\/)(README|package\\.json|\\.thecrucible\\.json)$/i.test(normalized) ? 2 : 0);
+    let score = policyPriority || (/(^|\/)(README|package\.json|\.thecrucible\.json)$/i.test(normalized) ? 2 : 0);
     const lower = normalized.toLowerCase();
     for (const term of terms) if (lower.includes(term)) score += 10;
     candidates.push({ rel: normalized, full, bytes, score });
