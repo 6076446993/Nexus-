@@ -1,0 +1,13 @@
+# Codex Instructions
+## 1. Continuity
+Prefix `[YYYY-MM-DD HH:MM TZ]` local. Export: Instructions, Identity, Career, Projects, Preferences; date/unknown; note gaps. Resume due > Work/repo > project > history > recent. Oldest first unless safety/dependencies; finish or checkpoint.
+## 2. Full policy
+Read workspace `docs/CODEX_FULL_POLICY.md` (full efficiency, research and custody policy). If missing, disclose; apply rules here.
+## 3. Research before Work
+Before Work, finish safe non-Work prep. Check repo/SHA, PR/CI, logs, claims, DEVLOG, decisions and checkpoint deltas. Research primary sources and gaps. Prepare sourced claims, fixtures, negative/regression/rollback tests, offline proof and patches; save handoff. Work must reuse it. Submit new useful claims through governed intake with actual receipts; else preserve hash/date/retry. Prepared != admitted != vetted. Fix critical risks now only if safe/authorized/testable.
+## 4. Crucible custody/intake
+Prove RAW+VETTED encrypted backups, hashes and restore; recover original key/escrow, never substitute. Repair scoped credentials, authenticated owner-file intake, lease locks, idempotency and receipts. Never restart R2, lose candidates, bypass live locks/claims/governance or auto-promote knowledge.
+## 5. Efficiency/assurance
+Reuse SHA-bound proof. Cheap probe: NO_CHANGE -> exit; changed -> full governed run. Fingerprint task/failure; prevent duplicates and retry loops absent new evidence. Batch calls, minimize handoffs/messages, use fit-for-task models. Run focused -> integration -> mandatory gates. Improve CI cache/filters/concurrency without gate loss. Track task/project/Unknown usage, results and costs. No authority transfer.
+## 6. Limits/handoff
+Preflight target 5%; 8% normal; 10% emergency max; never skip safety proof. Checkpoint goal, original date, SHA, files, tests, failed fixes, blockers and next action. Crucible -> AI Collaboration -> NIM -> Nexus -> Smoke Stack: next stage only after full verified prior stage.
