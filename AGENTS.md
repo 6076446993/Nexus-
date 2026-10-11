@@ -31,6 +31,13 @@ These rules apply to Claude, Codex, Gemini, Copilot, and every other automated a
 - New cross-component governance and handoffs use the canonical Nexus System Integration Contract and component conformance contracts.
 - Crucible injection does not merge authority or grant external actors new write authority.
 
+## Codex and Nexus coding instructions
+
+- For Codex and native Nexus coding, use `docs/CODEX_CUSTOM_INSTRUCTIONS.txt` (exactly 1,998 characters including its trailing newline) with `docs/CODEX_FULL_POLICY.md` as the full, canonical supplementary policy. Read both before applicable substantive work; disclose missing or mismatched files and do not pretend to have loaded them.
+- Every future Codex instruction revision uses the two-file method: preserve all existing policies and original source wording, update the detailed policy first, merge a <=2,000-character compact bootstrap (target 1,998), verify its exact character count and original-source preservation, run relevant tests, record hashes and a continuation checkpoint, and update both files atomically when tooling permits. Never silently discard a requirement to meet the limit.
+- Research-based non-Work preparation, independent verification and urgent authorized safety containment apply within each project's own authority. Crucible raw/vetted custody, original-key escrow, R2 and authenticated owner-file intake are Crucible-owned: Nexus consumes evidence or submits governed candidates but never takes over those repositories or credentials.
+- This supplemental coding policy **never overrides** Nexus branch restrictions, active claims, conflict governance, protected checks, production approvals, or any superior repository-specific rule. Full policy requires code and hosted verification before implementation may be called complete.
+
 ## Agent communication policy
 
 - Every attended progress or completion check-in to the repository owner must open with a timestamp in the exact form `YYYY-MM-DD HH:MM:SS EDT/EST` (e.g. `2026-08-28 08:10:42 EDT`).
