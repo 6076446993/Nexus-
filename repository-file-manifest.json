@@ -430,6 +430,11 @@
       "resolved": "accountVault.js"
     },
     {
+      "source": "nexusNativeCoding.js",
+      "reference": "./scripts/verifyCodexPolicy",
+      "resolved": "scripts/verifyCodexPolicy.js"
+    },
+    {
       "source": "nexusProgramRepairRuntime.js",
       "reference": "./nexusRepairController",
       "resolved": "nexusRepairController.js"
@@ -1846,8 +1851,8 @@
     {
       "path": "nexusNativeCoding.js",
       "type": ".js",
-      "size": 9251,
-      "sha256": "94b7a64610b36cea190d6044b44c4188d964d987183d17f4693c9d3a983b855b"
+      "size": 9887,
+      "sha256": "0412a50c5257e09a32987cd94702046a9b4264658cb4aa11f4b5abe33a25c733"
     },
     {
       "path": "nexusProgramRepairRuntime.js",
@@ -2530,8 +2535,8 @@
     {
       "path": "test/nexusNativeCoding.test.js",
       "type": ".js",
-      "size": 4709,
-      "sha256": "4bdf5371586af767b8f90b5b97c97a0be3b1973b75a7d3defc59aa3ea4bf8384"
+      "size": 6708,
+      "sha256": "e2798ec45f9b28cc33363f01ae791a0b03d7f32c6d136b12a0f23fab8ed6c882"
     },
     {
       "path": "test/nexusProgramRepairRuntime.test.js",
