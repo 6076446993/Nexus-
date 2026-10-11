@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 303,
+  "fileCount": 304,
   "types": {
     ".json": 16,
     ".md": 49,
@@ -10,7 +10,7 @@
     "[no extension]": 5,
     ".yml": 12,
     ".bat": 2,
-    ".js": 204,
+    ".js": 205,
     ".txt": 6,
     ".html": 2,
     ".rules": 2,
@@ -648,6 +648,11 @@
       "source": "test/codeLibrary.test.js",
       "reference": "../codeLibrary",
       "resolved": "codeLibrary.js"
+    },
+    {
+      "source": "test/codexPolicyContext.test.js",
+      "reference": "../nexusNativeCoding",
+      "resolved": "nexusNativeCoding.js"
     },
     {
       "source": "test/codingModelProviders.test.js",
@@ -2365,6 +2370,12 @@
       "type": ".js",
       "size": 2206,
       "sha256": "e3b8345a3386b0aa696167782351cb266f5f41cafa74815f3fa7ba3af38fae50"
+    },
+    {
+      "path": "test/codexPolicyContext.test.js",
+      "type": ".js",
+      "size": 2683,
+      "sha256": "9124b86ac31cea5a74c7380e206cde3daa04c54a61262a645f073ad64676894b"
     },
     {
       "path": "test/codingModelProviders.test.js",
