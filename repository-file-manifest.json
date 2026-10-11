@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "scope": "Nexus only: every Git-tracked Nexus file except this self-referential manifest",
   "generatedBy": "npm run inventory:update",
-  "fileCount": 306,
+  "fileCount": 307,
   "types": {
     ".json": 17,
     ".md": 49,
     ".cjs": 1,
-    "[no extension]": 5,
+    "[no extension]": 6,
     ".yml": 12,
     ".bat": 2,
     ".js": 206,
@@ -1019,6 +1019,12 @@
       "type": ".cjs",
       "size": 4685,
       "sha256": "d3a852a15c82f262c90e8b5c6f0642f2a536b950218ffd2d8477aa5b4cd8f990"
+    },
+    {
+      "path": ".gitattributes",
+      "type": "[no extension]",
+      "size": 252,
+      "sha256": "de0c5164815a7841a112266e522888fad67920077de2b9d048703ac5868a5f98"
     },
     {
       "path": ".githooks/pre-commit",
