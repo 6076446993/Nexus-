@@ -1109,8 +1109,8 @@
     {
       "path": "AGENTS.md",
       "type": ".md",
-      "size": 3930,
-      "sha256": "cf4d80dd12dc91f03ab6d99eddc420fc857cae7aa966100fbd28b12c9dea96f4"
+      "size": 5436,
+      "sha256": "1b8ebb5fdf2eb069664581fd542e1e5f6631f275517bc82544197f02e9e2f7c1"
     },
     {
       "path": "AI-CONFLICTS.json",
@@ -1835,8 +1835,8 @@
     {
       "path": "nexusNativeCoding.js",
       "type": ".js",
-      "size": 9255,
-      "sha256": "f808a5e99f6f7f8a985118cf81b5cd6afd97f9f17db76cf90756e71f5c1f0f70"
+      "size": 9251,
+      "sha256": "94b7a64610b36cea190d6044b44c4188d964d987183d17f4693c9d3a983b855b"
     },
     {
       "path": "nexusProgramRepairRuntime.js",
