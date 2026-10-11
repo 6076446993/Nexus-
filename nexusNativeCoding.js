@@ -90,9 +90,9 @@ async function requestCodingSession({ baseUrl, bearerToken, folder, taskDescript
   if (!baseUrl || !bearerToken) throw new Error('Native Nexus coding requires AI Collaboration service URL and bearer token.');
   if (typeof fetchImpl !== 'function') throw new Error('Native Nexus coding requires fetch.');
   const state = repositoryState(folder);
-  if (!state.clean) throw new Error('Native Nexus coding requires a clean working tree so exact-version lineage cannot mix with existing changes.');
-  // Do not call AI Collaboration or create a coding proposal without pinned, genuine policy files.
+  // Integrity is checked before cleanliness: a modified policy is a policy error, not generic dirty state.
   const policyVerification = verifyCodexPolicy(folder);
+  if (!state.clean) throw new Error('Native Nexus coding requires a clean working tree so exact-version lineage cannot mix with existing changes.');
   const context = safeContext(folder, taskDescription);
   for (const mandatory of ['AGENTS.md', ...policyVerification.policy.map(item => item.path)]) {
     if (!context.some(item => item.path === mandatory)) {
