@@ -34,6 +34,11 @@ function fixture() {
   execFileSync('git', ['remote', 'add', 'origin', 'https://github.com/owner/example.git'], { cwd: folder });
   fs.writeFileSync(path.join(folder, 'a.txt'), 'old\n');
   fs.writeFileSync(path.join(folder, 'README.md'), '# Example\n');
+  // Each isolated mock repository gets genuine reviewed policy files, not test-only bypass.
+  fs.mkdirSync(path.join(folder, 'docs'));
+  for (const relative of ['AGENTS.md', 'docs/CODEX_FULL_POLICY.md', 'docs/CODEX_CUSTOM_INSTRUCTIONS.txt', 'docs/CODEX_POLICY_MANIFEST.json']) {
+    fs.copyFileSync(path.join(__dirname, '..', relative), path.join(folder, relative));
+  }
   execFileSync('git', ['add', '.'], { cwd: folder });
   commit(folder, 'base');
   return folder;
@@ -114,5 +119,36 @@ test('apply is exact-base, auditable, and rollback restores the original tree', 
   rollbackCodingSession(folder, applied);
   assert.equal(fs.readFileSync(path.join(folder, 'a.txt'), 'utf8').replace(/\r\n/g, '\n'), 'old\n');
   assert.equal(repositoryState(folder).clean, true);
+  fs.rmSync(folder, { recursive: true, force: true });
+});
+
+test('native coding policy must be present, intact and actually included before remote calls', async () => {
+  const folder = fixture();
+  const context = safeContext(folder, 'change a.txt');
+  for (const name of ['AGENTS.md', 'docs/CODEX_FULL_POLICY.md', 'docs/CODEX_CUSTOM_INSTRUCTIONS.txt']) {
+    assert.ok(context.some(item => item.path === name), 'missing required context: ' + name);
+  }
+  const source = path.join(folder, 'docs/CODEX_FULL_POLICY.md');
+  fs.writeFileSync(source, 'modified policy without manifest update');
+  let called = false;
+  await assert.rejects(requestCodingSession({
+    baseUrl: 'https://service.test', bearerToken: 'redacted', folder,
+    taskDescription: 'change a.txt', fetchImpl: async () => { called = true; throw new Error('remote must not be called'); },
+  }), /CODEX_POLICY_BLOCKED: SHA256 mismatch/);
+  assert.equal(called, false);
+  fs.rmSync(folder, { recursive: true, force: true });
+});
+
+test('native coding refuses missing policy and unchanged manifest during proposal application', async () => {
+  const folder = fixture();
+  const state = repositoryState(folder);
+  const session = {
+    sessionId: 'safe-fixture',
+    repositoryReference: state.coordinates.full,
+    targetVersion: state.commit,
+    proposal: { proposedChanges: { content: 'diff --git a/a.txt b/a.txt\\n--- a/a.txt\\n+++ b/a.txt\\n@@ -1 +1 @@\\n-old\\n+new\\n' } },
+  };
+  fs.rmSync(path.join(folder, 'docs/CODEX_CUSTOM_INSTRUCTIONS.txt'));
+  assert.throws(() => applyCodingSession(folder, session), /CODEX_POLICY_BLOCKED: required policy missing/);
   fs.rmSync(folder, { recursive: true, force: true });
 });
