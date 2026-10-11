@@ -52,7 +52,12 @@ function safeContext(folder, taskDescription, { maxFiles = MAX_CONTEXT_FILES, ma
     if (!within || within.startsWith('..') || path.isAbsolute(within) || !fs.existsSync(full) || !fs.statSync(full).isFile()) continue;
     const bytes = fs.statSync(full).size;
     if (bytes > 32768) continue;
-    let score = /(^|\/)(README|package\.json|\.thecrucible\.json)$/i.test(normalized) ? 2 : 0;
+    // Repository-owned instructions are always present in the bounded coding context.
+    // This is task-scoped data, not delegated authorization or a change to branch rules.
+    const policyPriority = normalized === 'AGENTS.md' ? 3000
+      : normalized === 'docs/CODEX_CUSTOM_INSTRUCTIONS.txt' ? 2900
+      : normalized === 'docs/CODEX_FULL_POLICY.md' ? 2800 : 0;
+    let score = policyPriority || (/(^|\\/)(README|package\\.json|\\.thecrucible\\.json)$/i.test(normalized) ? 2 : 0);
     const lower = normalized.toLowerCase();
     for (const term of terms) if (lower.includes(term)) score += 10;
     candidates.push({ rel: normalized, full, bytes, score });
