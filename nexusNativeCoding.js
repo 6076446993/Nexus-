@@ -5,6 +5,7 @@ const os = require('os');
 const path = require('path');
 const crypto = require('crypto');
 const { execFileSync } = require('child_process');
+const { verifyCodexPolicy } = require('./scripts/verifyCodexPolicy');
 
 const MAX_CONTEXT_FILES = 20;
 const MAX_CONTEXT_BYTES = 96 * 1024;
@@ -90,6 +91,14 @@ async function requestCodingSession({ baseUrl, bearerToken, folder, taskDescript
   if (typeof fetchImpl !== 'function') throw new Error('Native Nexus coding requires fetch.');
   const state = repositoryState(folder);
   if (!state.clean) throw new Error('Native Nexus coding requires a clean working tree so exact-version lineage cannot mix with existing changes.');
+  // Do not call AI Collaboration or create a coding proposal without pinned, genuine policy files.
+  const policyVerification = verifyCodexPolicy(folder);
+  const context = safeContext(folder, taskDescription);
+  for (const mandatory of ['AGENTS.md', ...policyVerification.policy.map(item => item.path)]) {
+    if (!context.some(item => item.path === mandatory)) {
+      throw new Error('CODEX_POLICY_BLOCKED: mandatory file omitted from bounded coding context: ' + mandatory);
+    }
+  }
   const taskReference = `task-${crypto.randomUUID()}`;
   const lineageReference = `lineage-${crypto.randomUUID()}`;
   const request = {
@@ -98,7 +107,7 @@ async function requestCodingSession({ baseUrl, bearerToken, folder, taskDescript
     targetVersion: state.commit,
     taskDescription: String(taskDescription || '').trim(),
     lineageReference,
-    relevantFiles: safeContext(folder, taskDescription),
+    relevantFiles: context,
     ...(struggle?.reasons?.length ? { struggle } : {}),
   };
   if (!request.taskDescription) throw new Error('Coding task is required.');
@@ -122,6 +131,7 @@ async function requestCodingSession({ baseUrl, bearerToken, folder, taskDescript
     repositoryReference: request.repositoryReference,
     targetVersion: request.targetVersion,
     branch: state.branch,
+    policyVerification,
     proposal,
     coder: result.coder,
     councilInvoked: result.councilInvoked === true,
@@ -132,6 +142,7 @@ async function requestCodingSession({ baseUrl, bearerToken, folder, taskDescript
 }
 
 function applyCodingSession(folder, session) {
+  verifyCodexPolicy(folder); // Fail closed if the policy changed after proposal.
   const state = repositoryState(folder);
   if (!state.clean) throw new Error('Working tree changed before proposal application.');
   if (state.coordinates.full !== session.repositoryReference || state.commit !== session.targetVersion) throw new Error('Repository moved after the coding proposal was generated.');
