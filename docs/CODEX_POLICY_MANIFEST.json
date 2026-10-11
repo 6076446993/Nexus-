@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "policyPath": "docs/CODEX_FULL_POLICY.md",
+  "policySha256": "2d7fdf09b9a1197b22954cc53e2e744326ab98198b3853307178abf5f1a8957e",
+  "compactPath": "docs/CODEX_CUSTOM_INSTRUCTIONS.txt",
+  "compactSha256": "69dc3aacc9cf1663d189c57001e32666d7f2e3ae8e1875c3e1da01fb167d791c",
+  "compactCharacters": 1998,
+  "provenance": "User-approved full policy preserved from original Google Drive instructions plus later additions. Update hashes only after explicit review and safe governed replacement.",
+  "mandatoryFor": [
+    "nexus-native-coding-request",
+    "nexus-native-coding-apply"
+  ]
+}
